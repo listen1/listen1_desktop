@@ -1,0 +1,3 @@
+[submodule "app/listen1_chrome_extension"]
+	path = app/listen1_chrome_extension
+	url = git@github.com:listen1/listen1_chrome_extension.git

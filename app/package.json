@@ -1,0 +1,24 @@
+{
+  "name": "Listen1",
+  "version": "1.1.0",
+  "description": "One for all free music in China",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "build": "electron-packager . listen1 --all --name='Listen1' --version='1.0.1'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/listen1/listen1_desktop.git"
+  },
+  "keywords": [
+    "Electron",
+    "Listen 1"
+  ],
+  "author": "Listen 1 <githublisten1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/listen1/listen1_desktop/issues"
+  },
+  "homepage": "https://github.com/listen1/listen1_desktop#readme"
+}
