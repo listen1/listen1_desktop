@@ -24,6 +24,7 @@
   "devDependencies": {
     "electron-builder": "^3.24.0",
     "electron-prebuilt": "^1.0.1"
+    "electron-installer-redhat": "*"
 },
 "build": {
     "app-bundle-id": "com.listen1.listen1",
@@ -53,5 +54,6 @@
     "dist:win64": "build --platform win32 --arch x64",
     "dist:linux32": "build --platform linux --arch ia32",
     "dist:linux64": "build --platform linux --arch x64"
+    "dist:rpm64": "electron-packager . listen1 --platform linux --arch x64 --name='Listen 1' --version='1.0.1' --out dist/; electron-installer-redhat --src dist/listen1-linux-x64/ --dest dist/installers/ --arch x86_64"
   }
 }
