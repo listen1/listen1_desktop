@@ -32,7 +32,7 @@ Windows安装包
     
 Mac安装包
 
-    npm run dist:mac
+    npm run dist:osx
     
 Linux安装包
 
