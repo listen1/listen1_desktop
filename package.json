@@ -1,19 +1,20 @@
 {
   "name": "Listen1",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "One for all free music in China",
-  "main": "app/main.js",
+  "main": "app/index.js",
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "electron ./app --enable-logging",
     "dev": "NODE_ENV='development' npm run start",
-    "dist": "electron-builder --platform win32 --platform darwin --platform linux --arch all",
-    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder",
-    "dist:win32": "electron-builder --platform win32 --arch ia32",
-    "dist:win64": "electron-builder --platform win32 --arch x64",
-    "dist:linux32": "electron-builder --platform linux --arch ia32",
-    "dist:linux64": "electron-builder --platform linux --arch x64",
-    "dist:rpm64": "electron-packager . listen1 --platform linux --arch x64 --name='Listen 1' --version='1.0.1' --out dist/; electron-installer-redhat --src dist/listen1-linux-x64/ --dest dist/installers/ --arch x86_64"
+    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --platform darwin",
+    "dist": "electron-builder .",
+    "dist:l": "electron-builder --linux --ia32 --x64",
+    "dist:l32": "electron-builder --linux --ia32",
+    "dist:l64": "electron-builder --linux --x64",
+    "dist:w": "electron-builder --win --ia32 --x64",
+    "dist:w32": "electron-builder --win --ia32",
+    "dist:w64": "electron-builder --win --x64"
   },
   "repository": {
     "type": "git",
@@ -29,16 +30,11 @@
     "url": "https://github.com/listen1/listen1_desktop/issues"
   },
   "homepage": "https://github.com/listen1/listen1_desktop#readme",
-  "devDependencies": {
-    "electron": "^1.7.6",
-    "electron-builder": "^19.27.7",
-    "electron-installer-redhat": "^0.5.0",
-    "electron-prebuilt": "^1.4.13"
-  },
   "build": {
     "appId": "com.listen1.listen1",
     "productName": "Listen1",
-    "artifactName": "listen1-1.2.1.dmg",
+    "asar": false,
+    "artifactName": "${name}_${version}_${os}${arch}.${ext}",
     "dmg": {
       "title": "Listen 1",
       "icon": "build/disk.icns",
@@ -57,6 +53,35 @@
         }
       ]
     },
-    "win": {}
+    "linux": {
+      "target": [
+        "tar.gz",
+        "appImage",
+        "deb"
+      ],
+      "icon": "build/"
+    },
+    "nsis": {
+      "runAfterFinish": false,
+      "deleteAppDataOnUninstall": true,
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "installerLanguages": "zh_CN",
+      "language": 2052,
+      "perMachine": true,
+      "createDesktopShortcut": true
+    },
+
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^1.8.1",
+    "electron-builder": "^19.45.5"
+  },
+  "dependencies": {
+    "electron-titlebar": "0.0.3"
   }
 }
