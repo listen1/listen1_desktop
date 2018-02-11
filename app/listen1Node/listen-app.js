@@ -145,6 +145,8 @@ module.exports = (function () {
                 }
                 //下载被取消或中断了
                 if (state === 'interrupted') {
+                    if (downloadInfo.event && downloadInfo.event.sender)
+                        downloadInfo.event.sender.send('tip', {type: 'finished', msg: `${fileName} 下载失败!`, filePath: filePath});
                     electron.dialog.showErrorBox('下载失败', `文件 ${fileName} 因为某些原因被中断下载`);
                 }
                 //下载完成，让 dock 上的下载目录Q弹一下下
@@ -180,8 +182,16 @@ module.exports = (function () {
             downloadInfo.url = args.url;
             downloadInfo.author = args.author;
 
-            console.log('begin download', downloadInfo.url)
-            listen1App.browser.webContents.downloadURL(downloadInfo.url);
+            console.log('begin download', downloadInfo.url);
+            if(downloadInfo.url && downloadInfo.url != null && downloadInfo.url.startsWith('http'))
+                listen1App.browser.webContents.downloadURL(downloadInfo.url);
+            else {
+                downloadInfo.downloading = false;
+                downloadInfo.url = '';
+                downloadInfo.title = '';
+                downloadInfo.author = '';
+                evt.sender.send('tip', {type: 'finished', msg: `${args.title + ' - ' + args.author} 下载失败!`, filePath: ''});
+            }
         }
     }
 
