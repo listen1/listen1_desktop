@@ -85,3 +85,13 @@ body{
 .m-playbar a.icn-download:hover{
     opacity: 1;
 }
+
+.menu-header a.icn-download{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    left: 184px;
+    top: -2px;
+    text-indent: -9999px;
+}

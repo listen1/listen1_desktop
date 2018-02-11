@@ -39,6 +39,9 @@
         registerShortcuts();
     });
 
+    let playingList = [];
+    let downloadIndex = 0;
+
     function initWinBtn() {
         const w = nodeRequire('electron').remote.getCurrentWindow();
         let butonMinimize = document.querySelector('#electron-titlebar > .button-minimize');
@@ -54,11 +57,22 @@
         var btnPlay = divPlayer.querySelector('.btns a.play');
         var btnVolume = divPlayer.querySelector('.volume-ctrl a.icn');
         var btnDownload = divPlayer.querySelector('.ctrl a.icn-download');
+        var btnDownloadAll = divPlayer.querySelector('.menu-header a.icn-download');
         btnDownload.addEventListener('click', download);
+        btnDownloadAll.addEventListener('click', () => {
+            playingList = localStorage.getObject('current-playing');
+            downloadIndex = 0;
+            if (downloadIndex < playingList.length)
+                download(playingList[downloadIndex].id)
+        });
+
         ipcRenderer.on('tip', (e, arg) => {
             switch (arg.type) {
                 case 'finished': {
                     console.log(arg);
+                    downloadIndex++;
+                    if (downloadIndex < playingList.length)
+                        download(playingList[downloadIndex].id)
                     break;
                 }
             }
@@ -80,11 +94,12 @@
         globalShortcut.register('CommandOrControl + Shift + D', () => {
             download();
         });
-        ipcRenderer.send('operate',{type:'registerShortcut'})
+        ipcRenderer.send('operate', {type: 'registerShortcut'})
     }
 
-    function download() {
-        var id = localStorage.getObject('player-settings').nowplaying_track_id;
+    function download(id) {
+        if (!id)
+            id = localStorage.getObject('player-settings').nowplaying_track_id;
         var splitPos = id.indexOf('_');
         var type = id.slice(0, splitPos);
         id = id.slice(splitPos + 1);
@@ -135,7 +150,12 @@
                     if (response.code == 200) {
                         response.data.forEach(item => {
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
-                            ipcRenderer.send('operate', {type: 'download', author: item.author, title: item.title, url: item.url})
+                            ipcRenderer.send('operate', {
+                                type: 'download',
+                                author: item.author,
+                                title: item.title,
+                                url: item.url
+                            })
                         });
                     } else {
                         console.log(response.error);
