@@ -71,7 +71,6 @@
       "perMachine": true,
       "createDesktopShortcut": true
     },
-
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
