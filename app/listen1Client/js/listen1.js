@@ -61,18 +61,19 @@
         btnDownload.addEventListener('click', download);
         btnDownloadAll.addEventListener('click', () => {
             playingList = localStorage.getObject('current-playing');
-            downloadIndex = 0;
-            if (downloadIndex < playingList.length)
-                download(playingList[downloadIndex].id)
+            playingList.forEach(item=>{download(item.id)});
+            // downloadIndex = 0;
+            // if (downloadIndex < playingList.length)
+            //     download(playingList[downloadIndex].id)
         });
 
         ipcRenderer.on('tip', (e, arg) => {
             switch (arg.type) {
                 case 'finished': {
                     console.log(arg);
-                    downloadIndex++;
-                    if (downloadIndex < playingList.length)
-                        download(playingList[downloadIndex].id)
+                    // downloadIndex++;
+                    // if (downloadIndex < playingList.length)
+                    //     download(playingList[downloadIndex].id)
                     break;
                 }
             }
@@ -125,11 +126,11 @@
                     break;
             }
             if (targetURL) {
-                ajax(targetURL)
+                ajax(id,targetURL)
             }
         }
 
-        function ajax(targetURL) {
+        function ajax(id,targetURL) {
             $.ajax({
                 type: 'post',
                 url: "http://music.sonimei.cn/",
@@ -148,15 +149,68 @@
                 },
                 success: (response) => {
                     if (response.code == 200) {
+                        let downloading = false;
                         response.data.forEach(item => {
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
-                            ipcRenderer.send('operate', {
-                                type: 'download',
-                                author: item.author,
-                                title: item.title,
-                                url: item.url
-                            })
+                            if (!downloading){
+                                downloading = true;
+                                ipcRenderer.send('operate', {
+                                    type: 'download',
+                                    id: id,
+                                    author: item.author,
+                                    title: item.title,
+                                    url: item.url
+                                })
+                            }
                         });
+                        if (!downloading){
+                            ajaxSearchSong(id,item.title,item.author,'netease')
+                        }
+                    } else {
+                        console.log(response.error);
+                    }
+                }
+            })
+        }
+        const servers = {netease:'qq',qq:'kugou',kugou:'xiami',xiami:'baidu',baidu:'kuwo',kuwo: false};
+        function ajaxSearchSong(id,title,author,server) {
+            if (!server) {
+                console.log(id,title,author,'歌曲查询失败!!!!!')
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: "http://music.sonimei.cn/",
+                async: true,
+                dataType: 'json',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                data: {
+                    input: title + ' ' + author,
+                    type: server,
+                    filter: 'name',
+                    page: 1,
+                },
+                success: (response) => {
+                    if (response.code == 200) {
+                        let downloading = false;
+                        response.data.forEach(item => {
+                            // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
+                            if (!downloading && author == item.author){
+                                downloading = true;
+                                ipcRenderer.send('operate', {
+                                    type: 'download',
+                                    id: id,
+                                    author: item.author,
+                                    title: item.title,
+                                    url: item.url
+                                })
+                            }
+                        });
+                        if (!downloading){
+                            ajaxSearchSong(id,title,author,servers[server])
+                        }
                     } else {
                         console.log(response.error);
                     }

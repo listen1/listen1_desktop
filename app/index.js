@@ -8,6 +8,7 @@ global.listen1App = 0;
 
 app.on("ready", () => {
     global.listen1App = new ListenApplication();
+    listen1App.app = app;
     listen1App.registerShortcuts();
 });
 

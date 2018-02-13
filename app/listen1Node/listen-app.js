@@ -7,17 +7,7 @@ module.exports = (function () {
         ipcMain = electron.ipcMain,
         path = require('path');
 
-    // 下载信息
-    const downloadInfo = {
-        downloading: false,
-        event: 0,
-        title: '',
-        author: '',
-        url: '',
-        lrc: '',
-        page: ''
-    }
-
+    let listenDownload = 0;
     class ListenApplication {
         constructor() {
             initElectron(this);
@@ -118,45 +108,6 @@ module.exports = (function () {
                 hack_referer_header(details);
                 callback({cancel: false, requestHeaders: details.requestHeaders});
             });
-        electron.session.defaultSession.on('will-download', (e, item) => {
-            //获取文件的总大小
-            const totalBytes = item.getTotalBytes();
-
-            //设置文件的保存路径，此时默认弹出的 save dialog 将被覆盖
-            const fileName = downloadInfo.title + ' - ' + downloadInfo.author + path.extname(item.getFilename());
-            const filePath = path.join(electron.app.getPath('downloads'),'listen1', fileName);
-            item.setSavePath(filePath);
-
-            //监听下载过程，计算并设置进度条进度
-            item.on('updated', () => {
-                app.browser.setProgressBar(item.getReceivedBytes() / totalBytes);
-                console.log('download', fileName, (item.getReceivedBytes() / totalBytes) * 100)
-            });
-
-            //监听下载结束事件
-            item.on('done', (e, state) => {
-                downloadInfo.downloading = false;
-                downloadInfo.url = '';
-                downloadInfo.title = '';
-                downloadInfo.author = '';
-                //如果窗口还在的话，去掉进度条
-                if (!app.browser.isDestroyed()) {
-                    listen1App.browser.setProgressBar(-1);
-                }
-                //下载被取消或中断了
-                if (state === 'interrupted') {
-                    if (downloadInfo.event && downloadInfo.event.sender)
-                        downloadInfo.event.sender.send('tip', {type: 'finished', msg: `${fileName} 下载失败!`, filePath: filePath});
-                    electron.dialog.showErrorBox('下载失败', `文件 ${fileName} 因为某些原因被中断下载`);
-                }
-                //下载完成，让 dock 上的下载目录Q弹一下下
-                // if (state === 'completed') {
-                //     electron.app.dock.downloadFinished(filePath);
-                // }
-                if (downloadInfo.event && downloadInfo.event.sender)
-                    downloadInfo.event.sender.send('tip', {type: 'finished', msg: `${fileName} 下载完成!`, filePath: filePath});
-            });
-        });
 
         // 事件监听
         ipcMain.on('operate', (evt, args) => {
@@ -166,33 +117,13 @@ module.exports = (function () {
                     break;
                 }
                 case 'download': {
-                    download(evt,args);
+                    if (!listenDownload)
+                        listenDownload = require('./listen-download');
+                    listenDownload.download(args);
                     break;
                 }
             }
         });
-    }
-
-    // 下载音乐
-    function download(evt,args) {
-        if (!downloadInfo.downloading) {
-            downloadInfo.downloading = true;
-            downloadInfo.event = evt;
-            downloadInfo.title = args.title;
-            downloadInfo.url = args.url;
-            downloadInfo.author = args.author;
-
-            console.log('begin download', downloadInfo.url);
-            if(downloadInfo.url && downloadInfo.url != null && downloadInfo.url.startsWith('http'))
-                listen1App.browser.webContents.downloadURL(downloadInfo.url);
-            else {
-                downloadInfo.downloading = false;
-                downloadInfo.url = '';
-                downloadInfo.title = '';
-                downloadInfo.author = '';
-                evt.sender.send('tip', {type: 'finished', msg: `${args.title + ' - ' + args.author} 下载失败!`, filePath: ''});
-            }
-        }
     }
 
     function hack_referer_header(details) {
