@@ -27,7 +27,7 @@ module.exports = (function () {
                     var newResiveBytes = item.getReceivedBytes();
                     if ( newResiveBytes != oldResiveBytes){
                         oldResiveBytes = newResiveBytes;
-                        listen1App.browser.setProgressBar( newResiveBytes/ totalBytes);
+                        // listen1App.browser.setProgressBar( newResiveBytes/ totalBytes);
                         console.log(`[Downloading--]: (${Math.floor((newResiveBytes / totalBytes) * 100)}%)${fileName}`)
                     }
                 });

@@ -40,7 +40,6 @@
     });
 
     let playingList = [];
-    let downloadIndex = 0;
 
     function initWinBtn() {
         const w = nodeRequire('electron').remote.getCurrentWindow();
@@ -50,6 +49,10 @@
         });
     }
 
+    let allCount = 0;
+    let finishedCount = 0;
+
+    var browerTitle = document.querySelector('head title');
     function registerShortcuts() {
         var divPlayer = document.querySelector('.m-playbar');
         var btnPrevious = divPlayer.querySelector('.btns a.previous');
@@ -62,24 +65,30 @@
         btnDownloadAll.addEventListener('click', () => {
             playingList = localStorage.getObject('current-playing');
             playingList.forEach(item=>{download(item.id)});
-            // downloadIndex = 0;
-            // if (downloadIndex < playingList.length)
-            //     download(playingList[downloadIndex].id)
         });
 
         ipcRenderer.on('tip', (e, arg) => {
             switch (arg.type) {
                 case 'finished': {
                     console.log(arg);
-                    // downloadIndex++;
-                    // if (downloadIndex < playingList.length)
-                    //     download(playingList[downloadIndex].id)
+                    finishedCount++;
+                    browerTitle.innerText = `[${finishedCount}/${allCount}]Listen1`;
+                    if (finishedCount == allCount){
+                        setTimeout(()=>{
+                            browerTitle.innerText = `Listen1`;
+                            allCount = 0;
+                            finishedCount = 0;
+                        },300000)
+                    }
                     break;
                 }
             }
         })
         globalShortcut = nodeRequire('electron').remote.globalShortcut;
         globalShortcut.unregisterAll();
+        globalShortcut.register('Alt + L', () => {
+            addToFavorite();
+        });
         globalShortcut.register('Alt + F10', () => {
             btnVolume.click();
         });
@@ -96,6 +105,33 @@
             download();
         });
         ipcRenderer.send('operate', {type: 'registerShortcut'})
+    }
+
+    function addToFavorite(){
+        var btnAdd = document.querySelector('.m-playbar a.icn.icn-add');
+        btnAdd.click();
+        var playlist = document.querySelector('body > div.dialog > div.dialog-body > ul.dialog-playlist');
+        if (playlist){
+            var defList = playlist.querySelector('#defList');
+            if (!defList){
+                var allList = playlist.querySelectorAll('li.ng-scope');
+                if (allList.length > 0){
+                    var reg = new RegExp('^'+ 'all','i')
+                    allList.forEach(item=>{
+                        if (!defList && reg.test(item.innerText.trim())){
+                            defList = item;
+                            defList.id = 'defList';
+                        }
+                    })
+                    if(!defList){
+                        defList = allList[0];
+                    }
+                }
+            }
+            if(defList){
+                defList.click();
+            }
+        }
     }
 
     function download(id) {
@@ -154,6 +190,8 @@
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
                             if (!downloading){
                                 downloading = true;
+                                allCount++;
+                                browerTitle.innerText = `[${finishedCount}/${allCount}] Listen1`;
                                 ipcRenderer.send('operate', {
                                     type: 'download',
                                     id: id,
@@ -199,6 +237,8 @@
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
                             if (!downloading && author == item.author){
                                 downloading = true;
+                                allCount++;
+                                browerTitle.innerText = `[${finishedCount}/${allCount}] Listen1`;
                                 ipcRenderer.send('operate', {
                                     type: 'download',
                                     id: id,
