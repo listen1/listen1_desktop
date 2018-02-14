@@ -4,6 +4,7 @@ const app = electron.app
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+
 var path = require('path')
 var iconPath = path.join(__dirname, '/listen1_chrome_extension/images/logo.png');
 
@@ -64,6 +65,15 @@ function createWindow () {
     icon: iconPath
   })
 
+  const githubCallbackFilter = {urls: ["https://listen1.github.io/listen1/callback.html?code=*"]};
+  session.defaultSession.webRequest.onBeforeSendHeaders(githubCallbackFilter, function(details, callback) {
+    const url = details.url;
+    const code = url.split('=')[1];
+    mainWindow.webContents.executeJavaScript('Github.handleCallback("'+code+'");');
+    callback({cancel: false, requestHeaders: details.requestHeaders});
+  });
+
+  // mainWindow.webContents.openDevTools();
   mainWindow.on('close', (e) => {
     if (willQuitApp) {
       /* the user tried to quit the app */
@@ -146,8 +156,9 @@ function hack_referer_header(details) {
             break;
         }
     }
-
+    
     if ((!isRefererSet) && (refererValue != '')) {
+      headers["Origin"] = refererValue;
       headers["Referer"] = refererValue;
     }
     details.requestHeaders = headers;
