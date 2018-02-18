@@ -49,11 +49,19 @@ function createWindow () {
   const session = require('electron').session;
 
   const filter = {
-    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*"]
+    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*", 
+      "https://listen1.github.io/listen1/callback.html?code=*"]
   };
 
   session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, callback) {
-    hack_referer_header(details);
+    if(details.url.startsWith("https://listen1.github.io/listen1/callback.html?code=")){
+      const url = details.url;
+      const code = url.split('=')[1];
+      mainWindow.webContents.executeJavaScript('Github.handleCallback("'+code+'");');
+    }
+    else {
+      hack_referer_header(details); 
+    }
     callback({cancel: false, requestHeaders: details.requestHeaders});
   });
 
@@ -63,14 +71,6 @@ function createWindow () {
     height: 768,
     'webPreferences': {'nodeIntegration': false},
     icon: iconPath
-  })
-
-  const githubCallbackFilter = {urls: ["https://listen1.github.io/listen1/callback.html?code=*"]};
-  session.defaultSession.webRequest.onBeforeSendHeaders(githubCallbackFilter, function(details, callback) {
-    const url = details.url;
-    const code = url.split('=')[1];
-    mainWindow.webContents.executeJavaScript('Github.handleCallback("'+code+'");');
-    callback({cancel: false, requestHeaders: details.requestHeaders});
   });
 
   // mainWindow.webContents.openDevTools();
