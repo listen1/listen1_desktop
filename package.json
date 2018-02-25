@@ -58,8 +58,7 @@
         "tar.gz",
         "appImage",
         "deb"
-      ],
-      "icon": "build/"
+      ]
     },
     "nsis": {
       "runAfterFinish": false,
