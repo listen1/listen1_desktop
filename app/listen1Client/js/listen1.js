@@ -74,11 +74,11 @@
                     finishedCount++;
                     browerTitle.innerText = `[${finishedCount}/${allCount}]Listen1`;
                     if (finishedCount == allCount){
+                        allCount = 0;
+                        finishedCount = 0;
                         setTimeout(()=>{
                             browerTitle.innerText = `Listen1`;
-                            allCount = 0;
-                            finishedCount = 0;
-                        },300000)
+                        },10000)
                     }
                     break;
                 }
@@ -186,9 +186,12 @@
                 success: (response) => {
                     if (response.code == 200) {
                         let downloading = false;
+                        let title,author;
                         response.data.forEach(item => {
+                            title =  item.title;
+                            author = item.author;
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
-                            if (!downloading){
+                            if (!downloading && item.url && item.url != null && item.url && item.url != null && item.url.startsWith('http')){
                                 downloading = true;
                                 allCount++;
                                 browerTitle.innerText = `[${finishedCount}/${allCount}] Listen1`;
@@ -202,7 +205,7 @@
                             }
                         });
                         if (!downloading){
-                            ajaxSearchSong(id,item.title,item.author,'netease')
+                            ajaxSearchSong(id,title,author,'netease')
                         }
                     } else {
                         console.log(response.error);
@@ -235,7 +238,7 @@
                         let downloading = false;
                         response.data.forEach(item => {
                             // item.link   item.lrc;   item.pic;   item.title;   item.url;  item.author;
-                            if (!downloading && author == item.author){
+                            if (!downloading && author == item.author && item.url && item.url != null && item.url && item.url != null && item.url.startsWith('http')){
                                 downloading = true;
                                 allCount++;
                                 browerTitle.innerText = `[${finishedCount}/${allCount}] Listen1`;
