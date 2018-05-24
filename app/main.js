@@ -124,6 +124,16 @@ function createWindow () {
       ]}
   ];
 
+  if (process.platform === 'darwin') {
+      template[0].submenu.splice(
+        2,
+        0,
+        {role: 'hide'},
+        {role: 'hideothers'},
+        {role: 'unhide'},
+      )
+  }
+
   electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template));
 
   initialTray(mainWindow);
