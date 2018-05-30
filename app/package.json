@@ -1,11 +1,11 @@
 {
   "name": "Listen1",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "One for all free music in China",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
-    "build": "electron-packager . listen1 --all --name='Listen1' --version='1.6.0'"
+    "build": "electron-packager . listen1 --all --name='Listen1' --version='1.6.1'"
   },
   "repository": {
     "type": "git",
