@@ -1,6 +1,6 @@
 {
   "name": "Listen1",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "One for all free music in China",
   "main": "app/main.js",
   "scripts": {
