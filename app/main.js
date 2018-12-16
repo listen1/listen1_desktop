@@ -1,6 +1,8 @@
 const electron = require('electron')
 // Module to control application life.
-const app = electron.app
+const {app, globalShortcut} = require('electron')
+
+const {ipcMain} = require('electron')
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
@@ -12,6 +14,12 @@ var iconPath = path.join(__dirname, '/listen1_chrome_extension/images/logo.png')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let willQuitApp = false;
+var windowState = { maximized: false }
+
+const globalShortcutMapping = {
+  'CmdOrCtrl+Alt+Left':'left',
+  'CmdOrCtrl+Alt+Right':'right',
+};
 
 function initialTray(mainWindow) {
   const {app, Menu, Tray} = require('electron');
@@ -44,12 +52,33 @@ function initialTray(mainWindow) {
   });
 }
 
+function setKeyMapping(key, message) {
+    const ret = globalShortcut.register(key, () => {
+      mainWindow.webContents.send('globalShortcut', message);
+    });
+}
+
+function enableGlobalShortcuts() {
+  // initial global shortcuts
+  for (let key in globalShortcutMapping){
+    setKeyMapping(key, globalShortcutMapping[key]);
+  }
+}
+
+function disableGlobalShortcuts() {
+  for (let key in globalShortcutMapping){
+    globalShortcut.unregister(key);
+  }
+
+  globalShortcut.unregisterAll()
+}
+
 function createWindow () {
 
   const session = require('electron').session;
 
   const filter = {
-    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*", 
+    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*", "*://*.kugou.com/*", "*://*.githubusercontent.com/*",
       "https://listen1.github.io/listen1/callback.html?code=*"]
   };
 
@@ -65,15 +94,25 @@ function createWindow () {
     callback({cancel: false, requestHeaders: details.requestHeaders});
   });
 
+  var transparent = false;
+  if (process.platform == 'darwin') {
+    transparent = true;
+  }
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 768,
-    'webPreferences': {'nodeIntegration': false},
-    icon: iconPath
+    width: 1000,
+    height: 670,
+    webPreferences: {'nodeIntegration': true},
+    icon: iconPath,
+    titleBarStyle: 'hiddenInset',
+    transparent: transparent,
+    vibrancy: 'light',
+    frame: false,
+    hasShadow: true
   });
 
   // mainWindow.webContents.openDevTools();
+
   mainWindow.on('close', (e) => {
     if (willQuitApp) {
       /* the user tried to quit the app */
@@ -94,7 +133,7 @@ function createWindow () {
   mainWindow.loadURL(`file://${__dirname}/listen1_chrome_extension/listen1.html`)
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -124,47 +163,108 @@ function createWindow () {
       ]}
   ];
 
-  electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template));
+  mainWindow.setMenu(null);
+
+  //electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template));
 
   initialTray(mainWindow);
 }
 
 function hack_referer_header(details) {
-    var refererValue = '';
+    var referer_value = '';
     if (details.url.indexOf("://music.163.com/") != -1) {
-        refererValue = "http://music.163.com/";
+        referer_value = "http://music.163.com/";
+    }
+    if (details.url.indexOf("://gist.githubusercontent.com/") != -1) {
+        referer_value = "https://gist.githubusercontent.com/";
+    }
+    
+    if (details.url.indexOf("api.xiami.com/") != -1 || details.url.indexOf('.xiami.com/song/playlist/id/') != -1) {
+        referer_value = "https://www.xiami.com/";
     }
 
-    if (details.url.indexOf(".xiami.com/") != -1) {
-        refererValue = "http://m.xiami.com/";
-    }
-
-    if ((details.url.indexOf("y.qq.com/") != -1) || 
+    if ((details.url.indexOf("y.qq.com/") != -1) ||
         (details.url.indexOf("qqmusic.qq.com/") != -1) ||
         (details.url.indexOf("music.qq.com/") != -1) ||
         (details.url.indexOf("imgcache.qq.com/") != -1)) {
-        refererValue = "http://y.qq.com/";
+        referer_value = "http://y.qq.com/";
+    }
+    if (details.url.indexOf(".kugou.com/") != -1) {
+        referer_value = "http://www.kugou.com/";
+    }
+    if (details.url.indexOf(".kuwo.cn/") != -1) {
+        referer_value = "http://www.kuwo.cn/";
     }
 
     var isRefererSet = false;
-    var headers = details.requestHeaders;
+    var isOriginSet = false;
+    var headers = details.requestHeaders,
+        blockingResponse = {};
 
     for (var i = 0, l = headers.length; i < l; ++i) {
-        if ((headers[i].name == 'Referer') && (refererValue != '')) {
-            headers[i].value = refererValue;
+        if ((headers[i].name == 'Referer') && (referer_value != '')) {
+            headers[i].value = referer_value;
             isRefererSet = true;
-            break;
+        }
+        if ((headers[i].name == 'Origin') && (referer_value != '')) {
+            headers[i].value = referer_value;
+            isOriginSet = true;
         }
     }
-    
-    if ((!isRefererSet) && (refererValue != '')) {
-      headers["Origin"] = refererValue;
-      headers["Referer"] = refererValue;
+
+    if ((!isRefererSet) && (referer_value != '')) {
+        headers["Referer"] = referer_value;
     }
+
+    if ((!isOriginSet) && (referer_value != '')) {
+        headers["Origin"] = referer_value;
+    }
+
     details.requestHeaders = headers;
 };
 
 
+ipcMain.on('control', (event, arg) => {
+  // console.log(arg);
+  if(arg == 'enable_global_shortcut') {
+    enableGlobalShortcuts();
+  }
+  else if(arg == 'disable_global_shortcut') {
+    disableGlobalShortcuts();
+  }
+  else if(arg == 'window_min') {
+    mainWindow.minimize();
+  }
+  else if(arg == 'window_max') {
+    if(windowState.maximized == true) {
+        windowState.maximized = false;
+        mainWindow.unmaximize();
+      } else {
+        windowState.maximized = true;
+        mainWindow.maximize();
+      }
+  }
+  else if(arg == 'window_close') {
+    mainWindow.close();
+  }
+  // event.sender.send('asynchronous-reply', 'pong')
+})
+
+
+
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  console.log(commandLine, workingDirectory);
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+});
+console.log(shouldQuit);
+if (shouldQuit) {
+  app.quit();
+  return;
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -188,4 +288,7 @@ app.on('activate', () => mainWindow.show());
  * the signal to exit and wants to start closing windows */
 app.on('before-quit', () => willQuitApp = true);
 
+app.on('will-quit', () => {
+ disableGlobalShortcuts();
+})
 
