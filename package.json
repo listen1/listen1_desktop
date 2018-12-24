@@ -1,6 +1,6 @@
 {
   "name": "Listen1",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "One for all free music in China",
   "main": "app/main.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "appId": "com.listen1.listen1",
     "productName": "Listen1",
     "asar": true,
-    "artifactName": "${name}_${version}_${os}${arch}.${ext}",
+    "artifactName": "${name}_${version}_${os}_${arch}.${ext}",
     "dmg": {
       "title": "Listen 1",
       "icon": "build/disk.icns",
