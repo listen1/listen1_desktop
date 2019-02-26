@@ -78,7 +78,7 @@ function createWindow () {
   const session = require('electron').session;
 
   const filter = {
-    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://*.qq.com/*", "*://*.kugou.com/*", "*://*.bilibili.com/*", "*://*.githubusercontent.com/*",
+    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://i.y.qq.com/*", "*://c.y.qq.com/*", "*://*.kugou.com/*", "*://*.bilibili.com/*", "*://*.githubusercontent.com/*",
       "https://listen1.github.io/listen1/callback.html?code=*"]
   };
 
@@ -130,7 +130,8 @@ function createWindow () {
 
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/listen1_chrome_extension/listen1.html`)
+  var ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36';
+  mainWindow.loadURL(`file://${__dirname}/listen1_chrome_extension/listen1.html`, {userAgent: ua})
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -171,6 +172,7 @@ function createWindow () {
 }
 
 function hack_referer_header(details) {
+  console.log(details);
     let replace_referer = true;
     let replace_origin = true;
     let add_referer = true;
