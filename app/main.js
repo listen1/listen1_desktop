@@ -166,13 +166,12 @@ function createWindow () {
 
   mainWindow.setMenu(null);
 
-  //electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template));
+  electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(template));
 
   initialTray(mainWindow);
 }
 
 function hack_referer_header(details) {
-  console.log(details);
     let replace_referer = true;
     let replace_origin = true;
     let add_referer = true;
@@ -265,25 +264,25 @@ ipcMain.on('control', (event, arg) => {
 })
 
 
+const gotTheLock = app.requestSingleInstanceLock()
 
-var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
-  console.log(commandLine, workingDirectory);
-  // Someone tried to run a second instance, we should focus our window.
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-  }
-});
-// console.log(shouldQuit);
-if (shouldQuit) {
-  app.quit();
-  return;
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+
+  // Create myWindow, load the rest of the app, etc...
+  app.on('ready', () => {
+    createWindow()
+  })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
