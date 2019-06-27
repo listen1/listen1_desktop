@@ -42,7 +42,7 @@ function initialTray(mainWindow) {
       toggleVisiable();
     }},
     {label: '退出',  click() {
-      app.quit(); 
+      app.quit();
     }},
   ]);
   //appTray.setToolTip('This is my application.');
@@ -73,7 +73,33 @@ function disableGlobalShortcuts() {
   globalShortcut.unregisterAll()
 }
 
-function createWindow () {
+let floatingWindow;
+const createFloatingWindow = function () {
+  const electron = require('electron');
+  const BrowserWindow = electron.BrowserWindow;
+  const display = electron.screen.getPrimaryDisplay();
+  if (!floatingWindow) {
+    floatingWindow = new BrowserWindow({
+      width: 1000,
+      height: 80,
+      titleBarStyle: 'hide',
+      transparent: true,
+      frame: false,
+      resizable: false,
+      hasShadow: false,
+      alwaysOnTop:true,
+      visibleOnAllWorkspaces: true,
+    });
+    floatingWindow.setPosition(floatingWindow.getPosition()[0], display.bounds.height - 150);
+    // floatingWindow.setAutoHideMenuBar(true);
+    floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
+    floatingWindow.setAlwaysOnTop(true, 'floating');
+    floatingWindow.setFocusable(true);
+  }
+  floatingWindow.show();
+};
+
+function createWindow() {
 
   const session = require('electron').session;
 
@@ -89,7 +115,7 @@ function createWindow () {
       mainWindow.webContents.executeJavaScript('Github.handleCallback("'+code+'");');
     }
     else {
-      hack_referer_header(details); 
+      hack_referer_header(details);
     }
     callback({cancel: false, requestHeaders: details.requestHeaders});
   });
@@ -184,7 +210,7 @@ function hack_referer_header(details) {
     if (details.url.indexOf("://gist.githubusercontent.com/") != -1) {
         referer_value = "https://gist.githubusercontent.com/";
     }
-    
+
     if (details.url.indexOf("api.xiami.com/") != -1 || details.url.indexOf('.xiami.com/song/playlist/id/') != -1) {
         referer_value = "https://www.xiami.com/";
     }
@@ -236,6 +262,11 @@ function hack_referer_header(details) {
     details.requestHeaders = headers;
 };
 
+ipcMain.on('currentLyric', (event, arg) => {
+  if (floatingWindow && floatingWindow !== null) {
+    floatingWindow.webContents.send('currentLyric', arg);
+  }
+})
 
 ipcMain.on('control', (event, arg) => {
   // console.log(arg);
@@ -244,6 +275,14 @@ ipcMain.on('control', (event, arg) => {
   }
   else if(arg == 'disable_global_shortcut') {
     disableGlobalShortcuts();
+  }
+  else if (arg == 'enable_lyric_floating_window') {
+    createFloatingWindow();
+  }
+  else if (arg == 'disable_lyric_floating_window') {
+    if (floatingWindow) {
+      floatingWindow.hide();
+    }
   }
   else if(arg == 'window_min') {
     mainWindow.minimize();
@@ -297,7 +336,7 @@ app.on('window-all-closed', function () {
 /* 'activate' is emitted when the user clicks the Dock icon (OS X) */
 app.on('activate', () => mainWindow.show());
 
-/* 'before-quit' is emitted when Electron receives 
+/* 'before-quit' is emitted when Electron receives
  * the signal to exit and wants to start closing windows */
 app.on('before-quit', () => willQuitApp = true);
 
