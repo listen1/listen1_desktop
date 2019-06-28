@@ -91,10 +91,11 @@ const createFloatingWindow = function () {
       visibleOnAllWorkspaces: true,
     });
     floatingWindow.setPosition(floatingWindow.getPosition()[0], display.bounds.height - 150);
-    // floatingWindow.setAutoHideMenuBar(true);
+    floatingWindow.setAutoHideMenuBar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, 'floating');
     floatingWindow.setFocusable(true);
+    floatingWindow.on('closed', function () { floatingWindow = null })
   }
   floatingWindow.show();
 };
