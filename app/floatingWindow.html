@@ -51,7 +51,6 @@
   const { ipcRenderer } = require('electron')
   currentLyric = document.getElementById('currentLyric')
   ipcRenderer.on('currentLyric', function (event, arg){
-    console.log(arg);
     currentLyric.innerHTML = arg;
   });
 </script>
