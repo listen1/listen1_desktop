@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="listen1_chrome_extension/css/icon.css" rel="stylesheet">
+  <title>Listen1</title>
+  <style>
+    div.content {
+      cursor: move;
+      border-radius: 5px;
+      background: rgba(36, 36, 36, 0.5);
+      height: 60px;
+      box-sizing: border-box;
+      overflow: hidden;
+      -webkit-app-region: drag;
+      text-align: center;
+      font-size: 24px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background ease-in-out 0.2s;
+    }
+    .title-bar {
+      /*display: none;*/
+      font-weight: bolder;
+      padding: 10px;
+      position: absolute;
+      color: white;
+      cursor: pointer;
+      z-index: 999;
+    }
+    body:hover .title-bar {
+      display: block;
+    }
+    body:hover .content {
+      background: rgba(36, 36, 36, 0.6);
+    }
+    body {
+      font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Microsoft Yahei", "Helvetica","Arial",sans-serif;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+<div id="currentLyric" class="content">
+  Listen1
+</div>
+<script>
+  const { ipcRenderer } = require('electron')
+  currentLyric = document.getElementById('currentLyric')
+  ipcRenderer.on('currentLyric', function (event, arg){
+    currentLyric.innerHTML = arg;
+  });
+</script>
+</body>
+</html>
