@@ -91,13 +91,12 @@ const createFloatingWindow = function () {
       visibleOnAllWorkspaces: true,
     });
     floatingWindow.setPosition(floatingWindow.getPosition()[0], display.bounds.height - 150);
-    floatingWindow.setAutoHideMenuBar(true);
+    floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, 'floating');
-    floatingWindow.setFocusable(true);
     floatingWindow.on('closed', function () { floatingWindow = null })
   }
-  floatingWindow.show();
+  floatingWindow.showInactive();
 };
 
 function createWindow() {
@@ -105,7 +104,7 @@ function createWindow() {
   const session = require('electron').session;
 
   const filter = {
-    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://i.y.qq.com/*", "*://c.y.qq.com/*", "*://*.kugou.com/*", "*://*.bilibili.com/*", "*://*.githubusercontent.com/*",
+    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://i.y.qq.com/*", "*://c.y.qq.com/*", "*://*.kugou.com/*", "*://*.bilibili.com/*", "*://*.migu.cn/*", "*://*.githubusercontent.com/*",
       "https://listen1.github.io/listen1/callback.html?code=*"]
   };
 
@@ -233,13 +232,14 @@ function hack_referer_header(details) {
         replace_origin = false;
         add_origin = false;
     }
+    if (details.url.indexOf('.migu.cn') !== -1) {
+        referer_value = 'http://music.migu.cn/v3/music/player/audio?from=migu';
+    }
 
     var isRefererSet = false;
     var isOriginSet = false;
     var headers = details.requestHeaders,
         blockingResponse = {};
-
-
 
     for (var i = 0, l = headers.length; i < l; ++i) {
         if (replace_referer && (headers[i].name == 'Referer') && (referer_value != '')) {
