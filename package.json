@@ -76,7 +76,7 @@
     }
   },
   "devDependencies": {
-    "electron": "^4.0.6",
+    "electron": "^6.0.1",
     "electron-builder": "^20.39.0"
   },
   "dependencies": {

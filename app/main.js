@@ -89,6 +89,9 @@ const createFloatingWindow = function () {
       hasShadow: false,
       alwaysOnTop:true,
       visibleOnAllWorkspaces: true,
+      webPreferences: {
+        nodeIntegration: true
+      }
     });
     floatingWindow.setPosition(floatingWindow.getPosition()[0], display.bounds.height - 150);
     floatingWindow.setSkipTaskbar(true);
