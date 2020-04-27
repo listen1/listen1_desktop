@@ -7,7 +7,7 @@
     "postinstall": "install-app-deps",
     "start": "electron ./app --enable-logging",
     "dev": "NODE_ENV='development' npm run start",
-    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --platform darwin",
+    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --mac",
     "dist": "electron-builder .",
     "dist:linux": "./node_modules/.bin/electron-builder --linux --ia32 --x64",
     "dist:linux32": "./node_modules/.bin/electron-builder --linux --ia32",
