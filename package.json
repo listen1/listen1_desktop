@@ -1,6 +1,6 @@
 {
   "name": "Listen1",
-  "version": "2.5.1",
+  "version": "2.7.0",
   "description": "One for all free music in China",
   "main": "app/main.js",
   "scripts": {
@@ -76,8 +76,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^4.0.6",
-    "electron-builder": "^20.39.0"
+    "electron": "^8.2.3",
+    "electron-builder": "^22.5.1"
   },
   "dependencies": {
     "electron-debug": "^1.5.0"
