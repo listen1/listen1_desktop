@@ -317,6 +317,9 @@ if (!gotTheLock) {
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore()
       mainWindow.focus()
+      // When start a new instance, show the main window and active in taskbar.
+      mainWindow.show()
+      mainWindow.setSkipTaskbar(false)
     }
   })
 
