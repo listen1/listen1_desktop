@@ -43,7 +43,6 @@ function initialTray(mainWindow) {
       toggleVisiable();
     }},
     {label: '播放/暂停',  click(){
-      togglePlayPause();
       mainWindow.webContents.send('togglePlayPause', 'togglePlayPause');
     }},
     {label: '上一首',  click(){
