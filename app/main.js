@@ -37,9 +37,20 @@ function initialTray(mainWindow) {
       mainWindow.show();
     }
   }
+
   const contextMenu = Menu.buildFromTemplate([
     {label: '显示/隐藏窗口',  click(){
       toggleVisiable();
+    }},
+    {label: '播放/暂停',  click(){
+      togglePlayPause();
+      mainWindow.webContents.send('togglePlayPause', 'togglePlayPause');
+    }},
+    {label: '上一首',  click(){
+      mainWindow.webContents.send('prevTrack', 'prevTrack');
+    }},
+    {label: '下一首',  click(){
+      mainWindow.webContents.send('nextTrack', 'nextTrack');
     }},
     {label: '退出',  click() {
       app.quit();
