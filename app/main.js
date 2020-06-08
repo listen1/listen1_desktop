@@ -6,6 +6,10 @@ const {ipcMain} = require('electron')
 
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const mainWindowDefaltWidth = 1000
+const mainWindowDefaltHeight = 670
+const mainWindowMiniWidth = 350
+const mainWindowMiniHeight = 150
 
 var path = require('path')
 var iconPath = path.join(__dirname, '/listen1_chrome_extension/images/logo.png');
@@ -37,9 +41,19 @@ function initialTray(mainWindow) {
       mainWindow.show();
     }
   }
+
   const contextMenu = Menu.buildFromTemplate([
     {label: '显示/隐藏窗口',  click(){
       toggleVisiable();
+    }},
+    {label: '播放/暂停',  click(){
+      mainWindow.webContents.send('togglePlayPause', 'togglePlayPause');
+    }},
+    {label: '上一首',  click(){
+      mainWindow.webContents.send('prevTrack', 'prevTrack');
+    }},
+    {label: '下一首',  click(){
+      mainWindow.webContents.send('nextTrack', 'nextTrack');
     }},
     {label: '退出',  click() {
       app.quit();
@@ -129,8 +143,8 @@ function createWindow() {
   }
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 670,
+    width: mainWindowDefaltWidth,
+    height: mainWindowDefaltHeight,
     webPreferences: {'nodeIntegration': true},
     icon: iconPath,
     titleBarStyle: 'hiddenInset',
@@ -302,6 +316,14 @@ ipcMain.on('control', (event, arg) => {
   }
   else if(arg == 'window_close') {
     mainWindow.close();
+  }
+  else if (arg == 'enable_mini_player') {
+    mainWindow.setSize(mainWindowMiniWidth, mainWindowMiniHeight);
+    mainWindow.resizable = false;
+  }
+  else if (arg == 'disable_mini_player') {
+    mainWindow.setSize(mainWindowDefaltWidth, mainWindowDefaltHeight);
+    mainWindow.resizable = true;
   }
   // event.sender.send('asynchronous-reply', 'pong')
 })
