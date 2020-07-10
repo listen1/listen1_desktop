@@ -19,6 +19,7 @@ var windowState = { maximized: false }
 const globalShortcutMapping = {
   'CmdOrCtrl+Alt+Left':'left',
   'CmdOrCtrl+Alt+Right':'right',
+  'CmdOrCtrl+Alt+Space':'space',
 };
 
 function initialTray(mainWindow) {
