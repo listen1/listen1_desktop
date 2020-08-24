@@ -4,7 +4,11 @@ on: push
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
