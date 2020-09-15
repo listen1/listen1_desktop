@@ -22,13 +22,23 @@ const globalShortcutMapping = {
   'CmdOrCtrl+Alt+Space':'space',
 };
 
-function initialTray(mainWindow) {
+let appTray;
+
+function initialTray(mainWindow, track) {
   const {app, Menu, Tray} = require('electron');
+  if(track == null || track == undefined){
+    track = {
+      title:"暂无歌曲",
+      artist: "  ",
+    }
+  }
 
-  let appIcon = null;
-
-  var trayIconPath = path.join(__dirname, '/resources/logo_16.png');
-  appTray = new Tray(trayIconPath);
+  let nowPlayShowText = `
+——————————————
+当前播放: 《${track.title}》
+歌手: ${track.artist}
+——————————————
+  `;
 
   function toggleVisiable() {
     var isVisible = mainWindow.isVisible();
@@ -38,15 +48,19 @@ function initialTray(mainWindow) {
       mainWindow.show();
     }
   }
-  const contextMenu = Menu.buildFromTemplate([
+
+  let menuTemplate = [
+    {label: nowPlayShowText,  click(){
+      mainWindow.show();
+    }},
+    {label: '暂停/播放',  click(){
+      mainWindow.webContents.send('globalShortcut', "space");
+    }},
     {label: '上一首',  click(){
       mainWindow.webContents.send('globalShortcut', "left");
     }},
     {label: '下一首',  click(){
       mainWindow.webContents.send('globalShortcut', "right");
-    }},
-    {label: '暂停/播放',  click(){
-      mainWindow.webContents.send('globalShortcut', "space");
     }},
     {label: '显示/隐藏窗口',  click(){
       toggleVisiable();
@@ -54,8 +68,20 @@ function initialTray(mainWindow) {
     {label: '退出',  click() {
       app.quit();
     }},
-  ]);
-  //appTray.setToolTip('This is my application.');
+  ];
+
+  const contextMenu = Menu.buildFromTemplate(menuTemplate);
+
+  if(appTray != null && appTray.destroy != undefined){
+    // appTray had create, just refresh tray menu here
+    appTray.setContextMenu(contextMenu);
+    return
+  }
+
+  let appIcon = null;
+
+  var trayIconPath = path.join(__dirname, '/resources/logo_16.png');
+  appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on('click', function handleClicked () {
     toggleVisiable();
@@ -279,6 +305,12 @@ function hack_referer_header(details) {
 ipcMain.on('currentLyric', (event, arg) => {
   if (floatingWindow && floatingWindow !== null) {
     floatingWindow.webContents.send('currentLyric', arg);
+  }
+})
+
+ipcMain.on('trackPlayingNow', (event, track) => {
+  if(mainWindow != null){
+    initialTray(mainWindow, track);
   }
 })
 
