@@ -39,6 +39,15 @@ function initialTray(mainWindow) {
     }
   }
   const contextMenu = Menu.buildFromTemplate([
+    {label: '上一首',  click(){
+      mainWindow.webContents.send('globalShortcut', "left");
+    }},
+    {label: '下一首',  click(){
+      mainWindow.webContents.send('globalShortcut', "right");
+    }},
+    {label: '暂停/播放',  click(){
+      mainWindow.webContents.send('globalShortcut', "space");
+    }},
     {label: '显示/隐藏窗口',  click(){
       toggleVisiable();
     }},
