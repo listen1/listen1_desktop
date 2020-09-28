@@ -269,7 +269,13 @@ function hack_referer_header(details) {
 
 ipcMain.on('currentLyric', (event, arg) => {
   if (floatingWindow && floatingWindow !== null) {
-    floatingWindow.webContents.send('currentLyric', arg);
+    if(typeof arg === 'string') {
+      floatingWindow.webContents.send('currentLyric', arg);
+      floatingWindow.webContents.send('currentLyricTrans', '');
+    } else {
+      floatingWindow.webContents.send('currentLyric', arg.lyric);
+      floatingWindow.webContents.send('currentLyricTrans', arg.tlyric);
+    }
   }
 })
 
