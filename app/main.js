@@ -108,7 +108,7 @@ function createWindow() {
   const session = require('electron').session;
 
   const filter = {
-    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://i.y.qq.com/*", "*://c.y.qq.com/*", "*://*.kugou.com/*", "*://*.kuwo.cn/*", "*://*.bilibili.com/*", "*://*.migu.cn/*", "*://*.githubusercontent.com/*",
+    urls: ["*://music.163.com/*", "*://*.xiami.com/*", "*://i.y.qq.com/*", "*://c.y.qq.com/*", "*://*.kugou.com/*", "*://*.kuwo.cn/*", "*://*.bilibili.com/*", "*://*.bilivideo.com/*", "*://*.migu.cn/*", "*://*.githubusercontent.com/*",
       "https://listen1.github.io/listen1/callback.html?code=*"]
   };
 
@@ -231,8 +231,8 @@ function hack_referer_header(details) {
     if (details.url.indexOf(".kuwo.cn/") != -1) {
         referer_value = "http://www.kuwo.cn/";
     }
-    if (details.url.indexOf(".bilibili.com/") != -1) {
-        referer_value = "http://www.bilibili.com/";
+    if (details.url.indexOf(".bilibili.com/") != -1 || details.url.indexOf(".bilivideo.com/") != -1) {
+        referer_value = "https://www.bilibili.com/";
         replace_origin = false;
         add_origin = false;
     }
