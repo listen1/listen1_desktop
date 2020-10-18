@@ -9,7 +9,7 @@
       cursor: move;
       border-radius: 5px;
       background: rgba(36, 36, 36, 0.5);
-      height: 60px;
+      min-height: 60px;
       box-sizing: border-box;
       overflow: hidden;
       -webkit-app-region: drag;
@@ -17,10 +17,14 @@
       font-size: 24px;
       color: white;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       user-select: none;
       transition: background ease-in-out 0.2s;
+    }
+    span.contentTrans {
+      font-size: 18px;
     }
     .title-bar {
       /*display: none;*/
@@ -44,14 +48,21 @@
   </style>
 </head>
 <body>
-<div id="currentLyric" class="content">
-  Listen1
+<div id="currentLyricAll" class="content">
+  <span id="currentLyric" class="contentOriginal">Listen1</span>
+  <span id="currentLyricTrans" class="contentTrans"></span>
+</div>
+  
 </div>
 <script>
   const { ipcRenderer } = require('electron')
   currentLyric = document.getElementById('currentLyric')
   ipcRenderer.on('currentLyric', function (event, arg){
     currentLyric.innerHTML = arg;
+  });
+  currentLyricTrans = document.getElementById('currentLyricTrans')
+  ipcRenderer.on('currentLyricTrans', function (event, arg){
+    currentLyricTrans.innerHTML = arg;
   });
 </script>
 </body>
