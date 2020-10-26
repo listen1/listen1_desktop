@@ -216,8 +216,9 @@ function hack_referer_header(details) {
     }
 
     if (details.url.indexOf(".xiami.com/") != -1) {
-        referer_value = "https://www.xiami.com/";
-    }
+      add_origin = false;
+      referer_value = "https://www.xiami.com/";
+    }  
 
     if ((details.url.indexOf("y.qq.com/") != -1) ||
         (details.url.indexOf("qqmusic.qq.com/") != -1) ||
