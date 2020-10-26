@@ -215,7 +215,7 @@ function hack_referer_header(details) {
         referer_value = "https://gist.githubusercontent.com/";
     }
 
-    if (details.url.indexOf("api.xiami.com/") != -1 || details.url.indexOf('.xiami.com/song/playlist/id/') != -1) {
+    if (details.url.indexOf(".xiami.com/") != -1) {
         referer_value = "https://www.xiami.com/";
     }
 
