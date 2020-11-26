@@ -44,7 +44,46 @@ function initialTray(mainWindow, track) {
       mainWindow.show();
     }
   }
-
+  const previousButton = {
+    tooltip: 'Previous',
+    icon: path.join(__dirname, '/resources/prev-song.png'),
+    click() { mainWindow.webContents.send('globalShortcut', "left"); }
+  };
+  const nextButton = {
+    tooltip: 'Next',
+    icon: path.join(__dirname, '/resources/next-song.png'),
+    click() { mainWindow.webContents.send('globalShortcut', "right"); }
+  };
+  const playButton = {
+    tooltip: 'Play',
+    icon: path.join(__dirname, '/resources/play-song.png'),
+    click() {
+      mainWindow.webContents.send('globalShortcut', "space");
+      setThumbbarPlay();
+    }
+  }
+  const pauseButton = {
+    tooltip: 'Pause',
+    icon: path.join(__dirname, '/resources/pause-song.png'),
+    click() {
+      mainWindow.webContents.send('globalShortcut', "space");
+      setThumbarPause();
+    }
+  }
+  const setThumbarPause = () => {
+    mainWindow.setThumbarButtons([
+      previousButton,
+      playButton,
+      nextButton])
+  }
+  const setThumbbarPlay = () => {
+    mainWindow.setThumbarButtons([
+      previousButton,
+      pauseButton,
+      nextButton])
+  }
+  //default on pause
+  setThumbarPause();
   let menuTemplate = [
     {label: nowPlayingTitle,  click(){
       mainWindow.show();
