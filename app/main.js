@@ -242,7 +242,8 @@ function hack_referer_header(details) {
     let replace_origin = true;
     let add_referer = true;
     let add_origin = true;
-    var referer_value = '';
+    let referer_value = '';
+    let origin_value = '';
 
     if (details.url.indexOf("://music.163.com/") != -1) {
         referer_value = "http://music.163.com/";
@@ -252,10 +253,18 @@ function hack_referer_header(details) {
     }
 
     if (details.url.indexOf(".xiami.com/") != -1) {
-      add_origin = false;
-      referer_value = "https://www.xiami.com/";
+        add_origin = false;
+        referer_value = "https://www.xiami.com/";
     }  
-
+    if (details.url.indexOf('www.xiami.com/api/search/searchSongs') !== -1) {
+        const key = /key%22:%22(.*?)%22/.exec(details.url)[1];
+        add_origin = false;
+        referer_value = `https://www.xiami.com/search?key=${key}`;
+    }
+    if (details.url.indexOf('c.y.qq.com/') !== -1) {
+        referer_value = 'https://y.qq.com/';
+        origin_value = "https://y.qq.com";
+    }
     if ((details.url.indexOf("y.qq.com/") != -1) ||
         (details.url.indexOf("qqmusic.qq.com/") != -1) ||
         (details.url.indexOf("music.qq.com/") != -1) ||
@@ -276,11 +285,15 @@ function hack_referer_header(details) {
     if (details.url.indexOf('.migu.cn') !== -1) {
         referer_value = 'http://music.migu.cn/v3/music/player/audio?from=migu';
     }
-
+    if (details.url.indexOf('m.music.migu.cn') !== -1) {
+      referer_value = 'https://m.music.migu.cn/';
+    }
+    if (origin_value == "") {
+        origin_value = referer_value;
+    }
     var isRefererSet = false;
     var isOriginSet = false;
-    var headers = details.requestHeaders,
-        blockingResponse = {};
+    var headers = details.requestHeaders;
 
     for (var i = 0, l = headers.length; i < l; ++i) {
         if (replace_referer && (headers[i].name == 'Referer') && (referer_value != '')) {
@@ -288,7 +301,7 @@ function hack_referer_header(details) {
             isRefererSet = true;
         }
         if (replace_origin && (headers[i].name == 'Origin') && (referer_value != '')) {
-            headers[i].value = referer_value;
+            headers[i].value = origin_value;
             isOriginSet = true;
         }
     }
@@ -298,7 +311,7 @@ function hack_referer_header(details) {
     }
 
     if (add_origin && (!isOriginSet) && (referer_value != '')) {
-        headers["Origin"] = referer_value;
+        headers["Origin"] = origin_value;
     }
 
     details.requestHeaders = headers;
