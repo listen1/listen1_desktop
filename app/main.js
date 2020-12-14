@@ -82,7 +82,15 @@ function initialTray(mainWindow, track) {
       pauseButton,
       nextButton])
   }
-  //default on pause
+  mainWindow.on("page-title-updated", (event, title) => {
+      if (title.startsWith("❚❚")) {
+        setThumbarPause();
+      }
+      else if (title.startsWith("▶"))
+      {
+        setThumbbarPlay();
+      }
+  });
   setThumbarPause();
   let menuTemplate = [
     {label: nowPlayingTitle,  click(){
