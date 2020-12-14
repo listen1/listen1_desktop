@@ -45,51 +45,45 @@ function initialTray(mainWindow, track) {
     }
   }
   const previousButton = {
-    tooltip: 'Previous',
-    icon: path.join(__dirname, '/resources/prev-song.png'),
-    click() { mainWindow.webContents.send('globalShortcut', "left"); }
+    tooltip: "Previous",
+    icon: path.join(__dirname, "/resources/prev-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "left");
+    },
   };
   const nextButton = {
-    tooltip: 'Next',
-    icon: path.join(__dirname, '/resources/next-song.png'),
-    click() { mainWindow.webContents.send('globalShortcut', "right"); }
+    tooltip: "Next",
+    icon: path.join(__dirname, "/resources/next-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "right");
+    },
   };
   const playButton = {
-    tooltip: 'Play',
-    icon: path.join(__dirname, '/resources/play-song.png'),
+    tooltip: "Play",
+    icon: path.join(__dirname, "/resources/play-song.png"),
     click() {
-      mainWindow.webContents.send('globalShortcut', "space");
+      mainWindow.webContents.send("globalShortcut", "space");
+    },
+  };
+  const pauseButton = {
+    tooltip: "Pause",
+    icon: path.join(__dirname, "/resources/pause-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "space");
+    },
+  };
+  const setThumbarPause = () => {
+    mainWindow.setThumbarButtons([previousButton, playButton, nextButton]);
+  };
+  const setThumbbarPlay = () => {
+    mainWindow.setThumbarButtons([previousButton, pauseButton, nextButton]);
+  };
+  mainWindow.on("page-title-updated", (event, title) => {
+    if (title.startsWith("❚❚")) {
+      setThumbarPause();
+    } else if (title.startsWith("▶")) {
       setThumbbarPlay();
     }
-  }
-  const pauseButton = {
-    tooltip: 'Pause',
-    icon: path.join(__dirname, '/resources/pause-song.png'),
-    click() {
-      mainWindow.webContents.send('globalShortcut', "space");
-      setThumbarPause();
-    }
-  }
-  const setThumbarPause = () => {
-    mainWindow.setThumbarButtons([
-      previousButton,
-      playButton,
-      nextButton])
-  }
-  const setThumbbarPlay = () => {
-    mainWindow.setThumbarButtons([
-      previousButton,
-      pauseButton,
-      nextButton])
-  }
-  mainWindow.on("page-title-updated", (event, title) => {
-      if (title.startsWith("❚❚")) {
-        setThumbarPause();
-      }
-      else if (title.startsWith("▶"))
-      {
-        setThumbbarPlay();
-      }
   });
   setThumbarPause();
   let menuTemplate = [
