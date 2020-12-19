@@ -44,7 +44,6 @@ function initialTray(mainWindow, track) {
       mainWindow.show();
     }
   }
-
   let menuTemplate = [
     {label: nowPlayingTitle,  click(){
       mainWindow.show();
@@ -201,7 +200,48 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-
+  const previousButton = {
+    tooltip: "Previous",
+    icon: path.join(__dirname, "/resources/prev-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "left");
+    },
+  };
+  const nextButton = {
+    tooltip: "Next",
+    icon: path.join(__dirname, "/resources/next-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "right");
+    },
+  };
+  const playButton = {
+    tooltip: "Play",
+    icon: path.join(__dirname, "/resources/play-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "space");
+    },
+  };
+  const pauseButton = {
+    tooltip: "Pause",
+    icon: path.join(__dirname, "/resources/pause-song.png"),
+    click() {
+      mainWindow.webContents.send("globalShortcut", "space");
+    },
+  };
+  const setThumbarPause = () => {
+    mainWindow.setThumbarButtons([previousButton, playButton, nextButton]);
+  };
+  const setThumbbarPlay = () => {
+    mainWindow.setThumbarButtons([previousButton, pauseButton, nextButton]);
+  };
+  mainWindow.on("page-title-updated", (event, title) => {
+    if (title.startsWith("❚❚")) {
+      setThumbarPause();
+    } else if (title.startsWith("▶")) {
+      setThumbbarPlay();
+    }
+  });
+  setThumbarPause();
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
