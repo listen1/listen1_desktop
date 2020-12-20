@@ -20,6 +20,9 @@ const globalShortcutMapping = {
   'CmdOrCtrl+Alt+Left':'left',
   'CmdOrCtrl+Alt+Right':'right',
   'CmdOrCtrl+Alt+Space':'space',
+  'MediaNextTrack': 'right',
+  'MediaPreviousTrack': 'left',
+  'MediaPlayPause': 'space'
 };
 
 let appTray;
