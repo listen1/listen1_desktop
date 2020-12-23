@@ -129,7 +129,8 @@ const createFloatingWindow = function () {
       alwaysOnTop:true,
       visibleOnAllWorkspaces: true,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        enableRemoteModule: true,
       }
     });
     floatingWindow.setPosition(floatingWindow.getPosition()[0], display.bounds.height - 150);
@@ -206,7 +207,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 670,
-    webPreferences: {'nodeIntegration': true},
+    webPreferences: {'nodeIntegration': true, enableRemoteModule: true},
     icon: iconPath,
     titleBarStyle: 'hiddenInset',
     transparent: transparent,
