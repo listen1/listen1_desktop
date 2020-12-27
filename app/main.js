@@ -15,7 +15,7 @@ var iconPath = path.join(__dirname, '/listen1_chrome_extension/images/logo.png')
 let mainWindow
 let willQuitApp = false;
 var windowState = { maximized: false }
-
+app.allowRendererProcessReuse = false;
 const globalShortcutMapping = {
   'CmdOrCtrl+Alt+Left':'left',
   'CmdOrCtrl+Alt+Right':'right',
