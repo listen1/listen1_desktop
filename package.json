@@ -9,12 +9,12 @@
     "dev": "NODE_ENV='development' npm run start",
     "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --mac",
     "dist": "electron-builder .",
-    "dist:linux": "./node_modules/.bin/electron-builder --linux --ia32 --x64",
-    "dist:linux32": "./node_modules/.bin/electron-builder --linux --ia32",
-    "dist:linux64": "./node_modules/.bin/electron-builder --linux --x64",
-    "dist:win": "./node_modules/.bin/electron-builder --win --ia32 --x64",
-    "dist:win32": "./node_modules/.bin/electron-builder --win --ia32",
-    "dist:win64": "./node_modules/.bin/electron-builder --win --x64"
+    "dist:linux": "electron-builder --linux --ia32 --x64",
+    "dist:linux32": "electron-builder --linux --ia32",
+    "dist:linux64": "electron-builder --linux --x64",
+    "dist:win": "electron-builder --win --ia32 --x64",
+    "dist:win32": "electron-builder --win --ia32",
+    "dist:win64": "electron-builder --win --x64"
   },
   "repository": {
     "type": "git",
@@ -74,7 +74,10 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64", "ia32"]
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ],
       "icon": "build/icon.ico"
