@@ -260,7 +260,7 @@ function createWindow() {
             label: "Quit",
             accelerator: "CmdOrCtrl+W",
             click() {
-              app.quit();
+              mainWindow.close();
             },
             visible: false,
           },
