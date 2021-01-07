@@ -255,15 +255,14 @@ function createWindow() {
       submenu: [
           { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
           { type: "separator" },
-          { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } },
           {
-            label: "Quit",
+            label: "Close Window",
             accelerator: "CmdOrCtrl+W",
             click() {
               mainWindow.close();
             },
-            visible: false,
-          },
+          }, 
+          { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } },
       ]}, {
       label: "Edit",
       submenu: [
