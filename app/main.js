@@ -255,7 +255,14 @@ function createWindow() {
       submenu: [
           { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
           { type: "separator" },
-          { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+          {
+            label: "Close Window",
+            accelerator: "CmdOrCtrl+W",
+            click() {
+              mainWindow.close();
+            },
+          }, 
+          { label: "Quit", accelerator: "Command+Q", click: function () { app.quit(); } },
       ]}, {
       label: "Edit",
       submenu: [
@@ -375,11 +382,7 @@ ipcMain.on('trackPlayingNow', (event, track) => {
 })
 
 ipcMain.on('isPlaying', (event, isPlaying) => {
-  if (!isPlaying) {
-    setThumbarPause();
-  } else {
-    setThumbbarPlay();
-  }
+  isPlaying ? setThumbbarPlay() : setThumbarPause();
 })
 
 ipcMain.on('control', (event, arg) => {
