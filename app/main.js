@@ -45,12 +45,7 @@ function initialTray(mainWindow, track) {
   let nowPlayingArtist = `歌手: ${track.artist}`;
 
   function toggleVisiable() {
-    var isVisible = mainWindow.isVisible();
-    if (isVisible) {
-      mainWindow.hide();
-    } else {
-      mainWindow.show();
-    }
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
   }
   let menuTemplate = [
     {
@@ -241,11 +236,7 @@ function createWindow() {
       callback({ cancel: false, requestHeaders: details.requestHeaders });
     }
   );
-
-  var transparent = false;
-  if (process.platform == "darwin") {
-    transparent = true;
-  }
+  let transparent = process.platform === "darwin";
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1000,
@@ -353,52 +344,52 @@ function hack_referer_header(details) {
   let referer_value = "";
   let origin_value = "";
 
-  if (details.url.indexOf("://music.163.com/") != -1) {
+  if (details.url.includes("://music.163.com/")) {
     referer_value = "http://music.163.com/";
   }
-  if (details.url.indexOf("://gist.githubusercontent.com/") != -1) {
+  if (details.url.includes("://gist.githubusercontent.com/")) {
     referer_value = "https://gist.githubusercontent.com/";
   }
 
-  if (details.url.indexOf(".xiami.com/") != -1) {
+  if (details.url.includes(".xiami.com/")) {
     add_origin = false;
     referer_value = "https://www.xiami.com/";
   }
-  if (details.url.indexOf("www.xiami.com/api/search/searchSongs") !== -1) {
+  if (details.url.includes("www.xiami.com/api/search/searchSongs")) {
     const key = /key%22:%22(.*?)%22/.exec(details.url)[1];
     add_origin = false;
     referer_value = `https://www.xiami.com/search?key=${key}`;
   }
-  if (details.url.indexOf("c.y.qq.com/") !== -1) {
+  if (details.url.includes("c.y.qq.com/")) {
     referer_value = "https://y.qq.com/";
     origin_value = "https://y.qq.com";
   }
   if (
-    details.url.indexOf("y.qq.com/") != -1 ||
-    details.url.indexOf("qqmusic.qq.com/") != -1 ||
-    details.url.indexOf("music.qq.com/") != -1 ||
-    details.url.indexOf("imgcache.qq.com/") != -1
+    details.url.includes("y.qq.com/") ||
+    details.url.includes("qqmusic.qq.com/") ||
+    details.url.includes("music.qq.com/") ||
+    details.url.includes("imgcache.qq.com/")
   ) {
     referer_value = "http://y.qq.com/";
   }
-  if (details.url.indexOf(".kugou.com/") != -1) {
+  if (details.url.includes(".kugou.com/")) {
     referer_value = "http://www.kugou.com/";
   }
-  if (details.url.indexOf(".kuwo.cn/") != -1) {
+  if (details.url.includes(".kuwo.cn/")) {
     referer_value = "http://www.kuwo.cn/";
   }
   if (
-    details.url.indexOf(".bilibili.com/") != -1 ||
-    details.url.indexOf(".bilivideo.com/") != -1
+    details.url.includes(".bilibili.com/") ||
+    details.url.includes(".bilivideo.com/")
   ) {
     referer_value = "https://www.bilibili.com/";
     replace_origin = false;
     add_origin = false;
   }
-  if (details.url.indexOf(".migu.cn") !== -1) {
+  if (details.url.includes(".migu.cn")) {
     referer_value = "http://music.migu.cn/v3/music/player/audio?from=migu";
   }
-  if (details.url.indexOf("m.music.migu.cn") !== -1) {
+  if (details.url.includes("m.music.migu.cn")) {
     referer_value = "https://m.music.migu.cn/";
   }
   if (origin_value == "") {
@@ -458,28 +449,30 @@ ipcMain.on("isPlaying", (event, isPlaying) => {
 
 ipcMain.on("control", (event, arg) => {
   // console.log(arg);
-  if (arg == "enable_global_shortcut") {
-    enableGlobalShortcuts();
-  } else if (arg == "disable_global_shortcut") {
-    disableGlobalShortcuts();
-  } else if (arg == "enable_lyric_floating_window") {
-    createFloatingWindow();
-  } else if (arg == "disable_lyric_floating_window") {
-    if (floatingWindow) {
-      floatingWindow.hide();
-    }
-  } else if (arg == "window_min") {
-    mainWindow.minimize();
-  } else if (arg == "window_max") {
-    if (windowState.maximized == true) {
-      windowState.maximized = false;
-      mainWindow.unmaximize();
-    } else {
-      windowState.maximized = true;
-      mainWindow.maximize();
-    }
-  } else if (arg == "window_close") {
-    mainWindow.close();
+  switch (arg) {
+    case "enable_global_shortcut":
+      enableGlobalShortcuts();
+      break;
+    case "disable_global_shortcut":
+      disableGlobalShortcuts();
+      break;
+    case "enable_lyric_floating_window":
+      createFloatingWindow();
+      break;
+    case "disable_lyric_floating_window":
+      floatingWindow?.hide();
+      break;
+    case "window_min":
+      mainWindow.minimize();
+      break;
+    case "window_max":
+      windowState.maximized ? mainWindow.unmaximize() : mainWindow.maximize();
+      windowState.maximized = !windowState.maximized;
+      break;
+    case "window_close":
+      mainWindow.close();
+    default:
+      break;
   }
   // event.sender.send('asynchronous-reply', 'pong')
 });
