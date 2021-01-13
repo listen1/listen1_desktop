@@ -288,6 +288,13 @@ function createWindow() {
       label: "Application",
       submenu: [
         {
+          label: "Toggle Developer Tools",
+          accelerator: "F12",
+          click() {
+            mainWindow.toggleDevTools();
+          },
+        },
+        {
           label: "About Application",
           selector: "orderFrontStandardAboutPanel:",
         },
