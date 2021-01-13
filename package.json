@@ -84,11 +84,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^11.1.1",
-    "electron-builder": "^22.5.1",
+    "electron": "^11.2.0",
+    "electron-builder": "^22.9.1",
     "prettier": "^2.2.1"
-  },
-  "dependencies": {
-    "electron-debug": "^1.5.0"
   }
 }
