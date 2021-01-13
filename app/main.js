@@ -517,7 +517,12 @@ app.on("activate", () => mainWindow.show());
 
 /* 'before-quit' is emitted when Electron receives
  * the signal to exit and wants to start closing windows */
-app.on("before-quit", () => (willQuitApp = true));
+app.on("before-quit", () => {
+  if (mainWindow.isDevToolsOpened()) {
+    mainWindow.closeDevTools();
+  }
+  willQuitApp = true;
+});
 
 app.on("will-quit", () => {
   disableGlobalShortcuts();
