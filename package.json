@@ -78,6 +78,13 @@
             "x64",
             "ia32"
           ]
+        },
+        {
+          "target": "7z",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ],
       "icon": "build/icon.ico"
