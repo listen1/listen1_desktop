@@ -273,7 +273,7 @@ function createWindow() {
     `file://${__dirname}/listen1_chrome_extension/listen1.html`,
     { userAgent: ua }
   );
-
+  setThumbarPause();
   // Emitted when the window is closed.
   mainWindow.on("closed", function () {
     // Dereference the window object, usually you would store windows
