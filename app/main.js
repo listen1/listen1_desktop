@@ -273,9 +273,6 @@ function createWindow() {
     `file://${__dirname}/listen1_chrome_extension/listen1.html`,
     { userAgent: ua }
   );
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
   setThumbarPause();
   // Emitted when the window is closed.
   mainWindow.on("closed", function () {
@@ -290,6 +287,13 @@ function createWindow() {
     {
       label: "Application",
       submenu: [
+        {
+          label: "Toggle Developer Tools",
+          accelerator: "F12",
+          click() {
+            mainWindow.toggleDevTools();
+          },
+        },
         {
           label: "About Application",
           selector: "orderFrontStandardAboutPanel:",
@@ -513,7 +517,12 @@ app.on("activate", () => mainWindow.show());
 
 /* 'before-quit' is emitted when Electron receives
  * the signal to exit and wants to start closing windows */
-app.on("before-quit", () => (willQuitApp = true));
+app.on("before-quit", () => {
+  if (mainWindow.isDevToolsOpened()) {
+    mainWindow.closeDevTools();
+  }
+  willQuitApp = true;
+});
 
 app.on("will-quit", () => {
   disableGlobalShortcuts();
