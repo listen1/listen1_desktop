@@ -4,8 +4,7 @@
   "description": "One for all free music in China",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js",
-    "build": "electron-packager . listen1 --all --name='Listen1' --version='1.6.1'"
+    "start": "electron main.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/listen1/listen1_desktop/issues"
   },
-  "homepage": "https://github.com/listen1/listen1_desktop#readme",
-  "dependencies": {
-    "jsmediatags": "^3.9.3"
-  }
+  "homepage": "https://github.com/listen1/listen1_desktop#readme"
 }
