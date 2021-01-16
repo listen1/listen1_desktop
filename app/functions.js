@@ -9,7 +9,7 @@ module.exports = {
         .read({
           onSuccess: (tag) => {
             if (tag.tags.title === undefined) {
-              tag.tags.title = path.basename(filePath);
+              tag.tags.title = path.basename(filePath, path.extname(filePath));
             }
             if (tag.tags.album === undefined) {
               tag.tags.album = "";
