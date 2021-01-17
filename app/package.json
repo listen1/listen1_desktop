@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/listen1/listen1_desktop/issues"
   },
-  "homepage": "https://github.com/listen1/listen1_desktop#readme"
+  "homepage": "https://github.com/listen1/listen1_desktop#readme",
+  "dependencies": {
+    "jsmediatags": "^3.9.3"
+  }
 }
