@@ -93,7 +93,6 @@
   "devDependencies": {
     "electron": "^11.2.0",
     "electron-builder": "^22.9.1",
-    "jsmediatags": "^3.9.3",
     "prettier": "^2.2.1"
   }
 }
