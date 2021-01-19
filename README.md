@@ -16,6 +16,19 @@ Listen 1可以搜索和播放来自多个主流音乐网站的歌曲，让你的
 
 * 支持Windows，Mac，Linux平台
 
+安装方式
+=======
+方法一：国内可访问蓝奏云下载安装包进行安装
+
+网址：https://yujiangqaq.lanzous.com/b0104q61e
+
+密码: listen1
+
+特别感谢 @yujiangqaq 维护国内镜像
+
+方法二：访问github主页下载安装包安装
+
+网址：https://listen1.github.io/listen1
 
 生成完整代码
 -----------
