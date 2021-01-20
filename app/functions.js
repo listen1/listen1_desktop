@@ -5,6 +5,7 @@ module.exports = {
     try {
       return await mm.parseFile(filePath);
     } catch (error) {
+      console.warn(error);
       return {
         common: {
           title: path.basename(filePath, path.extname(filePath)),
