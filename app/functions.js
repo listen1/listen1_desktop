@@ -1,22 +1,18 @@
 const mm = require("music-metadata");
 const path = require("path");
 module.exports = {
-  readAudioTags(filePath) {
-    return new Promise((resolve, reject) => {
-      let tag = {};
-      tag.tags = {
+  async readAudioTags(filePath) {
+    const tag = {
+      tags: {
         title: path.basename(filePath, path.extname(filePath)),
         artist: "",
         album: "",
-      };
-      mm.parseFile(filePath)
-        .then((metaData) => {
-          tag.tags = metaData.common;
-          resolve(tag);
-        })
-        .catch(() => {
-          resolve(tag);
-        });
-    });
-  },
+      }
+    };
+    try {
+      tag.tags = (await mm.parseFile(filePath)).common;
+    } catch(err) {
+    }
+    return tag;
+  }
 };
