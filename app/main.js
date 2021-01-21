@@ -125,10 +125,6 @@ function enableGlobalShortcuts() {
 }
 
 function disableGlobalShortcuts() {
-  for (let key in globalShortcutMapping) {
-    globalShortcut.unregister(key);
-  }
-
   globalShortcut.unregisterAll();
 }
 
@@ -457,24 +453,32 @@ ipcMain.on("control", (event, arg) => {
     case "enable_global_shortcut":
       enableGlobalShortcuts();
       break;
+
     case "disable_global_shortcut":
       disableGlobalShortcuts();
       break;
+
     case "enable_lyric_floating_window":
       createFloatingWindow();
       break;
+
     case "disable_lyric_floating_window":
       floatingWindow?.hide();
       break;
+
     case "window_min":
       mainWindow.minimize();
       break;
+
     case "window_max":
       windowState.maximized ? mainWindow.unmaximize() : mainWindow.maximize();
       windowState.maximized = !windowState.maximized;
       break;
+
     case "window_close":
       mainWindow.close();
+      break;
+
     default:
       break;
   }
