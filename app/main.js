@@ -106,7 +106,7 @@ function initialTray(mainWindow, track) {
   var trayIconPath = path.join(__dirname, "/resources/logo_16.png");
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
-  appTray.on("click", function handleClicked() {
+  appTray.on("click", () => {
     toggleVisiable();
   });
 }
@@ -154,7 +154,7 @@ const createFloatingWindow = function () {
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
-    floatingWindow.on("closed", function () {
+    floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
   }
@@ -271,7 +271,7 @@ function createWindow() {
   );
   setThumbarPause();
   // Emitted when the window is closed.
-  mainWindow.on("closed", function () {
+  mainWindow.on("closed", () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
@@ -305,7 +305,7 @@ function createWindow() {
         {
           label: "Quit",
           accelerator: "Command+Q",
-          click: function () {
+          click() {
             app.quit();
           },
         },
@@ -508,7 +508,7 @@ if (!gotTheLock) {
 }
 
 // Quit when all windows are closed.
-app.on("window-all-closed", function () {
+app.on("window-all-closed", () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
