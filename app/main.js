@@ -19,6 +19,8 @@ var iconPath = path.join(
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let floatingWindow;
+
 let willQuitApp = false;
 var windowState = { maximized: false };
 
@@ -128,13 +130,12 @@ function disableGlobalShortcuts() {
   globalShortcut.unregisterAll();
 }
 
-let floatingWindow;
 const createFloatingWindow = function () {
   const display = screen.getPrimaryDisplay();
   if (!floatingWindow) {
     floatingWindow = new BrowserWindow({
       width: 1000,
-      height: 80,
+      height: 70,
       titleBarStyle: "hide",
       transparent: true,
       frame: false,
@@ -154,9 +155,12 @@ const createFloatingWindow = function () {
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
+    floatingWindow.setIgnoreMouseEvents(true, {forward: true})
     floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
+
+    // floatingWindow.webContents.openDevTools();
   }
   floatingWindow.showInactive();
 };
@@ -477,6 +481,14 @@ ipcMain.on("control", (event, arg) => {
 
     case "window_close":
       mainWindow.close();
+      break;
+
+    case "float_window_accept_mouse_event":
+      floatingWindow.setIgnoreMouseEvents(false);
+      break;
+
+    case "float_window_ignore_mouse_event":
+      floatingWindow.setIgnoreMouseEvents(true, {forward: true});
       break;
 
     default:
