@@ -155,7 +155,7 @@ const createFloatingWindow = function () {
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
-    floatingWindow.setIgnoreMouseEvents(true, {forward: true})
+    floatingWindow.setIgnoreMouseEvents(false);
     floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
