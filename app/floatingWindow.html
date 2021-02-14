@@ -8,7 +8,6 @@
       div.content {
         cursor: move;
         border-radius: 5px;
-        background: rgba(36, 36, 36, 0.5);
         min-height: 70px;
         box-sizing: border-box;
         overflow: hidden;
@@ -26,19 +25,8 @@
       span.contentTrans {
         font-size: 18px;
       }
-      .title-bar {
-        /*display: none;*/
-        font-weight: bolder;
-        padding: 10px;
-        position: absolute;
-        color: white;
-        z-index: 999;
-      }
-      body:hover .title-bar {
-        display: block;
-      }
-      body:hover .content {
-        background: rgba(36, 36, 36, 0.6);
+      body.unlocked-body:hover .content {
+        background: rgba(36, 36, 36, 0.8);
       }
       body {
         font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue",
@@ -53,7 +41,7 @@
       }
       #toolbar {
         position: fixed;
-        top: 10px;
+        top: 13px;
         z-index: 9999;
         width: 16px;
         height: 16px;
@@ -118,21 +106,24 @@
         if (IS_WINDOW_LOCKED) {
           document.getElementsByClassName('locked')[0].style.display = "block";
           document.getElementsByClassName('unlocked')[0].style.display = "none";
+          document.querySelector('body').classList.remove('unlocked-body');
         }
         else {
           document.getElementsByClassName('locked')[0].style.display = "none";
           document.getElementsByClassName('unlocked')[0].style.display = "block";
+          document.querySelector('body').classList.add('unlocked-body');
+
         }
       }
 
       // enter lyric window zone, show/hide lock icon
-      document.getElementById('lock-icon').style.display = "none";
+      document.getElementById('toolbar').style.display = "none";
 
       document.addEventListener('mouseenter', (event) => {
-        document.getElementById('lock-icon').style.display = "block";
+        document.getElementById('toolbar').style.display = "block";
       });
       document.addEventListener('mouseleave', (event) => {
-        document.getElementById('lock-icon').style.display = "none";
+        document.getElementById('toolbar').style.display = "none";
       });
 
       // enter lock icon zone, make window start to receive mouse event
