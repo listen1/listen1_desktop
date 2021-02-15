@@ -13,12 +13,12 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
         with:
-            submodules: true
+          submodules: true
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
