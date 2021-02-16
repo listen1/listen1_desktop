@@ -488,7 +488,11 @@ ipcMain.on("control", (event, arg) => {
       break;
 
     case "float_window_ignore_mouse_event":
-      floatingWindow.setIgnoreMouseEvents(true, {forward: true});
+      floatingWindow.setIgnoreMouseEvents(true, { forward: true });
+      break;
+
+    case "float_window_close":
+      mainWindow.webContents.send("lyricWindow", "disable");
       break;
 
     default:

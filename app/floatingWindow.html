@@ -32,35 +32,41 @@
         font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue",
           "Microsoft Yahei", "Helvetica", "Arial", sans-serif;
         overflow: hidden;
+        margin: 0;
+        padding: 0;
       }
       .feather {
         height: 16px;
         width: 16px;
         fill: none;
-        stroke: #ffffff;
+        stroke: #999999;
+        display: inline-block;
       }
       #toolbar {
         position: fixed;
-        top: 13px;
+        top: 6px;
         z-index: 9999;
-        width: 16px;
-        height: 16px;
-        margin:0 auto;
-        left:0;
-        right:0;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        text-align: center;
       }
-      .window-action:hover {
-        stroke: red;
+      .feather.icon:hover {
+        stroke: #ffffff;
       }
     </style>
   </head>
   <body>
     <div
-    style="visibility: hidden; position: absolute; width: 0px; height: 0px"
-  >
+      style="visibility: hidden; position: absolute; width: 0px; height: 0px"
+    >
       <!-- load feather icon svg sprite -->
       <svg xmlns="http://www.w3.org/2000/svg">
         <defs>
+          <symbol id="x" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </symbol>
           <symbol id="lock" viewBox="0 0 24 24">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -83,6 +89,9 @@
         </svg>
       </div>
       <div class="unlocked">
+        <svg class="feather icon" id="close-icon">
+          <use href="#x"></use>
+        </svg>
         <svg class="feather icon window-action" id="unlock-icon">
           <use href="#unlock"></use>
         </svg>
@@ -104,57 +113,76 @@
 
       function renderToolBar() {
         if (IS_WINDOW_LOCKED) {
-          document.getElementsByClassName('locked')[0].style.display = "block";
-          document.getElementsByClassName('unlocked')[0].style.display = "none";
-          document.querySelector('body').classList.remove('unlocked-body');
-        }
-        else {
-          document.getElementsByClassName('locked')[0].style.display = "none";
-          document.getElementsByClassName('unlocked')[0].style.display = "block";
-          document.querySelector('body').classList.add('unlocked-body');
-
+          document.getElementsByClassName("locked")[0].style.display = "block";
+          document.getElementsByClassName("unlocked")[0].style.display = "none";
+          document.querySelector("body").classList.remove("unlocked-body");
+        } else {
+          document.getElementsByClassName("locked")[0].style.display = "none";
+          document.getElementsByClassName("unlocked")[0].style.display =
+            "block";
+          document.querySelector("body").classList.add("unlocked-body");
         }
       }
 
       // enter lyric window zone, show/hide lock icon
-      document.getElementById('toolbar').style.display = "none";
+      document.getElementById("toolbar").style.display = "none";
 
-      document.addEventListener('mouseenter', (event) => {
-        document.getElementById('toolbar').style.display = "block";
+      document.addEventListener("mouseenter", (event) => {
+        document.getElementById("toolbar").style.display = "block";
       });
-      document.addEventListener('mouseleave', (event) => {
-        document.getElementById('toolbar').style.display = "none";
+      document.addEventListener("mouseleave", (event) => {
+        document.getElementById("toolbar").style.display = "none";
       });
 
       // enter lock icon zone, make window start to receive mouse event
-      document.getElementById('lock-icon').addEventListener('mouseenter', function ( event ) {
-        if (! IS_WINDOW_LOCKED) {
-          return;
-        }
-        const { ipcRenderer } = require('electron');
-        const message = 'float_window_accept_mouse_event';
-        ipcRenderer.send('control', message);
-      });
+      document
+        .getElementById("lock-icon")
+        .addEventListener("mouseenter", function (event) {
+          if (!IS_WINDOW_LOCKED) {
+            return;
+          }
+          const { ipcRenderer } = require("electron");
+          const message = "float_window_accept_mouse_event";
+          ipcRenderer.send("control", message);
+        });
 
-      document.getElementById('lock-icon').addEventListener('mouseleave', function ( event ) {
-        if (! IS_WINDOW_LOCKED) {
-          return;
-        }
-        const { ipcRenderer } = require('electron');
-        const message = 'float_window_ignore_mouse_event';
-        ipcRenderer.send('control', message);
-      });
+      document
+        .getElementById("lock-icon")
+        .addEventListener("mouseleave", function (event) {
+          if (!IS_WINDOW_LOCKED) {
+            return;
+          }
+          const { ipcRenderer } = require("electron");
+          const message = "float_window_ignore_mouse_event";
+          ipcRenderer.send("control", message);
+        });
 
-      Array.from(document.getElementsByClassName('window-action')).forEach( (elem)=> {
-        elem.addEventListener('click', function() {
-          // toggle floating window lock/unlock status
-          IS_WINDOW_LOCKED = !IS_WINDOW_LOCKED;
-          renderToolBar();
-          const message = IS_WINDOW_LOCKED ? 'float_window_ignore_mouse_event' : 'float_window_accept_mouse_event';
-          const { ipcRenderer } = require('electron');
-          ipcRenderer.send('control', message);
-        }, false);
-      });
+      Array.from(document.getElementsByClassName("window-action")).forEach(
+        (elem) => {
+          elem.addEventListener(
+            "click",
+            function () {
+              // toggle floating window lock/unlock status
+              IS_WINDOW_LOCKED = !IS_WINDOW_LOCKED;
+              renderToolBar();
+              const message = IS_WINDOW_LOCKED
+                ? "float_window_ignore_mouse_event"
+                : "float_window_accept_mouse_event";
+              const { ipcRenderer } = require("electron");
+              ipcRenderer.send("control", message);
+            },
+            false
+          );
+        }
+      );
+
+      document
+        .getElementById("close-icon")
+        .addEventListener("click", function () {
+          const message = "float_window_close";
+          const { ipcRenderer } = require("electron");
+          ipcRenderer.send("control", message);
+        });
 
       renderToolBar();
     </script>
