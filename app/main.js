@@ -9,7 +9,9 @@ const {
   screen,
   Tray,
 } = electron;
+const Store = require("electron-store");
 
+const store = new Store();
 var path = require("path");
 var iconPath = path.join(
   __dirname,
@@ -133,7 +135,7 @@ function disableGlobalShortcuts() {
 const createFloatingWindow = function () {
   const display = screen.getPrimaryDisplay();
   if (!floatingWindow) {
-    floatingWindow = new BrowserWindow({
+    let opts = {
       width: 1000,
       height: 70,
       titleBarStyle: "hide",
@@ -147,11 +149,19 @@ const createFloatingWindow = function () {
         nodeIntegration: true,
         enableRemoteModule: true,
       },
-    });
-    floatingWindow.setPosition(
-      floatingWindow.getPosition()[0],
-      display.bounds.height - 150
-    );
+    };
+    const winBounds = store.get("floatingWindowBounds");
+    Object.assign(opts, winBounds);
+
+    floatingWindow = new BrowserWindow(opts);
+
+    if (winBounds === undefined) {
+      floatingWindow.setPosition(
+        floatingWindow.getPosition()[0],
+        display.bounds.height - 150
+      );
+    }
+
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
@@ -541,6 +551,10 @@ app.on("before-quit", () => {
   if (mainWindow.isDevToolsOpened()) {
     mainWindow.closeDevTools();
   }
+  if (floatingWindow) {
+    store.set("floatingWindowBounds", floatingWindow.getBounds());
+  }
+
   willQuitApp = true;
 });
 
