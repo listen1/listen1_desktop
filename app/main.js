@@ -17,6 +17,7 @@ var iconPath = path.join(
   __dirname,
   "/listen1_chrome_extension/images/logo.png"
 );
+let floatingWindowCssKey = undefined;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -132,7 +133,43 @@ function disableGlobalShortcuts() {
   globalShortcut.unregisterAll();
 }
 
-const createFloatingWindow = function () {
+function updateFloatingWindow(cssStyle) {
+  if (cssStyle === undefined) {
+    return;
+  }
+  if (floatingWindowCssKey === undefined) {
+    return floatingWindow.webContents
+      .insertCSS(cssStyle, {
+        cssOrigin: "author",
+      })
+      .then((newCssKey) => {
+        floatingWindowCssKey = newCssKey;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  floatingWindow.webContents
+    .insertCSS(cssStyle, {
+      cssOrigin: "author",
+    })
+    .then((newCssKey) => {
+      floatingWindow.webContents
+        .removeInsertedCSS(floatingWindowCssKey)
+        .then(() => {
+          floatingWindowCssKey = newCssKey;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const createFloatingWindow = function (cssStyle) {
   const display = screen.getPrimaryDisplay();
   if (!floatingWindow) {
     let opts = {
@@ -166,6 +203,9 @@ const createFloatingWindow = function () {
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
     floatingWindow.setIgnoreMouseEvents(false);
+    floatingWindow.webContents.on("did-finish-load", function () {
+      updateFloatingWindow(cssStyle);
+    });
     floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
@@ -461,8 +501,7 @@ ipcMain.on("isPlaying", (event, isPlaying) => {
   isPlaying ? setThumbbarPlay() : setThumbarPause();
 });
 
-ipcMain.on("control", (event, arg) => {
-  // console.log(arg);
+ipcMain.on("control", (event, arg, params) => {
   switch (arg) {
     case "enable_global_shortcut":
       enableGlobalShortcuts();
@@ -473,7 +512,7 @@ ipcMain.on("control", (event, arg) => {
       break;
 
     case "enable_lyric_floating_window":
-      createFloatingWindow();
+      createFloatingWindow(params);
       break;
 
     case "disable_lyric_floating_window":
@@ -502,9 +541,16 @@ ipcMain.on("control", (event, arg) => {
       break;
 
     case "float_window_close":
-      mainWindow.webContents.send("lyricWindow", "disable");
+    case "float_window_font_small":
+    case "float_window_font_large":
+    case "float_window_background_light":
+    case "float_window_background_dark":
+    case "float_window_font_change_color":
+      mainWindow.webContents.send("lyricWindow", arg);
       break;
-
+    case "update_lyric_floating_window_css":
+      updateFloatingWindow(params);
+      break;
     default:
       break;
   }

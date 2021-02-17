@@ -19,14 +19,14 @@
         align-items: center;
         justify-content: center;
         user-select: none;
-        transition: background ease-in-out 0.2s;
+        transition: background ease-in-out 0.1s;
       }
-      span.contentTrans {
+      /* span.contentTrans {
         font-size: 18px;
       }
       body.unlocked-body:hover .content {
         background: rgba(36, 36, 36, 0.8);
-      }
+      } */
       body {
         font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue",
           "Microsoft Yahei", "Helvetica", "Arial", sans-serif;
@@ -41,7 +41,14 @@
         stroke: #999999;
         display: inline-block;
       }
+      .text-icon {
+        margin-left: 5px;
+        color: #999999;
+        width: 55px;
+        font-size: 14px;
+      }
       #toolbar {
+        user-select: none;
         position: fixed;
         top: 3px;
         z-index: 9999;
@@ -52,6 +59,9 @@
       }
       .feather.icon:hover {
         stroke: #ffffff;
+      }
+      .text-icon.icon:hover {
+        color: #ffffff;
       }
     </style>
   </head>
@@ -77,7 +87,7 @@
         </defs>
       </svg>
     </div>
-    <div id="currentLyricAll" class="content">
+    <div id="currentLyricAll" class="content lyric-content">
       <span id="currentLyric" class="contentOriginal">Listen1</span>
       <span id="currentLyricTrans" class="contentTrans"></span>
     </div>
@@ -88,12 +98,51 @@
         </svg>
       </div>
       <div class="unlocked">
-        <svg class="feather icon" id="close-icon">
+        <svg
+          class="feather icon control-action"
+          id="close-icon"
+          data-msg="float_window_close"
+        >
           <use href="#x"></use>
         </svg>
         <svg class="feather icon window-action" id="unlock-icon">
           <use href="#unlock"></use>
         </svg>
+        <a
+          class="text-icon icon control-action"
+          id="font-small-icon"
+          data-msg="float_window_font_small"
+        >
+          字号-
+        </a>
+        <a
+          class="text-icon icon control-action"
+          id="font-large-icon"
+          data-msg="float_window_font_large"
+        >
+          字号+
+        </a>
+        <a
+          class="text-icon icon control-action"
+          id="font-large-icon"
+          data-msg="float_window_background_dark"
+        >
+          透明-
+        </a>
+        <a
+          class="text-icon icon control-action"
+          id="font-large-icon"
+          data-msg="float_window_background_light"
+        >
+          透明+
+        </a>
+        <a
+          class="text-icon icon control-action"
+          id="font-large-icon"
+          data-msg="float_window_font_change_color"
+        >
+          换色
+        </a>
       </div>
     </div>
     <script>
@@ -175,13 +224,15 @@
         }
       );
 
-      document
-        .getElementById("close-icon")
-        .addEventListener("click", function () {
-          const message = "float_window_close";
-          const { ipcRenderer } = require("electron");
-          ipcRenderer.send("control", message);
-        });
+      Array.from(document.getElementsByClassName("control-action")).forEach(
+        (elem) => {
+          elem.addEventListener("click", function (event) {
+            const message = event.target.dataset.msg;
+            const { ipcRenderer } = require("electron");
+            ipcRenderer.send("control", message);
+          });
+        }
+      );
 
       renderToolBar();
     </script>
