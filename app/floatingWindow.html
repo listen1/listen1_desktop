@@ -10,7 +10,6 @@
         min-height: 70px;
         box-sizing: border-box;
         overflow: hidden;
-        -webkit-app-region: drag;
         text-align: center;
         font-size: 24px;
         color: white;
@@ -21,6 +20,7 @@
         user-select: none;
         transition: background ease-in-out 0.1s;
       }
+
       /* span.contentTrans {
         font-size: 18px;
       }
@@ -233,6 +233,37 @@
           });
         }
       );
+      // drag can't use webkit-app-region becuase mouse enter will not trigger
+      // we use custom handle, more details please read link below
+      // https://github.com/electron/electron/issues/1354#issuecomment-404348957
+      let animationId;
+      let mouseX;
+      let mouseY;
+
+      function onMouseDown(e) {
+        mouseX = e.clientX;  
+        mouseY = e.clientY;
+
+        document.addEventListener('mouseup', onMouseUp)
+        requestAnimationFrame(this.moveWindow);
+      }
+
+      function onMouseUp(e) {
+        document.removeEventListener('mouseup', onMouseUp)
+        cancelAnimationFrame(animationId)
+      }
+
+      function moveWindow() {
+        const { ipcRenderer } = require("electron");
+        ipcRenderer.send('floatWindowMoving', { mouseX, mouseY });
+        animationId = requestAnimationFrame(moveWindow);
+      }
+
+      document
+        .getElementById("currentLyricAll")
+        .addEventListener("mousedown", function (event) {
+          onMouseDown(event);
+        });
 
       renderToolBar();
     </script>
