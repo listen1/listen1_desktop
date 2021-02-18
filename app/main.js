@@ -203,12 +203,16 @@ const createFloatingWindow = function (cssStyle) {
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
     floatingWindow.setIgnoreMouseEvents(false);
+    // NOTICE: setResizable should be set, otherwise mouseleave event won't trigger in windows environment
+    floatingWindow.setResizable(true);
     floatingWindow.webContents.on("did-finish-load", function () {
       updateFloatingWindow(cssStyle);
     });
     floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
+
+
 
     // floatingWindow.webContents.openDevTools();
   }
@@ -555,6 +559,11 @@ ipcMain.on("control", (event, arg, params) => {
       break;
   }
   // event.sender.send('asynchronous-reply', 'pong')
+});
+
+ipcMain.on('floatWindowMoving', (e, {mouseX, mouseY}) => {
+  const { x, y } = electron.screen.getCursorScreenPoint()
+  floatingWindow?.setPosition(x - mouseX, y - mouseY)
 });
 
 const gotTheLock = app.requestSingleInstanceLock();
