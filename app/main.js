@@ -10,13 +10,10 @@ const {
   Tray,
 } = electron;
 const Store = require("electron-store");
+const { join } = require("path");
 
 const store = new Store();
-var path = require("path");
-var iconPath = path.join(
-  __dirname,
-  "/listen1_chrome_extension/images/logo.png"
-);
+const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
 let floatingWindowCssKey = undefined;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -25,7 +22,7 @@ let mainWindow;
 let floatingWindow;
 
 let willQuitApp = false;
-var windowState = { maximized: false };
+const windowState = { maximized: false };
 
 const globalShortcutMapping = {
   "CmdOrCtrl+Alt+Left": "left",
@@ -108,7 +105,7 @@ function initialTray(mainWindow, track) {
 
   let appIcon = null;
 
-  var trayIconPath = path.join(__dirname, "/resources/logo_16.png");
+  var trayIconPath = join(__dirname, "/resources/logo_16.png");
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on("click", () => {
@@ -169,7 +166,7 @@ function updateFloatingWindow(cssStyle) {
     });
 }
 
-const createFloatingWindow = function (cssStyle) {
+function createFloatingWindow(cssStyle) {
   const display = screen.getPrimaryDisplay();
   if (!floatingWindow) {
     let opts = {
@@ -205,44 +202,42 @@ const createFloatingWindow = function (cssStyle) {
     floatingWindow.setIgnoreMouseEvents(false);
     // NOTICE: setResizable should be set, otherwise mouseleave event won't trigger in windows environment
     floatingWindow.setResizable(true);
-    floatingWindow.webContents.on("did-finish-load", function () {
+    floatingWindow.webContents.on("did-finish-load", () => {
       updateFloatingWindow(cssStyle);
     });
     floatingWindow.on("closed", () => {
       floatingWindow = null;
     });
 
-
-
     // floatingWindow.webContents.openDevTools();
   }
   floatingWindow.showInactive();
-};
+}
 
 const previousButton = {
   tooltip: "Previous",
-  icon: path.join(__dirname, "/resources/prev-song.png"),
+  icon: join(__dirname, "/resources/prev-song.png"),
   click() {
     mainWindow.webContents.send("globalShortcut", "left");
   },
 };
 const nextButton = {
   tooltip: "Next",
-  icon: path.join(__dirname, "/resources/next-song.png"),
+  icon: join(__dirname, "/resources/next-song.png"),
   click() {
     mainWindow.webContents.send("globalShortcut", "right");
   },
 };
 const playButton = {
   tooltip: "Play",
-  icon: path.join(__dirname, "/resources/play-song.png"),
+  icon: join(__dirname, "/resources/play-song.png"),
   click() {
     mainWindow.webContents.send("globalShortcut", "space");
   },
 };
 const pauseButton = {
   tooltip: "Pause",
-  icon: path.join(__dirname, "/resources/pause-song.png"),
+  icon: join(__dirname, "/resources/pause-song.png"),
   click() {
     mainWindow.webContents.send("globalShortcut", "space");
   },
@@ -273,13 +268,13 @@ function createWindow() {
 
   session.defaultSession.webRequest.onBeforeSendHeaders(
     filter,
-    function (details, callback) {
+    (details, callback) => {
       if (
         details.url.startsWith(
           "https://listen1.github.io/listen1/callback.html?code="
         )
       ) {
-        const url = details.url;
+        const { url } = details;
         const code = url.split("=")[1];
         mainWindow.webContents.executeJavaScript(
           'Github.handleCallback("' + code + '");'
@@ -453,11 +448,11 @@ function hack_referer_header(details) {
   if (origin_value == "") {
     origin_value = referer_value;
   }
-  var isRefererSet = false;
-  var isOriginSet = false;
-  var headers = details.requestHeaders;
+  let isRefererSet = false;
+  let isOriginSet = false;
+  let headers = details.requestHeaders;
 
-  for (var i = 0, l = headers.length; i < l; ++i) {
+  for (let i = 0, l = headers.length; i < l; ++i) {
     if (
       replace_referer &&
       headers[i].name == "Referer" &&
@@ -561,9 +556,9 @@ ipcMain.on("control", (event, arg, params) => {
   // event.sender.send('asynchronous-reply', 'pong')
 });
 
-ipcMain.on('floatWindowMoving', (e, {mouseX, mouseY}) => {
-  const { x, y } = electron.screen.getCursorScreenPoint()
-  floatingWindow?.setPosition(x - mouseX, y - mouseY)
+ipcMain.on("floatWindowMoving", (e, { mouseX, mouseY }) => {
+  const { x, y } = screen.getCursorScreenPoint();
+  floatingWindow?.setPosition(x - mouseX, y - mouseY);
 });
 
 const gotTheLock = app.requestSingleInstanceLock();

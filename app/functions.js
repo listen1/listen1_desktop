@@ -1,10 +1,11 @@
-const mm = require("music-metadata");
-const path = require("path");
+const { parseFile } = require("music-metadata");
+const { basename, extname } = require("path");
+const fs = require("fs");
 module.exports = {
   async readAudioTags(filePath) {
-    const fileName = path.basename(filePath, path.extname(filePath));
+    const fileName = basename(filePath, extname(filePath));
     try {
-      const metaData = await mm.parseFile(filePath);
+      const metaData = await parseFile(filePath);
       if (!metaData.common.title) {
         metaData.common.title = fileName;
       }
