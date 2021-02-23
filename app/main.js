@@ -108,7 +108,7 @@ function initialTray(mainWindow, track) {
     return;
   }
 
-  const trayIconPath = join(__dirname, "/resources/logo_16.png");
+  const trayIconPath = join(__dirname, "/resources/logo_32.png");
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on("click", () => {
