@@ -24,8 +24,22 @@ let floatingWindowCssKey = undefined,
   floatingWindow,
   appIcon = null,
   willQuitApp = false,
-  transparent = process.platform === "darwin";
+  transparent = false,
+  trayIconPath;
 
+//platform-specific
+switch (process.platform) {
+  case "darwin":
+    trayIconPath = join(__dirname, "/resources/logo_16.png");
+    transparent = true;
+    break;
+  case "linux":
+  case "win32":
+    trayIconPath = join(__dirname, "/resources/logo_32.png");
+    break;
+  default:
+    break;
+}
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 
@@ -108,7 +122,6 @@ function initialTray(mainWindow, track) {
     return;
   }
 
-  const trayIconPath = join(__dirname, "/resources/logo_16.png");
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on("click", () => {
@@ -246,10 +259,10 @@ const pauseButton = {
   },
 };
 const setThumbarPause = () => {
-  mainWindow.setThumbarButtons([previousButton, playButton, nextButton]);
+  mainWindow?.setThumbarButtons([previousButton, playButton, nextButton]);
 };
 const setThumbbarPlay = () => {
-  mainWindow.setThumbarButtons([previousButton, pauseButton, nextButton]);
+  mainWindow?.setThumbarButtons([previousButton, pauseButton, nextButton]);
 };
 
 function createWindow() {
