@@ -41,12 +41,6 @@
         stroke: #999999;
         display: inline-block;
       }
-      .text-icon {
-        margin-left: 5px;
-        color: #999999;
-        width: 55px;
-        font-size: 14px;
-      }
       #toolbar {
         user-select: none;
         position: fixed;
@@ -57,11 +51,11 @@
         right: 0;
         text-align: center;
       }
-      .feather.icon:hover {
+      .icon:hover, .icon:hover .feather {
         stroke: #ffffff;
       }
-      .text-icon.icon:hover {
-        color: #ffffff;
+      .group-first-icon {
+        margin-left: 10px;
       }
     </style>
   </head>
@@ -83,6 +77,38 @@
           <symbol id="unlock" viewBox="0 0 24 24">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+          </symbol>
+          <symbol id="type" viewBox="0 0 24 24">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </symbol>
+          <symbol id="plus" viewBox="0 0 24 24">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </symbol>
+          <symbol id="minus" viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </symbol>
+          <symbol id="sun" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </symbol>
+          <symbol id="aperture" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+            <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+            <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+            <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+            <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+            <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
           </symbol>
         </defs>
       </svg>
@@ -109,39 +135,60 @@
           <use href="#unlock"></use>
         </svg>
         <a
-          class="text-icon icon control-action"
+          class="icon control-action group-first-icon"
           id="font-small-icon"
           data-msg="float_window_font_small"
+     
         >
-          字号-
+          <svg class="feather ">
+            <use href="#type"></use>
+          </svg>
+          <svg class="feather " style='margin-left: -10px'>
+            <use href="#minus"></use>
+          </svg>
         </a>
         <a
-          class="text-icon icon control-action"
+          class="icon control-action"
           id="font-large-icon"
           data-msg="float_window_font_large"
         >
-          字号+
+          <svg class="feather">
+            <use href="#type"></use>
+          </svg>
+          <svg class="feather icon" style='margin-left: -10px'>
+            <use href="#plus"></use>
+          </svg>
         </a>
         <a
-          class="text-icon icon control-action"
-          id="font-large-icon"
+          class="icon control-action group-first-icon"
           data-msg="float_window_background_dark"
         >
-          透明-
+          <svg class="feather">
+            <use href="#sun"></use>
+          </svg>
+          <svg class="feather icon" style='margin-left: -10px'>
+            <use href="#minus"></use>
+          </svg>
         </a>
         <a
-          class="text-icon icon control-action"
-          id="font-large-icon"
+          class="icon control-action"
           data-msg="float_window_background_light"
         >
-          透明+
+          <svg class="feather">
+            <use href="#sun"></use>
+          </svg>
+          <svg class="feather icon" style='margin-left: -10px'>
+            <use href="#plus"></use>
+          </svg>
         </a>
         <a
-          class="text-icon icon control-action"
+          class="icon control-action group-first-icon"
           id="font-large-icon"
           data-msg="float_window_font_change_color"
         >
-          换色
+        <svg class="feather">
+          <use href="#aperture"></use>
+        </svg>
         </a>
       </div>
     </div>
@@ -227,7 +274,7 @@
       Array.from(document.getElementsByClassName("control-action")).forEach(
         (elem) => {
           elem.addEventListener("click", function (event) {
-            const message = event.target.dataset.msg;
+            const message = event.currentTarget.dataset.msg;
             const { ipcRenderer } = require("electron");
             ipcRenderer.send("control", message);
           });
