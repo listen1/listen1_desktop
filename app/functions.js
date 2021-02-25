@@ -1,6 +1,6 @@
 const { parseFile } = require("music-metadata");
 const { basename, extname } = require("path");
-const fs = require("fs");
+
 module.exports = {
   async readAudioTags(filePath) {
     const fileName = basename(filePath, extname(filePath));
