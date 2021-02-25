@@ -10,18 +10,39 @@ const {
   Tray,
 } = electron;
 const Store = require("electron-store");
+const { autoUpdater } = require("electron-updater");
 const { join } = require("path");
 
 const store = new Store();
 const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
-let floatingWindowCssKey = undefined;
 
+autoUpdater.checkForUpdatesAndNotify();
+
+let floatingWindowCssKey = undefined,
+  mainWindow,
+  appTray,
+  floatingWindow,
+  appIcon = null,
+  willQuitApp = false,
+  transparent = false,
+  trayIconPath;
+
+//platform-specific
+switch (process.platform) {
+  case "darwin":
+    trayIconPath = join(__dirname, "/resources/logo_16.png");
+    transparent = true;
+    break;
+  case "linux":
+  case "win32":
+    trayIconPath = join(__dirname, "/resources/logo_32.png");
+    break;
+  default:
+    break;
+}
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
-let floatingWindow;
 
-let willQuitApp = false;
 const windowState = { maximized: false };
 
 const globalShortcutMapping = {
@@ -32,8 +53,6 @@ const globalShortcutMapping = {
   MediaPreviousTrack: "left",
   MediaPlayPause: "space",
 };
-
-let appTray;
 
 function initialTray(mainWindow, track) {
   if (track == null || track == undefined) {
@@ -103,9 +122,6 @@ function initialTray(mainWindow, track) {
     return;
   }
 
-  let appIcon = null;
-
-  var trayIconPath = join(__dirname, "/resources/logo_16.png");
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on("click", () => {
@@ -243,10 +259,10 @@ const pauseButton = {
   },
 };
 const setThumbarPause = () => {
-  mainWindow.setThumbarButtons([previousButton, playButton, nextButton]);
+  mainWindow?.setThumbarButtons([previousButton, playButton, nextButton]);
 };
 const setThumbbarPlay = () => {
-  mainWindow.setThumbarButtons([previousButton, pauseButton, nextButton]);
+  mainWindow?.setThumbarButtons([previousButton, pauseButton, nextButton]);
 };
 
 function createWindow() {
@@ -285,7 +301,6 @@ function createWindow() {
       callback({ cancel: false, requestHeaders: details.requestHeaders });
     }
   );
-  let transparent = process.platform === "darwin";
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1000,
@@ -316,7 +331,7 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  var ua =
+  const ua =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36";
   mainWindow.loadURL(
     `file://${__dirname}/listen1_chrome_extension/listen1.html`,
@@ -332,7 +347,7 @@ function createWindow() {
   });
 
   // define global menu content, also add support for cmd+c and cmd+v shortcuts
-  var template = [
+  const template = [
     {
       label: "Application",
       submenu: [
