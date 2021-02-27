@@ -24,6 +24,6 @@
   "dependencies": {
     "electron-store": "^7.0.2",
     "electron-updater": "^4.3.5",
-    "music-metadata": "^7.8.0"
+    "music-metadata": "^7.8.1"
   }
 }
