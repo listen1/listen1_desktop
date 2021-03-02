@@ -92,7 +92,7 @@
   },
   "devDependencies": {
     "electron": "^12.0.0",
-    "electron-builder": "^22.9.1",
+    "electron-builder": "^22.10.5",
     "prettier": "^2.2.1"
   }
 }
