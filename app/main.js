@@ -198,6 +198,7 @@ function createFloatingWindow(cssStyle) {
       webPreferences: {
         nodeIntegration: true,
         enableRemoteModule: true,
+        contextIsolation: false,
       },
     };
     const winBounds = store.get("floatingWindowBounds");
