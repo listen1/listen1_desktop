@@ -305,7 +305,11 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 670,
-    webPreferences: { nodeIntegration: true, enableRemoteModule: true },
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true,
+      contextIsolation: false,
+    },
     icon: iconPath,
     titleBarStyle: "hiddenInset",
     transparent: transparent,
