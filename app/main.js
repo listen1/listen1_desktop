@@ -10,6 +10,7 @@ const {
   Tray,
 } = electron;
 const Store = require("electron-store");
+const windowStateKeeper = require("electron-window-state");
 const { autoUpdater } = require("electron-updater");
 const { join } = require("path");
 
@@ -303,9 +304,15 @@ function createWindow() {
     }
   );
   // Create the browser window.
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 670,
+  });
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 670,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
@@ -318,7 +325,7 @@ function createWindow() {
     frame: false,
     hasShadow: true,
   });
-
+  mainWindowState.manage(mainWindow);
   // mainWindow.webContents.openDevTools();
 
   mainWindow.on("close", (e) => {
@@ -624,7 +631,7 @@ app.on("before-quit", () => {
   if (floatingWindow) {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
   }
-
+  store.set("mainWindowSize", mainWindow.getSize());
   willQuitApp = true;
 });
 
