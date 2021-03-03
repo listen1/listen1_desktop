@@ -313,6 +313,8 @@ function createWindow() {
     height: mainWindowState.height,
     x: mainWindowState.x,
     y: mainWindowState.y,
+    minHeight: 300,
+    minWidth: 600,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
