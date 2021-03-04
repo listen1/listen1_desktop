@@ -43,7 +43,11 @@ switch (process.platform) {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 
-const windowState = { maximized: false };
+const windowState = store.get("windowState") || {
+  width: 1000,
+  height: 670,
+  maximized: false,
+};
 
 const globalShortcutMapping = {
   "CmdOrCtrl+Alt+Left": "left",
@@ -304,8 +308,10 @@ function createWindow() {
   );
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 670,
+    width: windowState.width,
+    height: windowState.height,
+    minHeight: 300,
+    minWidth: 600,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
@@ -319,8 +325,19 @@ function createWindow() {
     hasShadow: true,
   });
 
-  // mainWindow.webContents.openDevTools();
+  mainWindow.on("ready-to-show", () => {
+    if (windowState.maximized) {
+      mainWindow.maximize();
+    }
+  });
 
+  mainWindow.on("resized", () => {
+    if (!mainWindow.isMaximized() && !mainWindow.isFullScreen()) {
+      const [width, height] = mainWindow.getSize();
+      windowState.width = width;
+      windowState.height = height;
+    }
+  });
   mainWindow.on("close", (e) => {
     if (willQuitApp) {
       /* the user tried to quit the app */
@@ -624,7 +641,7 @@ app.on("before-quit", () => {
   if (floatingWindow) {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
   }
-
+  store.set("windowState", windowState);
   willQuitApp = true;
 });
 
