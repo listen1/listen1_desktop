@@ -10,7 +10,6 @@ const {
   Tray,
 } = electron;
 const Store = require("electron-store");
-const windowStateKeeper = require("electron-window-state");
 const { autoUpdater } = require("electron-updater");
 const { join } = require("path");
 
@@ -44,7 +43,11 @@ switch (process.platform) {
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 
-const windowState = { maximized: false };
+const windowState = store.get("windowState") || {
+  width: 1000,
+  height: 670,
+  maximized: false,
+};
 
 const globalShortcutMapping = {
   "CmdOrCtrl+Alt+Left": "left",
@@ -304,15 +307,9 @@ function createWindow() {
     }
   );
   // Create the browser window.
-  let mainWindowState = windowStateKeeper({
-    defaultWidth: 1000,
-    defaultHeight: 670,
-  });
   mainWindow = new BrowserWindow({
-    width: mainWindowState.width,
-    height: mainWindowState.height,
-    x: mainWindowState.x,
-    y: mainWindowState.y,
+    width: windowState.width,
+    height: windowState.height,
     minHeight: 300,
     minWidth: 600,
     webPreferences: {
@@ -327,9 +324,20 @@ function createWindow() {
     frame: false,
     hasShadow: true,
   });
-  mainWindowState.manage(mainWindow);
-  // mainWindow.webContents.openDevTools();
 
+  mainWindow.on("ready-to-show", () => {
+    if (windowState.maximized) {
+      mainWindow.maximize();
+    }
+  });
+
+  mainWindow.on("resized", (e) => {
+    if (!mainWindow.isMaximized() && !mainWindow.isFullScreen()) {
+      const [width, height] = mainWindow.getSize();
+      windowState.width = width;
+      windowState.height = height;
+    }
+  });
   mainWindow.on("close", (e) => {
     if (willQuitApp) {
       /* the user tried to quit the app */
@@ -633,7 +641,7 @@ app.on("before-quit", () => {
   if (floatingWindow) {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
   }
-  store.set("mainWindowSize", mainWindow.getSize());
+  store.set("windowState", windowState);
   willQuitApp = true;
 });
 
