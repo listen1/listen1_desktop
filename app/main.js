@@ -331,7 +331,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.on("resized", (e) => {
+  mainWindow.on("resized", () => {
     if (!mainWindow.isMaximized() && !mainWindow.isFullScreen()) {
       const [width, height] = mainWindow.getSize();
       windowState.width = width;
