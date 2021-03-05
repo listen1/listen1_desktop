@@ -200,6 +200,7 @@ function createFloatingWindow(cssStyle) {
       alwaysOnTop: true,
       visibleOnAllWorkspaces: true,
       webPreferences: {
+        sandbox: true,
         preload: join(__dirname, "preload.js"),
       },
     };
