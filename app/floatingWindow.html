@@ -51,7 +51,8 @@
         right: 0;
         text-align: center;
       }
-      .icon:hover, .icon:hover .feather {
+      .icon:hover,
+      .icon:hover .feather {
         stroke: #ffffff;
       }
       .group-first-icon {
@@ -138,12 +139,11 @@
           class="icon control-action group-first-icon"
           id="font-small-icon"
           data-msg="float_window_font_small"
-     
         >
-          <svg class="feather ">
+          <svg class="feather">
             <use href="#type"></use>
           </svg>
-          <svg class="feather " style='margin-left: -10px'>
+          <svg class="feather" style="margin-left: -10px">
             <use href="#minus"></use>
           </svg>
         </a>
@@ -155,7 +155,7 @@
           <svg class="feather">
             <use href="#type"></use>
           </svg>
-          <svg class="feather icon" style='margin-left: -10px'>
+          <svg class="feather icon" style="margin-left: -10px">
             <use href="#plus"></use>
           </svg>
         </a>
@@ -166,18 +166,15 @@
           <svg class="feather">
             <use href="#sun"></use>
           </svg>
-          <svg class="feather icon" style='margin-left: -10px'>
+          <svg class="feather icon" style="margin-left: -10px">
             <use href="#minus"></use>
           </svg>
         </a>
-        <a
-          class="icon control-action"
-          data-msg="float_window_background_light"
-        >
+        <a class="icon control-action" data-msg="float_window_background_light">
           <svg class="feather">
             <use href="#sun"></use>
           </svg>
-          <svg class="feather icon" style='margin-left: -10px'>
+          <svg class="feather icon" style="margin-left: -10px">
             <use href="#plus"></use>
           </svg>
         </a>
@@ -186,20 +183,19 @@
           id="font-large-icon"
           data-msg="float_window_font_change_color"
         >
-        <svg class="feather">
-          <use href="#aperture"></use>
-        </svg>
+          <svg class="feather">
+            <use href="#aperture"></use>
+          </svg>
         </a>
       </div>
     </div>
     <script>
-      const { ipcRenderer } = require("electron");
       currentLyric = document.getElementById("currentLyric");
-      ipcRenderer.on("currentLyric", (event, arg) => {
+      window.api.onLyric((arg) => {
         currentLyric.innerHTML = arg;
       });
       currentLyricTrans = document.getElementById("currentLyricTrans");
-      ipcRenderer.on("currentLyricTrans", (event, arg) => {
+      window.api.onTranslLyric((arg) => {
         currentLyricTrans.innerHTML = arg;
       });
     </script>
@@ -232,24 +228,22 @@
       // enter lock icon zone, make window start to receive mouse event
       document
         .getElementById("lock-icon")
-        .addEventListener("mouseenter", function (event) {
+        .addEventListener("mouseenter", (event) => {
           if (!IS_WINDOW_LOCKED) {
             return;
           }
-          const { ipcRenderer } = require("electron");
           const message = "float_window_accept_mouse_event";
-          ipcRenderer.send("control", message);
+          window.api.ipcRenderer.send("control", message);
         });
 
       document
         .getElementById("lock-icon")
-        .addEventListener("mouseleave", function (event) {
+        .addEventListener("mouseleave", (event) => {
           if (!IS_WINDOW_LOCKED) {
             return;
           }
-          const { ipcRenderer } = require("electron");
           const message = "float_window_ignore_mouse_event";
-          ipcRenderer.send("control", message);
+          window.api.ipcRenderer.send("control", message);
         });
 
       Array.from(document.getElementsByClassName("window-action")).forEach(
@@ -263,8 +257,7 @@
               const message = IS_WINDOW_LOCKED
                 ? "float_window_ignore_mouse_event"
                 : "float_window_accept_mouse_event";
-              const { ipcRenderer } = require("electron");
-              ipcRenderer.send("control", message);
+              window.api.ipcRenderer.send("control", message);
             },
             false
           );
@@ -273,10 +266,9 @@
 
       Array.from(document.getElementsByClassName("control-action")).forEach(
         (elem) => {
-          elem.addEventListener("click", function (event) {
+          elem.addEventListener("click", (event) => {
             const message = event.currentTarget.dataset.msg;
-            const { ipcRenderer } = require("electron");
-            ipcRenderer.send("control", message);
+            window.api.ipcRenderer.send("control", message);
           });
         }
       );
@@ -288,27 +280,29 @@
       let mouseY;
 
       function onMouseDown(e) {
-        mouseX = e.clientX;  
+        mouseX = e.clientX;
         mouseY = e.clientY;
 
-        document.addEventListener('mouseup', onMouseUp)
+        document.addEventListener("mouseup", onMouseUp);
         requestAnimationFrame(this.moveWindow);
       }
 
       function onMouseUp(e) {
-        document.removeEventListener('mouseup', onMouseUp)
-        cancelAnimationFrame(animationId)
+        document.removeEventListener("mouseup", onMouseUp);
+        cancelAnimationFrame(animationId);
       }
 
       function moveWindow() {
-        const { ipcRenderer } = require("electron");
-        ipcRenderer.send('floatWindowMoving', { mouseX, mouseY });
+        window.api.ipcRenderer.send("floatWindowMoving", {
+          mouseX,
+          mouseY,
+        });
         animationId = requestAnimationFrame(moveWindow);
       }
 
       document
         .getElementById("currentLyricAll")
-        .addEventListener("mousedown", function (event) {
+        .addEventListener("mousedown", (event) => {
           onMouseDown(event);
         });
 
