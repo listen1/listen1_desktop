@@ -200,9 +200,8 @@ function createFloatingWindow(cssStyle) {
       alwaysOnTop: true,
       visibleOnAllWorkspaces: true,
       webPreferences: {
-        nodeIntegration: true,
-        enableRemoteModule: true,
-        contextIsolation: false,
+        sandbox: true,
+        preload: join(__dirname, "preload.js"),
       },
     };
     const winBounds = store.get("floatingWindowBounds");
