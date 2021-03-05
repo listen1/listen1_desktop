@@ -47,6 +47,7 @@ const windowState = store.get("windowState") || {
   width: 1000,
   height: 670,
   maximized: false,
+  zoomLevel: 0,
 };
 
 const globalShortcutMapping = {
@@ -372,6 +373,22 @@ function createWindow() {
     {
       label: "Application",
       submenu: [
+        {
+          label: "Zoom Out",
+          accelerator: "CmdOrCtrl+=",
+          click() {
+            windowState.zoomLevel += 0.5;
+            mainWindow.webContents.send("setZoomLevel", windowState.zoomLevel);
+          },
+        },
+        {
+          label: "Zoom in",
+          accelerator: "CmdOrCtrl+-",
+          click() {
+            windowState.zoomLevel -= 0.5;
+            mainWindow.webContents.send("setZoomLevel", windowState.zoomLevel);
+          },
+        },
         {
           label: "Toggle Developer Tools",
           accelerator: "F12",
