@@ -189,6 +189,11 @@ function updateFloatingWindow(cssStyle) {
 
 function createFloatingWindow(cssStyle) {
   const display = screen.getPrimaryDisplay();
+  if(process.platform === "linux") {
+    // fix transparent window not working in linux bug
+    floatingWindow?.destroy();
+    floatingWindow = null;
+  }
   if (!floatingWindow) {
     let opts = {
       width: 1000,
@@ -675,3 +680,8 @@ app.on("before-quit", () => {
 app.on("will-quit", () => {
   disableGlobalShortcuts();
 });
+
+if(process.platform === "linux") {
+  // fix transparent window not working in linux bug
+  app.disableHardwareAcceleration();
+}
