@@ -625,6 +625,27 @@ ipcMain.on("control", (event, arg, params) => {
   // event.sender.send('asynchronous-reply', 'pong')
 });
 
+ipcMain.on("openUrl", (event, arg, params) => {
+  const bWindow = new BrowserWindow({
+    parent: mainWindow,
+    height: 700,
+    resizable: true,
+    width: 985,
+    frame: true,
+    fullscreen: false,
+    maximizable: true,
+    minimizable: true,
+    autoHideMenuBar: true,
+    webPreferences: {
+      // sandbox is necessary for website js to work
+      // thanks to https://github.com/sunzongzheng/music
+      sandbox: true,
+    },
+  });
+  bWindow.loadURL(arg);
+  bWindow.setMenu(null);
+});
+
 ipcMain.on("floatWindowMoving", (e, { mouseX, mouseY }) => {
   const { x, y } = screen.getCursorScreenPoint();
   floatingWindow?.setPosition(x - mouseX, y - mouseY);
