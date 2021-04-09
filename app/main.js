@@ -278,6 +278,7 @@ const setThumbbarPlay = () => {
 function createWindow() {
   const filter = {
     urls: [
+      "*://*.music.163.com/*",
       "*://music.163.com/*",
       "*://*.xiami.com/*",
       "*://i.y.qq.com/*",
@@ -467,6 +468,9 @@ function hack_referer_header(details) {
   let origin_value = "";
 
   if (details.url.includes("://music.163.com/")) {
+    referer_value = "http://music.163.com/";
+  }
+  if (details.url.includes("://interface3.music.163.com/")) {
     referer_value = "http://music.163.com/";
   }
   if (details.url.includes("://gist.githubusercontent.com/")) {
