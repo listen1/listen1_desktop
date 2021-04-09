@@ -304,7 +304,7 @@ function createWindow() {
         const { url } = details;
         const code = url.split("=")[1];
         mainWindow.webContents.executeJavaScript(
-          'Github.handleCallback("' + code + '");'
+          'GithubClient.github.handleCallback("' + code + '");'
         );
       } else {
         hack_referer_header(details);
