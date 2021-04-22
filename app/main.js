@@ -50,6 +50,10 @@ const windowState = store.get("windowState") || {
   zoomLevel: 0,
 };
 
+let proxyConfig = store.get("proxyConfig") || {
+  mode: "system",
+};
+
 const globalShortcutMapping = {
   "CmdOrCtrl+Alt+Left": "left",
   "CmdOrCtrl+Alt+Right": "right",
@@ -187,6 +191,13 @@ function updateFloatingWindow(cssStyle) {
     });
 }
 
+function updateProxyConfig(params) {
+  proxyConfig = params;
+
+  mainWindow.webContents.session.setProxy(proxyConfig).then(function () {
+    mainWindow.webContents.session.forceReloadProxyConfig();
+  });
+}
 function createFloatingWindow(cssStyle) {
   const display = screen.getPrimaryDisplay();
   if (process.platform === "linux") {
@@ -362,10 +373,14 @@ function createWindow() {
   // and load the index.html of the app.
   const ua =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36";
-  mainWindow.loadURL(
-    `file://${__dirname}/listen1_chrome_extension/listen1.html`,
-    { userAgent: ua }
-  );
+
+  mainWindow.webContents.session.setProxy(proxyConfig).then(function () {
+    mainWindow.loadURL(
+      `file://${__dirname}/listen1_chrome_extension/listen1.html`,
+      { userAgent: ua }
+    );
+  });
+
   setThumbarPause();
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
@@ -623,6 +638,12 @@ ipcMain.on("control", (event, arg, params) => {
     case "update_lyric_floating_window_css":
       updateFloatingWindow(params);
       break;
+    case "get_proxy_config":
+      mainWindow.webContents.send("proxyConfig", proxyConfig);
+      break;
+    case "update_proxy_config":
+      updateProxyConfig(params);
+      break;
     default:
       break;
   }
@@ -699,6 +720,8 @@ app.on("before-quit", () => {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
   }
   store.set("windowState", windowState);
+  store.set("proxyConfig", proxyConfig);
+
   willQuitApp = true;
 });
 
