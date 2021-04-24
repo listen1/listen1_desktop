@@ -729,7 +729,7 @@ app.on("will-quit", () => {
   disableGlobalShortcuts();
 });
 
-if (process.platform === "linux") {
+if (process.platform === "linux" || process.platform === "win32") {
   // fix transparent window not working in linux bug
   app.disableHardwareAcceleration();
 }
