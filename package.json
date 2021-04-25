@@ -36,10 +36,7 @@
     "asar": true,
     "artifactName": "${name}_${version}_${os}_${arch}.${ext}",
     "dmg": {
-      "title": "Listen 1",
       "icon": "build/disk.icns",
-      "background": "build/background.png",
-      "iconSize": 80,
       "contents": [
         {
           "x": 192,
@@ -52,6 +49,15 @@
           "path": "/Applications"
         }
       ]
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64", "universal"]
+        }
+      ],
+      "category": "public.app-category.music"
     },
     "linux": {
       "target": [
