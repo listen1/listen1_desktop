@@ -36,6 +36,8 @@ switch (process.platform) {
   case "linux":
   case "win32":
     trayIconPath = join(__dirname, "/resources/logo_32.png");
+    // fix transparent window not working in linux bug
+    app.disableHardwareAcceleration();
     break;
   default:
     break;
@@ -194,7 +196,7 @@ function updateFloatingWindow(cssStyle) {
 function updateProxyConfig(params) {
   proxyConfig = params;
 
-  mainWindow.webContents.session.setProxy(proxyConfig).then(function () {
+  mainWindow.webContents.session.setProxy(proxyConfig).then(() => {
     mainWindow.webContents.session.forceReloadProxyConfig();
   });
 }
@@ -208,11 +210,13 @@ function createFloatingWindow(cssStyle) {
   if (!floatingWindow) {
     let opts = {
       width: 1000,
+      minWidth: 640,
+      maxWidth: 1920,
       height: 70,
       titleBarStyle: "hide",
       transparent: true,
       frame: false,
-      resizable: false,
+      resizable: true,
       hasShadow: false,
       alwaysOnTop: true,
       visibleOnAllWorkspaces: true,
@@ -238,7 +242,6 @@ function createFloatingWindow(cssStyle) {
     floatingWindow.setAlwaysOnTop(true, "floating");
     floatingWindow.setIgnoreMouseEvents(false);
     // NOTICE: setResizable should be set, otherwise mouseleave event won't trigger in windows environment
-    floatingWindow.setResizable(true);
     floatingWindow.webContents.on("did-finish-load", () => {
       updateFloatingWindow(cssStyle);
     });
@@ -374,7 +377,7 @@ function createWindow() {
   const ua =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36";
 
-  mainWindow.webContents.session.setProxy(proxyConfig).then(function () {
+  mainWindow.webContents.session.setProxy(proxyConfig).then(() => {
     mainWindow.loadURL(
       `file://${__dirname}/listen1_chrome_extension/listen1.html`,
       { userAgent: ua }
@@ -635,15 +638,19 @@ ipcMain.on("control", (event, arg, params) => {
     case "float_window_font_change_color":
       mainWindow.webContents.send("lyricWindow", arg);
       break;
+
     case "update_lyric_floating_window_css":
       updateFloatingWindow(params);
       break;
+
     case "get_proxy_config":
       mainWindow.webContents.send("proxyConfig", proxyConfig);
       break;
+
     case "update_proxy_config":
       updateProxyConfig(params);
       break;
+
     default:
       break;
   }
@@ -728,8 +735,3 @@ app.on("before-quit", () => {
 app.on("will-quit", () => {
   disableGlobalShortcuts();
 });
-
-if (process.platform === "linux" || process.platform === "win32") {
-  // fix transparent window not working in linux bug
-  app.disableHardwareAcceleration();
-}
