@@ -23,7 +23,7 @@
   "homepage": "https://github.com/listen1/listen1_desktop#readme",
   "dependencies": {
     "electron-store": "^8.0.0",
-    "electron-updater": "^4.3.8",
-    "music-metadata": "^7.8.5"
+    "electron-updater": "^4.3.9",
+    "music-metadata": "^7.8.6"
   }
 }

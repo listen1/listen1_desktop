@@ -19,14 +19,16 @@ const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
 autoUpdater.checkForUpdatesAndNotify();
 
 let floatingWindowCssKey = undefined,
-  mainWindow,
-  appTray,
-  floatingWindow,
   appIcon = null,
   willQuitApp = false,
   transparent = false,
   trayIconPath;
-
+/** @type {electron.BrowserWindow} */
+let mainWindow;
+/** @type {electron.BrowserWindow} */
+let floatingWindow;
+/** @type {electron.Tray} */
+let appTray;
 //platform-specific
 switch (process.platform) {
   case "darwin":
@@ -79,7 +81,7 @@ function initialTray(mainWindow, track) {
   function toggleVisiable() {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
   }
-  let menuTemplate = [
+  const menuTemplate = [
     {
       label: nowPlayingTitle,
       click() {
@@ -148,7 +150,7 @@ function setKeyMapping(key, message) {
 
 function enableGlobalShortcuts() {
   // initial global shortcuts
-  for (let key in globalShortcutMapping) {
+  for (const key in globalShortcutMapping) {
     setKeyMapping(key, globalShortcutMapping[key]);
   }
 }
@@ -156,43 +158,28 @@ function enableGlobalShortcuts() {
 function disableGlobalShortcuts() {
   globalShortcut.unregisterAll();
 }
-
-function updateFloatingWindow(cssStyle) {
+/**
+ * @param {string} cssStyle
+ */
+async function updateFloatingWindow(cssStyle) {
   if (cssStyle === undefined) {
     return;
   }
-  if (floatingWindowCssKey === undefined) {
-    return floatingWindow.webContents
-      .insertCSS(cssStyle, {
-        cssOrigin: "author",
-      })
-      .then((newCssKey) => {
-        floatingWindowCssKey = newCssKey;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  floatingWindow.webContents
-    .insertCSS(cssStyle, {
+  try {
+    const newCssKey = await floatingWindow.webContents.insertCSS(cssStyle, {
       cssOrigin: "author",
-    })
-    .then((newCssKey) => {
-      floatingWindow.webContents
-        .removeInsertedCSS(floatingWindowCssKey)
-        .then(() => {
-          floatingWindowCssKey = newCssKey;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    if (floatingWindowCssKey !== undefined) {
+      await floatingWindow.webContents.removeInsertedCSS(floatingWindowCssKey);
+    }
+    floatingWindowCssKey = newCssKey;
+  } catch (err) {
+    console.log(err);
+  }
 }
-
+/**
+ * @param {electron.Config} params
+ */
 function updateProxyConfig(params) {
   proxyConfig = params;
 
@@ -208,7 +195,7 @@ function createFloatingWindow(cssStyle) {
     floatingWindow = null;
   }
   if (!floatingWindow) {
-    let opts = {
+    const opts = {
       width: 1000,
       minWidth: 640,
       maxWidth: 1920,
@@ -226,9 +213,8 @@ function createFloatingWindow(cssStyle) {
       },
     };
     const winBounds = store.get("floatingWindowBounds");
-    Object.assign(opts, winBounds);
 
-    floatingWindow = new BrowserWindow(opts);
+    floatingWindow = new BrowserWindow({ ...opts, ...winBounds });
 
     if (winBounds === undefined) {
       floatingWindow.setPosition(
@@ -477,6 +463,9 @@ function createWindow() {
   initialTray(mainWindow);
 }
 
+/**
+ * @param {electron.OnBeforeSendHeadersListenerDetails} details
+ */
 function hack_referer_header(details) {
   let replace_referer = true;
   let replace_origin = true;
@@ -720,8 +709,8 @@ app.on("activate", () => mainWindow.show());
 /* 'before-quit' is emitted when Electron receives
  * the signal to exit and wants to start closing windows */
 app.on("before-quit", () => {
-  if (mainWindow.isDevToolsOpened()) {
-    mainWindow.closeDevTools();
+  if (mainWindow.webContents.isDevToolsOpened()) {
+    mainWindow.webContents.closeDevTools();
   }
   if (floatingWindow) {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
