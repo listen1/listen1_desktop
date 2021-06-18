@@ -130,7 +130,7 @@ function initialTray(mainWindow, track) {
 
   const contextMenu = Menu.buildFromTemplate(menuTemplate);
 
-  if (appTray.destroy != undefined) {
+  if (appTray?.destroy != undefined) {
     // appTray had create, just refresh tray menu here
     appTray?.setContextMenu(contextMenu);
     return;
