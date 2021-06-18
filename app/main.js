@@ -46,14 +46,14 @@ switch (process.platform) {
 }
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-
+/** @type {{ width: number; height: number; maximized: boolean; zoomLevel: number}} */
 const windowState = store.get("windowState") || {
   width: 1000,
   height: 670,
   maximized: false,
   zoomLevel: 0,
 };
-
+/** @type {electron.Config} */
 let proxyConfig = store.get("proxyConfig") || {
   mode: "system",
 };
@@ -66,7 +66,10 @@ const globalShortcutMapping = {
   MediaPreviousTrack: "left",
   MediaPlayPause: "space",
 };
-
+/**
+ * @param {electron.BrowserWindow} mainWindow
+ * @param {{ title: string; artist: string; }} [track]
+ */
 function initialTray(mainWindow, track) {
   if (track == null || track == undefined) {
     track = {
@@ -142,6 +145,10 @@ function initialTray(mainWindow, track) {
   });
 }
 
+/**
+ * @param {string | electron.Accelerator} key
+ * @param {any} message
+ */
 function setKeyMapping(key, message) {
   const ret = globalShortcut.register(key, () => {
     mainWindow.webContents.send("globalShortcut", message);
@@ -180,13 +187,15 @@ async function updateFloatingWindow(cssStyle) {
 /**
  * @param {electron.Config} params
  */
-function updateProxyConfig(params) {
+async function updateProxyConfig(params) {
   proxyConfig = params;
 
-  mainWindow.webContents.session.setProxy(proxyConfig).then(() => {
-    mainWindow.webContents.session.forceReloadProxyConfig();
-  });
+  await mainWindow.webContents.session.setProxy(params);
+  mainWindow.webContents.session.forceReloadProxyConfig();
 }
+/**
+ * @param {string} cssStyle
+ */
 function createFloatingWindow(cssStyle) {
   const display = screen.getPrimaryDisplay();
   if (process.platform === "linux") {
@@ -195,26 +204,26 @@ function createFloatingWindow(cssStyle) {
     floatingWindow = null;
   }
   if (!floatingWindow) {
-    const opts = {
+    /** @type {Electron.Rectangle} */
+    const winBounds = store.get("floatingWindowBounds");
+
+    floatingWindow = new BrowserWindow({
       width: 1000,
       minWidth: 640,
       maxWidth: 1920,
       height: 70,
-      titleBarStyle: "hide",
+      titleBarStyle: "hidden",
       transparent: true,
       frame: false,
       resizable: true,
       hasShadow: false,
       alwaysOnTop: true,
-      visibleOnAllWorkspaces: true,
       webPreferences: {
         sandbox: true,
         preload: join(__dirname, "preload.js"),
       },
-    };
-    const winBounds = store.get("floatingWindowBounds");
-
-    floatingWindow = new BrowserWindow({ ...opts, ...winBounds });
+      ...winBounds,
+    });
 
     if (winBounds === undefined) {
       floatingWindow.setPosition(
@@ -222,14 +231,14 @@ function createFloatingWindow(cssStyle) {
         display.bounds.height - 150
       );
     }
-
+    floatingWindow.setVisibleOnAllWorkspaces(true);
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
     floatingWindow.setIgnoreMouseEvents(false);
     // NOTICE: setResizable should be set, otherwise mouseleave event won't trigger in windows environment
-    floatingWindow.webContents.on("did-finish-load", () => {
-      updateFloatingWindow(cssStyle);
+    floatingWindow.webContents.on("did-finish-load", async () => {
+      await updateFloatingWindow(cssStyle);
     });
     floatingWindow.on("closed", () => {
       floatingWindow = null;
@@ -414,7 +423,7 @@ function createWindow() {
           label: "Toggle Developer Tools",
           accelerator: "F12",
           click() {
-            mainWindow.toggleDevTools();
+            mainWindow.webContents.toggleDevTools();
           },
         },
         {
@@ -580,7 +589,7 @@ ipcMain.on("isPlaying", (event, isPlaying) => {
   isPlaying ? setThumbbarPlay() : setThumbarPause();
 });
 
-ipcMain.on("control", (event, arg, params) => {
+ipcMain.on("control", async (event, arg, params) => {
   switch (arg) {
     case "enable_global_shortcut":
       enableGlobalShortcuts();
@@ -629,7 +638,7 @@ ipcMain.on("control", (event, arg, params) => {
       break;
 
     case "update_lyric_floating_window_css":
-      updateFloatingWindow(params);
+      await updateFloatingWindow(params);
       break;
 
     case "get_proxy_config":
@@ -637,7 +646,7 @@ ipcMain.on("control", (event, arg, params) => {
       break;
 
     case "update_proxy_config":
-      updateProxyConfig(params);
+      await updateProxyConfig(params);
       break;
 
     default:
