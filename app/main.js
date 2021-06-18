@@ -71,12 +71,10 @@ const globalShortcutMapping = {
  * @param {{ title: string; artist: string; }} [track]
  */
 function initialTray(mainWindow, track) {
-  if (track == null || track == undefined) {
-    track = {
-      title: "暂无歌曲",
-      artist: "  ",
-    };
-  }
+  track ||= {
+    title: "暂无歌曲",
+    artist: "  ",
+  };
 
   let nowPlayingTitle = `${track.title}`;
   let nowPlayingArtist = `歌手: ${track.artist}`;
@@ -132,9 +130,9 @@ function initialTray(mainWindow, track) {
 
   const contextMenu = Menu.buildFromTemplate(menuTemplate);
 
-  if (appTray != null && appTray.destroy != undefined) {
+  if (appTray.destroy != undefined) {
     // appTray had create, just refresh tray menu here
-    appTray.setContextMenu(contextMenu);
+    appTray?.setContextMenu(contextMenu);
     return;
   }
 
@@ -147,18 +145,18 @@ function initialTray(mainWindow, track) {
 
 /**
  * @param {string | electron.Accelerator} key
- * @param {any} message
+ * @param {string} message
  */
 function setKeyMapping(key, message) {
-  const ret = globalShortcut.register(key, () => {
+  globalShortcut.register(key, () => {
     mainWindow.webContents.send("globalShortcut", message);
   });
 }
 
 function enableGlobalShortcuts() {
   // initial global shortcuts
-  for (const key in globalShortcutMapping) {
-    setKeyMapping(key, globalShortcutMapping[key]);
+  for (const [key, value] of Object.entries(globalShortcutMapping)) {
+    setKeyMapping(key, value);
   }
 }
 
