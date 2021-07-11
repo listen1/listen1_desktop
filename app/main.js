@@ -19,14 +19,16 @@ const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
 autoUpdater.checkForUpdatesAndNotify();
 
 let floatingWindowCssKey = undefined,
-  mainWindow,
-  appTray,
-  floatingWindow,
   appIcon = null,
   willQuitApp = false,
   transparent = false,
   trayIconPath;
-
+/** @type {electron.BrowserWindow} */
+let mainWindow;
+/** @type {electron.BrowserWindow} */
+let floatingWindow;
+/** @type {electron.Tray} */
+let appTray;
 //platform-specific
 switch (process.platform) {
   case "darwin":
@@ -44,14 +46,14 @@ switch (process.platform) {
 }
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-
+/** @type {{ width: number; height: number; maximized: boolean; zoomLevel: number}} */
 const windowState = store.get("windowState") || {
   width: 1000,
   height: 670,
   maximized: false,
   zoomLevel: 0,
 };
-
+/** @type {electron.Config} */
 let proxyConfig = store.get("proxyConfig") || {
   mode: "system",
 };
@@ -64,14 +66,15 @@ const globalShortcutMapping = {
   MediaPreviousTrack: "left",
   MediaPlayPause: "space",
 };
-
+/**
+ * @param {electron.BrowserWindow} mainWindow
+ * @param {{ title: string; artist: string; }} [track]
+ */
 function initialTray(mainWindow, track) {
-  if (track == null || track == undefined) {
-    track = {
-      title: "暂无歌曲",
-      artist: "  ",
-    };
-  }
+  track ||= {
+    title: "暂无歌曲",
+    artist: "  ",
+  };
 
   let nowPlayingTitle = `${track.title}`;
   let nowPlayingArtist = `歌手: ${track.artist}`;
@@ -79,7 +82,7 @@ function initialTray(mainWindow, track) {
   function toggleVisiable() {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
   }
-  let menuTemplate = [
+  const menuTemplate = [
     {
       label: nowPlayingTitle,
       click() {
@@ -127,9 +130,9 @@ function initialTray(mainWindow, track) {
 
   const contextMenu = Menu.buildFromTemplate(menuTemplate);
 
-  if (appTray != null && appTray.destroy != undefined) {
+  if (appTray?.destroy != undefined) {
     // appTray had create, just refresh tray menu here
-    appTray.setContextMenu(contextMenu);
+    appTray?.setContextMenu(contextMenu);
     return;
   }
 
@@ -140,66 +143,57 @@ function initialTray(mainWindow, track) {
   });
 }
 
+/**
+ * @param {string | electron.Accelerator} key
+ * @param {string} message
+ */
 function setKeyMapping(key, message) {
-  const ret = globalShortcut.register(key, () => {
+  globalShortcut.register(key, () => {
     mainWindow.webContents.send("globalShortcut", message);
   });
 }
 
 function enableGlobalShortcuts() {
   // initial global shortcuts
-  for (let key in globalShortcutMapping) {
-    setKeyMapping(key, globalShortcutMapping[key]);
+  for (const [key, value] of Object.entries(globalShortcutMapping)) {
+    setKeyMapping(key, value);
   }
 }
 
 function disableGlobalShortcuts() {
   globalShortcut.unregisterAll();
 }
-
-function updateFloatingWindow(cssStyle) {
+/**
+ * @param {string} cssStyle
+ */
+async function updateFloatingWindow(cssStyle) {
   if (cssStyle === undefined) {
     return;
   }
-  if (floatingWindowCssKey === undefined) {
-    return floatingWindow.webContents
-      .insertCSS(cssStyle, {
-        cssOrigin: "author",
-      })
-      .then((newCssKey) => {
-        floatingWindowCssKey = newCssKey;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  floatingWindow.webContents
-    .insertCSS(cssStyle, {
+  try {
+    const newCssKey = await floatingWindow.webContents.insertCSS(cssStyle, {
       cssOrigin: "author",
-    })
-    .then((newCssKey) => {
-      floatingWindow.webContents
-        .removeInsertedCSS(floatingWindowCssKey)
-        .then(() => {
-          floatingWindowCssKey = newCssKey;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })
-    .catch((error) => {
-      console.log(error);
     });
+    if (floatingWindowCssKey !== undefined) {
+      await floatingWindow.webContents.removeInsertedCSS(floatingWindowCssKey);
+    }
+    floatingWindowCssKey = newCssKey;
+  } catch (err) {
+    console.log(err);
+  }
 }
-
-function updateProxyConfig(params) {
+/**
+ * @param {electron.Config} params
+ */
+async function updateProxyConfig(params) {
   proxyConfig = params;
 
-  mainWindow.webContents.session.setProxy(proxyConfig).then(() => {
-    mainWindow.webContents.session.forceReloadProxyConfig();
-  });
+  await mainWindow.webContents.session.setProxy(params);
+  await mainWindow.webContents.session.forceReloadProxyConfig();
 }
+/**
+ * @param {string} cssStyle
+ */
 function createFloatingWindow(cssStyle) {
   const display = screen.getPrimaryDisplay();
   if (process.platform === "linux") {
@@ -208,27 +202,26 @@ function createFloatingWindow(cssStyle) {
     floatingWindow = null;
   }
   if (!floatingWindow) {
-    let opts = {
+    /** @type {Electron.Rectangle} */
+    const winBounds = store.get("floatingWindowBounds");
+
+    floatingWindow = new BrowserWindow({
       width: 1000,
       minWidth: 640,
       maxWidth: 1920,
       height: 70,
-      titleBarStyle: "hide",
+      titleBarStyle: "hidden",
       transparent: true,
       frame: false,
       resizable: true,
       hasShadow: false,
       alwaysOnTop: true,
-      visibleOnAllWorkspaces: true,
       webPreferences: {
         sandbox: true,
         preload: join(__dirname, "preload.js"),
       },
-    };
-    const winBounds = store.get("floatingWindowBounds");
-    Object.assign(opts, winBounds);
-
-    floatingWindow = new BrowserWindow(opts);
+      ...winBounds,
+    });
 
     if (winBounds === undefined) {
       floatingWindow.setPosition(
@@ -236,14 +229,14 @@ function createFloatingWindow(cssStyle) {
         display.bounds.height - 150
       );
     }
-
+    floatingWindow.setVisibleOnAllWorkspaces(true);
     floatingWindow.setSkipTaskbar(true);
     floatingWindow.loadURL(`file://${__dirname}/floatingWindow.html`);
     floatingWindow.setAlwaysOnTop(true, "floating");
     floatingWindow.setIgnoreMouseEvents(false);
     // NOTICE: setResizable should be set, otherwise mouseleave event won't trigger in windows environment
-    floatingWindow.webContents.on("did-finish-load", () => {
-      updateFloatingWindow(cssStyle);
+    floatingWindow.webContents.on("did-finish-load", async () => {
+      await updateFloatingWindow(cssStyle);
     });
     floatingWindow.on("closed", () => {
       floatingWindow = null;
@@ -428,7 +421,7 @@ function createWindow() {
           label: "Toggle Developer Tools",
           accelerator: "F12",
           click() {
-            mainWindow.toggleDevTools();
+            mainWindow.webContents.toggleDevTools();
           },
         },
         {
@@ -477,6 +470,9 @@ function createWindow() {
   initialTray(mainWindow);
 }
 
+/**
+ * @param {electron.OnBeforeSendHeadersListenerDetails} details
+ */
 function hack_referer_header(details) {
   let replace_referer = true;
   let replace_origin = true;
@@ -591,7 +587,7 @@ ipcMain.on("isPlaying", (event, isPlaying) => {
   isPlaying ? setThumbbarPlay() : setThumbarPause();
 });
 
-ipcMain.on("control", (event, arg, params) => {
+ipcMain.on("control", async (event, arg, params) => {
   switch (arg) {
     case "enable_global_shortcut":
       enableGlobalShortcuts();
@@ -640,7 +636,7 @@ ipcMain.on("control", (event, arg, params) => {
       break;
 
     case "update_lyric_floating_window_css":
-      updateFloatingWindow(params);
+      await updateFloatingWindow(params);
       break;
 
     case "get_proxy_config":
@@ -648,7 +644,7 @@ ipcMain.on("control", (event, arg, params) => {
       break;
 
     case "update_proxy_config":
-      updateProxyConfig(params);
+      await updateProxyConfig(params);
       break;
 
     default:
@@ -720,8 +716,8 @@ app.on("activate", () => mainWindow.show());
 /* 'before-quit' is emitted when Electron receives
  * the signal to exit and wants to start closing windows */
 app.on("before-quit", () => {
-  if (mainWindow.isDevToolsOpened()) {
-    mainWindow.closeDevTools();
+  if (mainWindow.webContents.isDevToolsOpened()) {
+    mainWindow.webContents.closeDevTools();
   }
   if (floatingWindow) {
     store.set("floatingWindowBounds", floatingWindow.getBounds());
