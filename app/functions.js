@@ -20,8 +20,8 @@ module.exports = {
       }
       return metaData;
     } catch (error) {
-      console.warn(error);
       return {
+        error,
         common: {
           title: fileName,
           album: "",

@@ -189,7 +189,7 @@ async function updateProxyConfig(params) {
   proxyConfig = params;
 
   await mainWindow.webContents.session.setProxy(params);
-  mainWindow.webContents.session.forceReloadProxyConfig();
+  await mainWindow.webContents.session.forceReloadProxyConfig();
 }
 /**
  * @param {string} cssStyle
