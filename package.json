@@ -68,7 +68,8 @@
         "tar.gz",
         "appImage",
         "deb"
-      ]
+      ],
+      "category": "audio"
     },
     "nsis": {
       "runAfterFinish": false,
@@ -101,8 +102,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^13.3.0",
-    "electron-builder": "^22.11.7",
-    "prettier": "^2.3.2"
+    "electron": "^13.5.2",
+    "electron-builder": "^22.13.1",
+    "prettier": "^2.4.1"
   }
 }
