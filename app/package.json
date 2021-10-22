@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/listen1/listen1_desktop#readme",
   "dependencies": {
-    "chardet": "^1.3.0",
-    "electron-store": "^8.0.0",
+    "chardet": "^1.4.0",
+    "electron-store": "^8.0.1",
     "electron-updater": "^4.3.10",
     "music-metadata": "^7.11.4"
   }
