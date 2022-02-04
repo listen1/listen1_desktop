@@ -575,6 +575,14 @@ ipcMain.on("currentLyric", (event, arg) => {
       floatingWindow.webContents.send("currentLyricTrans", arg.tlyric);
     }
   }
+  // 增加macOS 状态栏歌词展示
+  if (process.platform === "darwin") {
+    if (typeof arg === "string") {
+      appTray.setTitle(arg)
+    } else {
+      appTray.setTitle(arg.lyric)
+    }
+  }
 });
 
 ipcMain.on("trackPlayingNow", (event, track) => {
