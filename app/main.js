@@ -44,6 +44,19 @@ switch (process.platform) {
   default:
     break;
 }
+
+function displayDock(visible=false) {
+  switch (process.platform) {
+    case "darwin":
+      visible ? app.dock.show() : app.dock.hide();
+      break;
+    case "linux":
+    case "win32":
+    default:
+      break;
+  }
+}
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 /** @type {{ width: number; height: number; maximized: boolean; zoomLevel: number}} */
@@ -76,23 +89,18 @@ function initialTray(mainWindow, track) {
     artist: "  ",
   };
 
-  let nowPlayingTitle = `${track.title}`;
-  let nowPlayingArtist = `歌手: ${track.artist}`;
+  let nowPlayingTitle = `${track.title} | ${track.artist}`;
 
   function toggleVisiable() {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    displayDock(mainWindow.isVisible())
   }
   const menuTemplate = [
     {
       label: nowPlayingTitle,
       click() {
         mainWindow.show();
-      },
-    },
-    {
-      label: nowPlayingArtist,
-      click() {
-        mainWindow.show();
+        displayDock(true);
       },
     },
     { type: "separator" },
@@ -139,7 +147,9 @@ function initialTray(mainWindow, track) {
   appTray = new Tray(trayIconPath);
   appTray.setContextMenu(contextMenu);
   appTray.on("click", () => {
-    toggleVisiable();
+    if (process.platform !== "darwin") {
+      toggleVisiable();
+    }
   });
 }
 
@@ -361,6 +371,7 @@ function createWindow() {
       //if (process.platform != 'linux') {
       e.preventDefault();
       mainWindow.hide();
+      displayDock();
       //mainWindow.minimize();
       //}
     }
@@ -434,6 +445,7 @@ function createWindow() {
           accelerator: "CmdOrCtrl+W",
           click() {
             mainWindow.close();
+            displayDock();
           },
         },
         {
