@@ -24,7 +24,7 @@
   "dependencies": {
     "chardet": "^1.4.0",
     "electron-store": "^8.0.1",
-    "electron-updater": "^4.6.1",
-    "music-metadata": "^7.11.7"
+    "electron-updater": "^5.0.1",
+    "music-metadata": "^7.12.3"
   }
 }

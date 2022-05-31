@@ -12,9 +12,7 @@
     "dist:linux": "electron-builder --linux --ia32 --x64",
     "dist:linux32": "electron-builder --linux --ia32",
     "dist:linux64": "electron-builder --linux --x64",
-    "dist:win": "electron-builder --win --ia32 --x64",
-    "dist:win32": "electron-builder --win --ia32",
-    "dist:win64": "electron-builder --win --x64"
+    "dist:win": "electron-builder --win"
   },
   "repository": {
     "type": "git",
@@ -87,14 +85,16 @@
           "target": "nsis",
           "arch": [
             "x64",
-            "ia32"
+            "ia32",
+            "arm64"
           ]
         },
         {
           "target": "7z",
           "arch": [
             "x64",
-            "ia32"
+            "ia32",
+            "arm64"
           ]
         }
       ],
@@ -102,8 +102,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^13.6.7",
-    "electron-builder": "^22.14.5",
-    "prettier": "^2.5.1"
+    "electron": "^13.6.9",
+    "electron-builder": "^23.0.3",
+    "prettier": "^2.6.2"
   }
 }
