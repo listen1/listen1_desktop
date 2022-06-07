@@ -470,6 +470,9 @@ function createWindow() {
   initialTray(mainWindow);
 }
 
+const MOBILE_UA =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
+
 /**
  * @param {electron.OnBeforeSendHeadersListenerDetails} details
  */
@@ -480,6 +483,7 @@ function hack_referer_header(details) {
   let add_origin = true;
   let referer_value = "";
   let origin_value = "";
+  let ua_value = "";
 
   if (details.url.includes("://music.163.com/")) {
     referer_value = "http://music.163.com/";
@@ -513,7 +517,11 @@ function hack_referer_header(details) {
     referer_value = "http://y.qq.com/";
   }
   if (details.url.includes(".kugou.com/")) {
-    referer_value = "http://www.kugou.com/";
+    referer_value = "https://www.kugou.com/";
+    ua_value = MOBILE_UA;
+  }
+  if (details.url.includes("m.kugou.com/")) {
+    ua_value = MOBILE_UA;
   }
   if (details.url.includes(".kuwo.cn/")) {
     referer_value = "http://www.kuwo.cn/";
@@ -537,6 +545,7 @@ function hack_referer_header(details) {
   }
   let isRefererSet = false;
   let isOriginSet = false;
+  let isUASet = false;
   let headers = details.requestHeaders;
 
   for (let i = 0, l = headers.length; i < l; ++i) {
@@ -552,6 +561,10 @@ function hack_referer_header(details) {
       headers[i].value = origin_value;
       isOriginSet = true;
     }
+    if (headers[i].name === "User-Agent" && ua_value !== "") {
+      headers[i].value = ua_value;
+      isUASet = true;
+    }
   }
 
   if (add_referer && !isRefererSet && referer_value != "") {
@@ -560,6 +573,10 @@ function hack_referer_header(details) {
 
   if (add_origin && !isOriginSet && referer_value != "") {
     headers["Origin"] = origin_value;
+  }
+
+  if (!isUASet && ua_value !== "") {
+    headers["User-Agent"] = ua_value;
   }
 
   details.requestHeaders = headers;
