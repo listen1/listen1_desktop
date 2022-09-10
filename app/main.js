@@ -36,10 +36,12 @@ switch (process.platform) {
     transparent = true;
     break;
   case "linux":
-  case "win32":
     trayIconPath = join(__dirname, "/resources/logo_32.png");
     // fix transparent window not working in linux bug
     app.disableHardwareAcceleration();
+    break;
+  case "win32":
+    trayIconPath = join(__dirname, "/resources/logo_32.png");
     break;
   default:
     break;
