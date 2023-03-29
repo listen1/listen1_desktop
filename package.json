@@ -102,8 +102,8 @@
     }
   },
   "devDependencies": {
-    "electron": "^13.6.9",
-    "electron-builder": "^23.0.3",
+    "electron": "^23.2.0",
+    "electron-builder": "^23.6.0",
     "prettier": "^2.6.2"
   }
 }
