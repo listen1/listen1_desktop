@@ -330,7 +330,7 @@ function createWindow() {
     minWidth: 600,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true,
+      // enableRemoteModule: true,
       contextIsolation: false,
     },
     icon: iconPath,
@@ -379,6 +379,10 @@ function createWindow() {
       { userAgent: ua }
     );
   });
+
+  
+  require('@electron/remote/main').initialize();
+  require("@electron/remote/main").enable(mainWindow.webContents);
 
   setThumbarPause();
   // Emitted when the window is closed.
