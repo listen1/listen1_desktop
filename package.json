@@ -12,6 +12,8 @@
     "dist:linux": "electron-builder --linux --ia32 --x64",
     "dist:linux32": "electron-builder --linux --ia32",
     "dist:linux64": "electron-builder --linux --x64",
+    "dist:linuxArm64": "electron-builder --linux --arm64",
+    "dist:linuxArmv7l": "electron-builder --linux --armv7l",
     "dist:win": "electron-builder --win"
   },
   "repository": {
