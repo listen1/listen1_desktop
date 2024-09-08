@@ -25,6 +25,8 @@
     "chardet": "^1.4.0",
     "electron-store": "^8.0.1",
     "electron-updater": "^5.0.1",
-    "music-metadata": "^7.12.3"
+    "music-metadata": "^7.12.3",
+    "node-id3": "^0.2.6",
+    "flac-tagger": "^1.0.7"
   }
 }

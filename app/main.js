@@ -7,11 +7,18 @@ const {
   Menu,
   session,
   screen,
-  Tray,
+  Tray
 } = electron;
 const Store = require("electron-store");
 const { autoUpdater } = require("electron-updater");
-const { join } = require("path");
+const { join, extname } = require("path");
+const fs = require("fs");
+const nodeid3 = require("node-id3");
+const { writeFlacTagsSync } = require("flac-tagger");
+
+const http = require("http");
+const https = require("https");
+const { console } = require("inspector");
 
 const store = new Store();
 const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
@@ -703,6 +710,121 @@ ipcMain.on("openUrl", (event, arg, params) => {
 ipcMain.on("floatWindowMoving", (e, { mouseX, mouseY }) => {
   const { x, y } = screen.getCursorScreenPoint();
   floatingWindow?.setPosition(x - mouseX, y - mouseY);
+});
+
+function tryNextAfterDownload(cacheOnlyMode){
+  if (cacheOnlyMode){
+    mainWindow.webContents.send("globalShortcut", "right");
+  }
+}
+
+function saveTags(music_path, tagData, image){
+  if (music_path.endsWith(".mp3")){
+    tags = {
+      title: tagData.title,
+      artist: tagData.artist,
+      album: tagData.album
+    };
+    if (image){
+      tags["image"] = {
+        mime: image.mime,
+        type: {
+          id: nodeid3.TagConstants.AttachedPicture.PictureType.FRONT_COVER
+        },
+        imageBuffer: image.buffer
+      }
+    }
+    nodeid3.write(tags, music_path, (err) => {console.error(err)});
+  }else if(music_path.endsWith(".flac")) {
+    const tagMap = {
+      title: tagData.title,
+      artist: [tagData.artist],
+      album: tagData.album,
+    };
+    let tags = {tagMap};
+    if (image && Buffer.byteLength(image.buffer) <= 16*1024*1024){
+      tags["picture"] = {
+        mime: image.mime,
+        buffer: image.buffer
+      }
+    }
+    try{
+      writeFlacTagsSync(tags, music_path);
+    }catch(e){
+      console.error(e);
+    }
+    
+  }
+}
+
+ipcMain.on("downloadMusic", (event, {data, musicCacheDir, cacheOnlyMode}) => {
+  if (!data.url){
+    return;
+  }
+  if (!data.artist){
+    data.artist = "未知"
+  }
+  if (!data.album){
+    data.album = "未知"
+  }
+  const music_dir = join(musicCacheDir, data.artist, data.album);
+  if (!fs.existsSync(music_dir)){
+    fs.mkdirSync(music_dir,{ recursive: true });
+  }
+  let files = fs.readdirSync(music_dir);
+  files = files.filter(function (item) {
+      return item.indexOf(".") !== 0;
+  });
+  if (files.length === 0){
+    (data.url.startsWith("https://")?https:http).get(data.url,{responseType: "stream"},(response) => {
+      console.debug(response.headers);
+      let ext = extname(data.url.split("?")[0]);
+      const headerLine = response.headers['content-disposition'];
+      if (headerLine){
+        const filename = headerLine.substring(headerLine.indexOf('"') + 1, headerLine.lastIndexOf('"'));
+        ext = extname(filename)||ext;
+      }
+      const music_path = join(music_dir, data.title + ext);
+      response.pipe(fs.createWriteStream(music_path)).on("close", () => {
+        const tagData = {
+          title: data.title,
+          artist: data.artist,
+          album: data.album
+        };
+        if(data.img_url){
+          (data.img_url.startsWith("https://")?https:http).get(data.img_url,{responseType: "stream"}, (img_response) => {
+            console.debug(img_response.headers);
+            let buffers = [];
+            img_response.on("data", buffer =>{
+                buffers.push(buffer);
+            });
+            img_response.on("end", ()=>{
+              let image = {
+                buffer: Buffer.concat(buffers),
+                mime: img_response.headers["content-type"]
+              }
+              saveTags(music_path, tagData, image);
+              tryNextAfterDownload(cacheOnlyMode);
+            });
+          }).on("error", err=>{
+            console.error(err);
+            tryNextAfterDownload(cacheOnlyMode);
+          });
+        }else{
+          saveTags(music_path, tagData);
+          tryNextAfterDownload(cacheOnlyMode);
+        }
+      }).on("error", err => {
+        console.error(err);
+        tryNextAfterDownload(cacheOnlyMode);
+      });
+    }).on("error", err=>{
+      console.error(err);
+      tryNextAfterDownload(cacheOnlyMode);
+    });
+  }else{
+    tryNextAfterDownload(cacheOnlyMode);
+  }
 });
 
 const gotTheLock = app.requestSingleInstanceLock();
