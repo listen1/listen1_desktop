@@ -767,6 +767,8 @@ ipcMain.on("downloadMusic", (event, {data, musicCacheDir, cacheOnlyMode}) => {
   if (!data.album){
     data.album = "未知"
   }
+  data.artist = data.artist.trim().replaceAll("/","|");
+  data.album = data.album.trim().replaceAll("/","|");
   const music_dir = join(musicCacheDir, data.artist, data.album);
   if (!fs.existsSync(music_dir)){
     fs.mkdirSync(music_dir,{ recursive: true });
@@ -784,7 +786,7 @@ ipcMain.on("downloadMusic", (event, {data, musicCacheDir, cacheOnlyMode}) => {
         const filename = headerLine.substring(headerLine.indexOf('"') + 1, headerLine.lastIndexOf('"'));
         ext = extname(filename)||ext;
       }
-      const music_path = join(music_dir, data.title + ext);
+      const music_path = join(music_dir, data.title.trim().replaceAll("/","|") + ext);
       response.pipe(fs.createWriteStream(music_path)).on("close", () => {
         const tagData = {
           title: data.title,
