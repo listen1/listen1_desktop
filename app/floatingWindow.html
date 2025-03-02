@@ -250,7 +250,7 @@
             return;
           }
           const message = "float_window_ignore_mouse_event";
-          window.api.ipcRenderer.send("control", message);
+          window.api.send("control", message);
         });
 
       Array.from(document.getElementsByClassName("window-action")).forEach(
