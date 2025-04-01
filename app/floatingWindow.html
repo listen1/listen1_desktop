@@ -240,7 +240,7 @@
             return;
           }
           const message = "float_window_accept_mouse_event";
-          window.api.ipcRenderer.send("control", message);
+          window.api.send("control", message);
         });
 
       document
@@ -250,7 +250,7 @@
             return;
           }
           const message = "float_window_ignore_mouse_event";
-          window.api.ipcRenderer.send("control", message);
+          window.api.send("control", message);
         });
 
       Array.from(document.getElementsByClassName("window-action")).forEach(
@@ -264,7 +264,7 @@
               const message = IS_WINDOW_LOCKED
                 ? "float_window_ignore_mouse_event"
                 : "float_window_accept_mouse_event";
-              window.api.ipcRenderer.send("control", message);
+              window.api.send("control", message);
             },
             false
           );
@@ -275,7 +275,7 @@
         (elem) => {
           elem.addEventListener("click", (event) => {
             const message = event.currentTarget.dataset.msg;
-            window.api.ipcRenderer.send("control", message);
+            window.api.send("control", message);
           });
         }
       );
@@ -300,7 +300,7 @@
       }
 
       function moveWindow() {
-        window.api.ipcRenderer.send("floatWindowMoving", {
+        window.api.send("floatWindowMoving", {
           mouseX,
           mouseY,
         });

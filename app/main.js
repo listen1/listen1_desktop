@@ -11,6 +11,7 @@ const {
 } = electron;
 const Store = require("electron-store");
 const { autoUpdater } = require("electron-updater");
+const remoteMain = require("@electron/remote/main");
 const { join } = require("path");
 
 const store = new Store();
@@ -724,6 +725,8 @@ if (!gotTheLock) {
   // Create myWindow, load the rest of the app, etc...
   app.on("ready", () => {
     createWindow();
+    remoteMain.initialize();
+    remoteMain.enable(mainWindow.webContents);
   });
 }
 
