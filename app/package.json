@@ -25,7 +25,7 @@
     "@electron/remote": "^2.1.2",
     "chardet": "^1.4.0",
     "electron-store": "^8.0.1",
-    "electron-updater": "^5.0.1",
+    "electron-updater": "^6.3.0",
     "music-metadata": "^7.12.3"
   }
 }
