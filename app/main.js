@@ -124,6 +124,21 @@ function initialTray(mainWindow, track) {
       },
     },
     {
+      label: "重置歌词位置",
+      click() {
+        if (floatingWindow) {
+          const display = screen.getPrimaryDisplay();
+          const { width, height } = display.workAreaSize;
+          // Reset to bottom center
+          floatingWindow.setPosition(
+            Math.round(display.bounds.x + (width - 1000) / 2), // Assuming default width 1000
+            Math.round(display.bounds.height - 150)
+          );
+          store.set("floatingWindowBounds", floatingWindow.getBounds());
+        }
+      },
+    },
+    {
       label: "退出",
       click() {
         app.quit();
@@ -208,6 +223,9 @@ function createFloatingWindow(cssStyle) {
     /** @type {Electron.Rectangle} */
     const winBounds = store.get("floatingWindowBounds");
 
+    // Only use x/y from stored bounds, NEVER use stored width/height (they get corrupted)
+    const storedPosition = winBounds ? { x: winBounds.x, y: winBounds.y } : {};
+
     floatingWindow = new BrowserWindow({
       width: 1000,
       minWidth: 640,
@@ -216,14 +234,14 @@ function createFloatingWindow(cssStyle) {
       titleBarStyle: "hidden",
       transparent: true,
       frame: false,
-      resizable: true,
+      resizable: false,
       hasShadow: false,
       alwaysOnTop: true,
       webPreferences: {
         sandbox: true,
         preload: join(__dirname, "preload.js"),
       },
-      ...winBounds,
+      ...storedPosition, // Only x and y, not width/height
     });
 
     if (winBounds === undefined) {
@@ -701,9 +719,35 @@ ipcMain.on("openUrl", (event, arg, params) => {
   bWindow.setMenu(null);
 });
 
-ipcMain.on("floatWindowMoving", (e, { mouseX, mouseY }) => {
-  const { x, y } = screen.getCursorScreenPoint();
-  floatingWindow?.setPosition(x - mouseX, y - mouseY);
+// JS-based drag handlers with explicit size enforcement
+let dragWindowPos = null;
+let dragMouseStart = null;
+const FIXED_WIDTH = 1000;
+const FIXED_HEIGHT = 70;
+
+ipcMain.on("floatWindowDragStart", (e, { x, y }) => {
+  if (floatingWindow) {
+    dragWindowPos = floatingWindow.getPosition();
+    dragMouseStart = { x, y };
+  }
+});
+
+ipcMain.on("floatWindowDragMove", (e, { x, y }) => {
+  if (floatingWindow && dragWindowPos && dragMouseStart) {
+    const deltaX = x - dragMouseStart.x;
+    const deltaY = y - dragMouseStart.y;
+    const newX = Math.round(dragWindowPos[0] + deltaX);
+    const newY = Math.round(dragWindowPos[1] + deltaY);
+
+    // Set position then immediately enforce size to prevent DPI corruption
+    floatingWindow.setPosition(newX, newY);
+    floatingWindow.setSize(FIXED_WIDTH, FIXED_HEIGHT);
+  }
+});
+
+ipcMain.on("floatWindowDragEnd", () => {
+  dragWindowPos = null;
+  dragMouseStart = null;
 });
 
 const gotTheLock = app.requestSingleInstanceLock();
@@ -749,7 +793,9 @@ app.on("before-quit", () => {
     mainWindow.webContents.closeDevTools();
   }
   if (floatingWindow) {
-    store.set("floatingWindowBounds", floatingWindow.getBounds());
+    // Only save position, NOT size (size gets corrupted by DPI scaling)
+    const [x, y] = floatingWindow.getPosition();
+    store.set("floatingWindowBounds", { x, y });
   }
   store.set("windowState", windowState);
   store.set("proxyConfig", proxyConfig);
