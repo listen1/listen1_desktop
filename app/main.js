@@ -293,6 +293,7 @@ function createWindow() {
       "*://*.xiami.com/*",
       "*://i.y.qq.com/*",
       "*://c.y.qq.com/*",
+      "*://u.y.qq.com/*",
       "*://*.kugou.com/*",
       "*://*.kuwo.cn/*",
       "*://*.bilibili.com/*",
@@ -512,13 +513,17 @@ function hack_referer_header(details) {
     referer_value = "https://y.qq.com/";
     origin_value = "https://y.qq.com";
   }
+  if (details.url.includes("u.y.qq.com/")) {
+    referer_value = "https://y.qq.com/";
+    origin_value = "https://y.qq.com";
+  }
   if (
     details.url.includes("y.qq.com/") ||
     details.url.includes("qqmusic.qq.com/") ||
     details.url.includes("music.qq.com/") ||
     details.url.includes("imgcache.qq.com/")
   ) {
-    referer_value = "http://y.qq.com/";
+    referer_value = "https://y.qq.com/";
   }
   if (details.url.includes(".kugou.com/")) {
     referer_value = "https://www.kugou.com/";
