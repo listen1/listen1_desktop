@@ -219,6 +219,7 @@ function createFloatingWindow(cssStyle) {
       resizable: true,
       hasShadow: false,
       alwaysOnTop: true,
+      focusable: false,
       webPreferences: {
         sandbox: true,
         preload: join(__dirname, "preload.js"),
