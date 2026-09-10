@@ -13,6 +13,10 @@ const Store = require("electron-store");
 const { autoUpdater } = require("electron-updater");
 const remoteMain = require("@electron/remote/main");
 const { join } = require("path");
+const {
+  applyHeaderRules,
+  PASSTHROUGH_HOSTS,
+} = require("./headerRules");
 
 const store = new Store();
 const iconPath = join(__dirname, "/listen1_chrome_extension/images/logo.png");
@@ -291,14 +295,16 @@ function createWindow() {
       "*://*.music.163.com/*",
       "*://music.163.com/*",
       "*://*.xiami.com/*",
-      "*://i.y.qq.com/*",
-      "*://c.y.qq.com/*",
+      "*://*.qq.com/*",
       "*://*.kugou.com/*",
       "*://*.kuwo.cn/*",
       "*://*.bilibili.com/*",
       "*://*.bilivideo.com/*",
       "*://*.bilivideo.cn/*",
+      "*://*.hdslb.com/*",
       "*://*.migu.cn/*",
+      "*://*.taihe.com/*",
+      "*://*.gtimg.cn/*",
       "*://*.githubusercontent.com/*",
       "https://listen1.github.io/listen1/callback.html?code=*",
     ],
@@ -317,8 +323,11 @@ function createWindow() {
         mainWindow.webContents.executeJavaScript(
           'GithubClient.github.handleCallback("' + code + '");'
         );
-      } else {
-        hack_referer_header(details);
+      } else if (
+        !PASSTHROUGH_HOSTS.some((host) => details.url.includes(`//${host}/`))
+      ) {
+        // 改写各音乐平台要求的 Referer / Origin / UA，详见 headerRules.js
+        applyHeaderRules(details.url, details.requestHeaders);
       }
       callback({ cancel: false, requestHeaders: details.requestHeaders });
     }
@@ -472,124 +481,6 @@ function createWindow() {
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
   initialTray(mainWindow);
-}
-
-const MOBILE_UA =
-  "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30";
-
-/**
- * @param {electron.OnBeforeSendHeadersListenerDetails} details
- */
-function hack_referer_header(details) {
-  let replace_referer = true;
-  let replace_origin = true;
-  let add_referer = true;
-  let add_origin = true;
-  let referer_value = "";
-  let origin_value = "";
-  let ua_value = "";
-
-  if (details.url.includes("://music.163.com/")) {
-    referer_value = "http://music.163.com/";
-  }
-  if (details.url.includes("://interface3.music.163.com/")) {
-    referer_value = "http://music.163.com/";
-  }
-  if (details.url.includes("://gist.githubusercontent.com/")) {
-    referer_value = "https://gist.githubusercontent.com/";
-  }
-
-  if (details.url.includes(".xiami.com/")) {
-    add_origin = false;
-    referer_value = "https://www.xiami.com/";
-  }
-  if (details.url.includes("www.xiami.com/api/search/searchSongs")) {
-    const key = /key%22:%22(.*?)%22/.exec(details.url)[1];
-    add_origin = false;
-    referer_value = `https://www.xiami.com/search?key=${key}`;
-  }
-  if (details.url.includes("c.y.qq.com/")) {
-    referer_value = "https://y.qq.com/";
-    origin_value = "https://y.qq.com";
-  }
-  if (
-    details.url.includes("y.qq.com/") ||
-    details.url.includes("qqmusic.qq.com/") ||
-    details.url.includes("music.qq.com/") ||
-    details.url.includes("imgcache.qq.com/")
-  ) {
-    referer_value = "http://y.qq.com/";
-  }
-  if (details.url.includes(".kugou.com/")) {
-    referer_value = "https://www.kugou.com/";
-    ua_value = MOBILE_UA;
-  }
-  if (details.url.includes("m.kugou.com/")) {
-    ua_value = MOBILE_UA;
-  }
-  if (details.url.includes(".kuwo.cn/")) {
-    referer_value = "http://www.kuwo.cn/";
-  }
-  if (
-    details.url.includes(".bilibili.com/") ||
-    details.url.includes(".bilivideo.com/")
-  ) {
-    referer_value = "https://www.bilibili.com/";
-    replace_origin = false;
-    add_origin = false;
-  }
-  if (details.url.includes('.bilivideo.cn')) {
-    referer_value = 'https://www.bilibili.com/';
-    origin_value = 'https://www.bilibili.com/';
-    add_referer = true;
-    add_origin = true;
-  }
-  if (details.url.includes(".migu.cn")) {
-    referer_value = "http://music.migu.cn/v3/music/player/audio?from=migu";
-  }
-  if (details.url.includes("m.music.migu.cn")) {
-    referer_value = "https://m.music.migu.cn/";
-  }
-  if (origin_value == "") {
-    origin_value = referer_value;
-  }
-  let isRefererSet = false;
-  let isOriginSet = false;
-  let isUASet = false;
-  let headers = details.requestHeaders;
-
-  for (let i = 0, l = headers.length; i < l; ++i) {
-    if (
-      replace_referer &&
-      headers[i].name == "Referer" &&
-      referer_value != ""
-    ) {
-      headers[i].value = referer_value;
-      isRefererSet = true;
-    }
-    if (replace_origin && headers[i].name == "Origin" && referer_value != "") {
-      headers[i].value = origin_value;
-      isOriginSet = true;
-    }
-    if (headers[i].name === "User-Agent" && ua_value !== "") {
-      headers[i].value = ua_value;
-      isUASet = true;
-    }
-  }
-
-  if (add_referer && !isRefererSet && referer_value != "") {
-    headers["Referer"] = referer_value;
-  }
-
-  if (add_origin && !isOriginSet && referer_value != "") {
-    headers["Origin"] = origin_value;
-  }
-
-  if (!isUASet && ua_value !== "") {
-    headers["User-Agent"] = ua_value;
-  }
-
-  details.requestHeaders = headers;
 }
 
 ipcMain.on("currentLyric", (event, arg) => {
