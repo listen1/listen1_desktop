@@ -1,12 +1,14 @@
 {
   "name": "listen1",
-  "version": "2.33.0",
+  "version": "2.34.0",
   "description": "One for all free music in China",
   "main": "app/main.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "start": "electron ./app --enable-logging",
     "dev": "NODE_ENV='development' npm run start",
+    "test": "node --test \"test/**/*.test.js\"",
+    "verify:providers": "node scripts/verify_providers.js",
     "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --mac",
     "dist": "electron-builder .",
     "dist:linux": "electron-builder --linux --ia32 --x64",
@@ -35,6 +37,12 @@
     "productName": "Listen1",
     "asar": true,
     "artifactName": "${name}_${version}_${os}_${arch}.${ext}",
+    "files": [
+      "**/*",
+      "!app/listen1_chrome_extension/dist{,/**}",
+      "!app/listen1_chrome_extension/node_modules{,/**}",
+      "!app/listen1_chrome_extension/scripts{,/**}"
+    ],
     "dmg": {
       "icon": "build/disk.icns",
       "contents": [
