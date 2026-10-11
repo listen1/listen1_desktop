@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-22T06:45:56.872Z",
+  "method": "Same Node process; player core plus JSON serialization. Excludes DOM rendering and disk writes. Five repetitions; no OS cache flush.",
+  "before": [
+    {
+      "ms": 63.894099999999995,
+      "events": 2000,
+      "snapshots": 1000,
+      "records": 500500,
+      "serializedCharacters": 49840990
+    },
+    {
+      "ms": 59.58699999999999,
+      "events": 2000,
+      "snapshots": 1000,
+      "records": 500500,
+      "serializedCharacters": 49840990
+    },
+    {
+      "ms": 61.5753,
+      "events": 2000,
+      "snapshots": 1000,
+      "records": 500500,
+      "serializedCharacters": 49840990
+    },
+    {
+      "ms": 59.43860000000004,
+      "events": 2000,
+      "snapshots": 1000,
+      "records": 500500,
+      "serializedCharacters": 49840990
+    },
+    {
+      "ms": 60.496500000000026,
+      "events": 2000,
+      "snapshots": 1000,
+      "records": 500500,
+      "serializedCharacters": 49840990
+    }
+  ],
+  "after": [
+    {
+      "ms": 0.8847999999999985,
+      "events": 2,
+      "snapshots": 1,
+      "records": 1000,
+      "serializedCharacters": 99781
+    },
+    {
+      "ms": 0.8466999999999985,
+      "events": 2,
+      "snapshots": 1,
+      "records": 1000,
+      "serializedCharacters": 99781
+    },
+    {
+      "ms": 0.42439999999999145,
+      "events": 2,
+      "snapshots": 1,
+      "records": 1000,
+      "serializedCharacters": 99781
+    },
+    {
+      "ms": 0.38810000000000855,
+      "events": 2,
+      "snapshots": 1,
+      "records": 1000,
+      "serializedCharacters": 99781
+    },
+    {
+      "ms": 0.5978999999999814,
+      "events": 2,
+      "snapshots": 1,
+      "records": 1000,
+      "serializedCharacters": 99781
+    }
+  ]
+}

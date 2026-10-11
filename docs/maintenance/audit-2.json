@@ -1,0 +1,174 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "angular": {
+      "name": "angular",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1106731,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "Angular (deprecated package) Cross-site Scripting",
+          "url": "https://github.com/advisories/GHSA-prc3-vjfx-vhm9",
+          "severity": "moderate",
+          "cwe": ["CWE-79"],
+          "cvss": {
+            "score": 6.1,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1109545,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "AngularJS improperly sanitizes SVG elements",
+          "url": "https://github.com/advisories/GHSA-j58c-ww9w-pwp5",
+          "severity": "low",
+          "cwe": ["CWE-791"],
+          "cvss": {
+            "score": 4.8,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1109550,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "angular vulnerable to regular expression denial of service (ReDoS)",
+          "url": "https://github.com/advisories/GHSA-m2h2-264f-f486",
+          "severity": "moderate",
+          "cwe": ["CWE-770", "CWE-1333"],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=1.7.0"
+        },
+        {
+          "source": 1109557,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "AngularJS allows attackers to bypass common image source restrictions",
+          "url": "https://github.com/advisories/GHSA-m9gf-397r-hwpg",
+          "severity": "low",
+          "cwe": ["CWE-1289"],
+          "cvss": {
+            "score": 4.8,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+          },
+          "range": ">=1.3.0-rc.4 <=1.8.3"
+        },
+        {
+          "source": 1109558,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "AngularJS allows attackers to bypass common image source restrictions",
+          "url": "https://github.com/advisories/GHSA-mqm9-c95h-x2p6",
+          "severity": "low",
+          "cwe": ["CWE-791"],
+          "cvss": {
+            "score": 4.8,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1109559,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "angular vulnerable to super-linear runtime due to backtracking",
+          "url": "https://github.com/advisories/GHSA-4w4v-5hc9-xrr2",
+          "severity": "high",
+          "cwe": ["CWE-1333"],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=1.3.0 <=1.8.3"
+        },
+        {
+          "source": 1109560,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "angular vulnerable to regular expression denial of service via the angular.copy() utility",
+          "url": "https://github.com/advisories/GHSA-2vrf-hf26-jrp5",
+          "severity": "moderate",
+          "cwe": ["CWE-1333"],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1109561,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "angular vulnerable to regular expression denial of service via the $resource service",
+          "url": "https://github.com/advisories/GHSA-2qqx-w9hr-q5gx",
+          "severity": "moderate",
+          "cwe": ["CWE-1333"],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1109562,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "angular vulnerable to regular expression denial of service via the <input type=\"url\"> element",
+          "url": "https://github.com/advisories/GHSA-qwqh-hm9m-p5hr",
+          "severity": "moderate",
+          "cwe": ["CWE-1333"],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<=1.8.3"
+        },
+        {
+          "source": 1123687,
+          "name": "angular",
+          "dependency": "angular",
+          "title": "Angular's deprecated package has a Cross-Site Scripting issue",
+          "url": "https://github.com/advisories/GHSA-7x27-g8rg-x87w",
+          "severity": "high",
+          "cwe": ["CWE-79", "CWE-791"],
+          "cvss": {
+            "score": 7.6,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:L/A:L"
+          },
+          "range": ">=1.2.0-rc.3 <=1.8.3"
+        }
+      ],
+      "effects": [],
+      "range": "*",
+      "nodes": ["node_modules/angular"],
+      "fixAvailable": false
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 1,
+      "critical": 0,
+      "total": 1
+    },
+    "dependencies": {
+      "prod": 1,
+      "dev": 192,
+      "optional": 55,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 192
+    }
+  }
+}

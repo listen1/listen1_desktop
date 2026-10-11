@@ -1,24 +1,30 @@
 {
   "name": "listen1",
-  "version": "2.33.0",
+  "version": "2.35.1",
   "description": "One for all free music in China",
   "main": "app/main.js",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "install-electron && electron-builder install-app-deps",
     "start": "electron ./app --enable-logging",
-    "dev": "NODE_ENV='development' npm run start",
-    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --mac",
-    "dist": "electron-builder .",
-    "dist:linux": "electron-builder --linux --ia32 --x64",
-    "dist:linux32": "electron-builder --linux --ia32",
-    "dist:linux64": "electron-builder --linux --x64",
-    "dist:linuxArm64": "electron-builder --linux --arm64",
-    "dist:linuxArmv7l": "electron-builder --linux --armv7l",
-    "dist:win": "electron-builder --win"
+    "dev": "node scripts/dev.cjs",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist": "electron-builder --publish never",
+    "dist:linux": "electron-builder --linux --x64 --arm64 --publish never",
+    "dist:linux64": "electron-builder --linux --x64 --publish never",
+    "dist:linuxArm64": "electron-builder --linux --arm64 --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:win:test": "node scripts/build-windows-test.cjs",
+    "test": "node --test tests/*.test.cjs app/listen1_chrome_extension/test/*.test.cjs",
+    "test:electron": "node tests/electron-smoke.cjs",
+    "test:online": "node tests/online-ui.cjs",
+    "test:lyrics": "node tests/lyrics-electron.cjs",
+    "test:lyrics:online": "node tests/lyrics-electron.cjs --online",
+    "test:visual": "node tests/visual-electron.cjs",
+    "test:visual:online": "node tests/visual-electron.cjs --online"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/listen1/listen1_desktop.git"
+    "url": "git+https://github.com/MapleSugarCake/listen1_desktop.git"
   },
   "keywords": [
     "Electron",
@@ -27,14 +33,33 @@
   "author": "Listen 1 <githublisten1@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/listen1/listen1_desktop/issues"
+    "url": "https://github.com/MapleSugarCake/listen1_desktop/issues"
   },
-  "homepage": "https://github.com/listen1/listen1_desktop#readme",
+  "homepage": "https://github.com/MapleSugarCake/listen1_desktop",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "npm": ">=12 <13"
+  },
+  "packageManager": "npm@12.0.2",
+  "allowScripts": {
+    "electron-winstaller": false
+  },
   "build": {
     "appId": "com.listen1.listen1",
     "productName": "Listen1",
     "asar": true,
     "artifactName": "${name}_${version}_${os}_${arch}.${ext}",
+    "publish": {
+      "provider": "github",
+      "owner": "MapleSugarCake",
+      "repo": "listen1_desktop"
+    },
+    "files": [
+      "**/*",
+      "!listen1_chrome_extension/{node_modules,test,scripts,.github,.husky}/**",
+      "!listen1_chrome_extension/{package-lock.json,package.json,eslint.config.mjs}",
+      "!**/AGENTS.md"
+    ],
     "dmg": {
       "icon": "build/disk.icns",
       "contents": [
@@ -51,6 +76,7 @@
       ]
     },
     "mac": {
+      "minimumSystemVersion": "13.0.0",
       "target": [
         {
           "target": "dmg",
@@ -87,7 +113,6 @@
           "target": "nsis",
           "arch": [
             "x64",
-            "ia32",
             "arm64"
           ]
         },
@@ -95,7 +120,6 @@
           "target": "7z",
           "arch": [
             "x64",
-            "ia32",
             "arm64"
           ]
         }
@@ -104,8 +128,9 @@
     }
   },
   "devDependencies": {
-    "electron": "^32.3.2",
-    "electron-builder": "^25.1.8",
-    "prettier": "^2.6.2"
+    "electron": "44.4.3",
+    "electron-builder": "26.15.3",
+    "prettier": "3.9.8",
+    "playwright": "1.63.0"
   }
 }

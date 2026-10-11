@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<!--
+文件职责：显示独立的悬浮歌词、翻译和控制工具栏；通过 window.api 接收文本并转发拖动与窗口控制。
+
+文件级定义：
+- currentLyric：显示当前原文歌词的 DOM 节点，通过 textContent 更新。
+- currentLyricTrans：显示当前译文歌词的 DOM 节点，通过 textContent 更新。
+- IS_WINDOW_LOCKED：悬浮歌词的锁定状态，决定鼠标穿透与拖动。
+- renderToolBar：依据锁定状态更新工具栏图标及鼠标交互提示。
+- animationId：待执行拖动动画帧的标识，用于结束拖动时取消。
+- isDragging：是否正在执行自定义窗口拖动。
+- mouseX：鼠标按下时距窗口左侧的偏移，单位为像素。
+- mouseY：鼠标按下时距窗口顶部的偏移，单位为像素。
+- onMouseDown：按下鼠标时记录指针在窗口内的偏移，启动逐帧拖动。
+- onMouseUp：结束拖动并取消尚未执行的动画帧。
+- moveWindow：逐帧向主进程发送指针偏移，由主进程计算屏幕坐标并约束在工作区内。
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,7 +37,8 @@
         transition: background ease-in-out 0.1s;
       }
 
-      /* span.contentTrans {
+      /* 停用样式，保留供历史对照：
+span.contentTrans {
         font-size: 18px;
       }
       body.unlocked-body:hover .content {
@@ -64,6 +81,16 @@
       #currentLyricAll {
         width: 100%;
         height: 100%;
+        padding: 8px 24px;
+        cursor: move;
+      }
+      #currentLyricAll span {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 1.35;
       }
     </style>
   </head>
@@ -71,7 +98,7 @@
     <div
       style="visibility: hidden; position: absolute; width: 0px; height: 0px"
     >
-      <!-- load feather icon svg sprite -->
+      <!-- 加载 Feather SVG 图标集合。 -->
       <svg xmlns="http://www.w3.org/2000/svg">
         <defs>
           <symbol id="x" viewBox="0 0 24 24">
@@ -197,18 +224,47 @@
       </div>
     </div>
     <script>
-      currentLyric = document.getElementById("currentLyric");
-      window.api.onLyric((arg) => {
-        currentLyric.innerHTML = arg;
+      /**
+       * currentLyric：显示当前原文歌词的 DOM 节点，通过 textContent 更新；类型为 HTMLElement|null。
+       * @type {HTMLElement|null}
+       */
+      const currentLyric = document.getElementById("currentLyric");
+      window.api.onLyric(
+        /**
+         * 进入此回调后，更新 currentLyric.textContent。
+         * @param arg 从桌面桥收到的当前原文歌词文本。
+         * @returns {void} 无返回值。
+         */
+        (arg) => {
+        currentLyric.textContent = arg;
       });
-      currentLyricTrans = document.getElementById("currentLyricTrans");
-      window.api.onTranslLyric((arg) => {
-        currentLyricTrans.innerHTML = arg;
+      /**
+       * currentLyricTrans：显示当前译文歌词的 DOM 节点，通过 textContent 更新；类型为 HTMLElement|null。
+       * @type {HTMLElement|null}
+       */
+      const currentLyricTrans = document.getElementById("currentLyricTrans");
+      window.api.onTranslLyric(
+        /**
+         * 进入此回调后，更新 currentLyricTrans.textContent。
+         * @param arg 从桌面桥收到的当前译文歌词文本。
+         * @returns {void} 无返回值。
+         */
+        (arg) => {
+        currentLyricTrans.textContent = arg;
       });
     </script>
     <script>
+      /**
+       * IS_WINDOW_LOCKED：悬浮歌词的锁定状态，决定鼠标穿透与拖动；类型为 boolean。
+       * @type {boolean}
+       */
       let IS_WINDOW_LOCKED = false;
 
+      /**
+       * 依据锁定状态更新工具栏图标及鼠标交互提示。
+       * 无参数。
+       * @returns {void} 无返回值。
+       */
       function renderToolBar() {
         if (IS_WINDOW_LOCKED) {
           document.getElementsByClassName("locked")[0].style.display = "block";
@@ -222,20 +278,38 @@
         }
       }
 
-      // enter lyric window zone, show/hide lock icon
+      // 进入歌词窗口区域时显示或隐藏锁定图标。
       document.getElementById("toolbar").style.display = "none";
 
-      document.addEventListener("mouseenter", (event) => {
+      document.addEventListener("mouseenter",
+        /**
+         * 响应 "mouseenter" 事件，更新 document.getElementById("toolbar").style.display，执行 document.getElementById（"toolbar"）。
+         * @param event 触发当前处理器的事件对象；当前函数体未使用，保留调用签名。
+         * @returns {void} 无返回值。
+         */
+        (event) => {
         document.getElementById("toolbar").style.display = "block";
       });
-      document.addEventListener("mouseleave", (event) => {
+      document.addEventListener("mouseleave",
+        /**
+         * 响应 "mouseleave" 事件，更新 document.getElementById("toolbar").style.display，执行 document.getElementById（"toolbar"）。
+         * @param event 触发当前处理器的事件对象；当前函数体未使用，保留调用签名。
+         * @returns {void} 无返回值。
+         */
+        (event) => {
         document.getElementById("toolbar").style.display = "none";
       });
 
-      // enter lock icon zone, make window start to receive mouse event
+      // 进入锁定图标区域时让窗口恢复接收鼠标事件。
       document
         .getElementById("lock-icon")
-        .addEventListener("mouseenter", (event) => {
+        .addEventListener("mouseenter",
+          /**
+           * 响应 "mouseenter" 事件，执行 window.api.send（"control"）。
+           * @param event 触发当前处理器的事件对象；当前函数体未使用，保留调用签名。
+           * @returns {void} 无返回值。
+           */
+          (event) => {
           if (!IS_WINDOW_LOCKED) {
             return;
           }
@@ -245,7 +319,13 @@
 
       document
         .getElementById("lock-icon")
-        .addEventListener("mouseleave", (event) => {
+        .addEventListener("mouseleave",
+          /**
+           * 响应 "mouseleave" 事件，执行 window.api.send（"control"）。
+           * @param event 触发当前处理器的事件对象；当前函数体未使用，保留调用签名。
+           * @returns {void} 无返回值。
+           */
+          (event) => {
           if (!IS_WINDOW_LOCKED) {
             return;
           }
@@ -254,11 +334,21 @@
         });
 
       Array.from(document.getElementsByClassName("window-action")).forEach(
+        /**
+         * 逐项处理 Array.from() 中的条目，执行 elem.addEventListener（"click"）。
+         * @param elem 来自 Array.from() 的当前条目；使用 addEventListener 字段。
+         * @returns {void} 无返回值。
+         */
         (elem) => {
           elem.addEventListener(
             "click",
+            /**
+             * 响应 "click" 事件，更新 IS_WINDOW_LOCKED，执行 window.api.send（"control"）。
+             * 无参数。
+             * @returns {void} 无返回值。
+             */
             function () {
-              // toggle floating window lock/unlock status
+              // 切换悬浮窗口的锁定状态。
               IS_WINDOW_LOCKED = !IS_WINDOW_LOCKED;
               renderToolBar();
               const message = IS_WINDOW_LOCKED
@@ -272,34 +362,92 @@
       );
 
       Array.from(document.getElementsByClassName("control-action")).forEach(
+        /**
+         * 逐项处理 Array.from() 中的条目，执行 elem.addEventListener（"click"）。
+         * @param elem 来自 Array.from() 的当前条目；使用 addEventListener 字段。
+         * @returns {void} 无返回值。
+         */
         (elem) => {
-          elem.addEventListener("click", (event) => {
+          elem.addEventListener("click",
+            /**
+             * 响应 "click" 事件，执行 window.api.send（"control"）。
+             * @param event 触发当前处理器的事件对象；使用 currentTarget 字段。
+             * @returns {void} 无返回值。
+             */
+            (event) => {
             const message = event.currentTarget.dataset.msg;
             window.api.send("control", message);
           });
         }
       );
-      // drag can't use webkit-app-region becse mouse enter will not trigger
-      // we use custom handle, more details please read link below
+      // 拖动使用自定义处理；webkit-app-region 会影响鼠标进入事件。
+      // 自定义拖动方案的背景说明见下方链接。
       // https://github.com/electron/electron/issues/1354#issuecomment-404348957
-      let animationId;
-      let mouseX;
-      let mouseY;
+      /**
+       * animationId：待执行拖动动画帧的标识，用于结束拖动时取消；类型为 number|null。
+       * @type {number|null}
+       */
+      let animationId = null;
+      /**
+       * isDragging：是否正在执行自定义窗口拖动；类型为 boolean。
+       * @type {boolean}
+       */
+      let isDragging = false;
+      /**
+       * mouseX：鼠标按下时距窗口左侧的偏移，单位为像素；类型为 number。
+       * @type {number}
+       */
+      let mouseX = 0;
+      /**
+       * mouseY：鼠标按下时距窗口顶部的偏移，单位为像素；类型为 number。
+       * @type {number}
+       */
+      let mouseY = 0;
 
+      /**
+       * 按下鼠标时记录指针在窗口内的偏移，启动逐帧拖动；锁定时跳过。
+       * @param e 当前鼠标或窗口事件；使用 button、preventDefault、clientX、clientY 字段。
+       * @returns {void} 无返回值。
+       */
       function onMouseDown(e) {
+        if (e.button !== 0) {
+          return;
+        }
+        e.preventDefault();
+
         mouseX = e.clientX;
         mouseY = e.clientY;
+        isDragging = true;
 
         document.addEventListener("mouseup", onMouseUp);
-        requestAnimationFrame(this.moveWindow);
+        window.addEventListener("blur", onMouseUp);
+        moveWindow();
       }
 
+      /**
+       * 结束拖动并取消尚未执行的动画帧。
+       * @param e 当前鼠标或窗口事件；当前函数体未使用，保留调用签名。
+       * @returns {void} 无返回值。
+       */
       function onMouseUp(e) {
+        isDragging = false;
         document.removeEventListener("mouseup", onMouseUp);
-        cancelAnimationFrame(animationId);
+        window.removeEventListener("blur", onMouseUp);
+        if (animationId !== null) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
       }
 
+      /**
+       * 逐帧向主进程发送指针偏移，由主进程计算屏幕坐标并约束在工作区内。
+       * 无参数。
+       * @returns {void} 无返回值。
+       */
       function moveWindow() {
+        if (!isDragging) {
+          return;
+        }
         window.api.send("floatWindowMoving", {
           mouseX,
           mouseY,
@@ -309,7 +457,13 @@
 
       document
         .getElementById("currentLyricAll")
-        .addEventListener("mousedown", (event) => {
+        .addEventListener("mousedown",
+          /**
+           * 响应 "mousedown" 事件，执行 onMouseDown。
+           * @param event 触发当前处理器的事件对象。
+           * @returns {void} 无返回值。
+           */
+          (event) => {
           onMouseDown(event);
         });
 

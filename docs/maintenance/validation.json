@@ -1,0 +1,3900 @@
+{
+  "generated": "2026-09-22T07:29:15.537Z",
+  "environment": {
+    "date": "2026-09-22T05:24:52.488Z",
+    "os": "10.0.26200",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) Ultra 7 255HX",
+    "memoryGiB": 31,
+    "repos": [
+      {
+        "root": ".",
+        "head": "cccd1b8829b523a57fc237de6f459011d0b0b2cb",
+        "status": " M app/floatingWindow.html\n ? app/listen1_chrome_extension\n M app/main.js\n?? AGENTS.md\n?? scripts/\n?? tests/\n"
+      },
+      {
+        "root": "app/listen1_chrome_extension",
+        "head": "c1bfbc2a60a03de1c6e37474f6ce6ca6322afd02",
+        "status": "?? AGENTS.md\n"
+      }
+    ]
+  },
+  "observations": {
+    "online-final": {
+      "file": "dist/maintenance/online-final/report.json",
+      "date": "2026-09-22T06:52:35.979Z",
+      "keyword": "夜空中最亮的星",
+      "account": "guest",
+      "fallback": false,
+      "platforms": [
+        {
+          "source": "netease",
+          "playback": [
+            {
+              "id": "netrack_25706282",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "netrack_25706282",
+                  "code": "RESOURCE_UNAVAILABLE"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "netrack_28707594",
+              "title": "夜空中最亮的星",
+              "artist": "余家辉",
+              "audioChecks": [
+                {
+                  "position": 1.031675,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.04246,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.052356,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.02131,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.03529,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2200,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_28707594",
+                  "platform": "netease"
+                }
+              ]
+            },
+            {
+              "id": "netrack_3403228212",
+              "title": "夜空中最亮的星 0.85x",
+              "artist": "阿车",
+              "audioChecks": [
+                {
+                  "position": 1.063637,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.063154,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.039567,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.004421,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.011695,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2418,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_3403228212",
+                  "platform": "netease"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 16,
+            "samples": [
+              {
+                "id": "netrack_25706282",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "netrack_28707594",
+                "title": "夜空中最亮的星",
+                "artist": "余家辉"
+              },
+              {
+                "id": "netrack_3403228212",
+                "title": "夜空中最亮的星 0.85x",
+                "artist": "阿车"
+              },
+              {
+                "id": "netrack_1956302276",
+                "title": "夜空中最亮的星(吉他版)",
+                "artist": "heart-and-soul"
+              },
+              {
+                "id": "netrack_28427772",
+                "title": "夜空中最亮的星 (Live)",
+                "artist": "张杰"
+              },
+              {
+                "id": "netrack_2162666585",
+                "title": "夜空中最亮的星 (DJ版)",
+                "artist": "森尛尛"
+              }
+            ],
+            "elapsedMs": 1545
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        },
+        {
+          "source": "qq",
+          "playback": [],
+          "search": {
+            "count": 0,
+            "error": null,
+            "hasMore": false,
+            "totalpage": 1,
+            "samples": [],
+            "elapsedMs": 1893
+          }
+        },
+        {
+          "source": "kugou",
+          "playback": [
+            {
+              "id": "kgtrack_33CA0759CA7738706894F08A8BE65CD7",
+              "title": "夜空中最亮的星 (Acappella)",
+              "artist": "厦门六中合唱团",
+              "audioChecks": [
+                {
+                  "position": 1.032456,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": false
+                },
+                {
+                  "position": 5.044037,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 10.00268,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 20.023065,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 30.035193,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2426,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "kgtrack_33CA0759CA7738706894F08A8BE65CD7",
+                  "platform": "kugou"
+                }
+              ]
+            },
+            {
+              "id": "kgtrack_90A06F3E522459EF92E5A09C8A0BDF72",
+              "title": "G.E.M. 邓紫棋《夜空中最亮的星 (2016 盖世英雄第四期现场)》",
+              "artist": "宝藏歌单挖掘姬",
+              "audioChecks": [
+                {
+                  "position": 1.025661,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 5.059247,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 10.064259,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 20.095336,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                },
+                {
+                  "position": 30.090767,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kugou",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2421,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "kgtrack_90A06F3E522459EF92E5A09C8A0BDF72",
+                  "platform": "kugou"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 24,
+            "samples": [
+              {
+                "id": "kgtrack_33CA0759CA7738706894F08A8BE65CD7",
+                "title": "夜空中最亮的星 (Acappella)",
+                "artist": "厦门六中合唱团"
+              },
+              {
+                "id": "kgtrack_90A06F3E522459EF92E5A09C8A0BDF72",
+                "title": "G.E.M. 邓紫棋《夜空中最亮的星 (2016 盖世英雄第四期现场)》",
+                "artist": "宝藏歌单挖掘姬"
+              },
+              {
+                "id": "kgtrack_FA3C402E983734093D8189E95E078C4A",
+                "title": "夜空中最亮的星 (2020岁岁又重阳现场)",
+                "artist": "肖战"
+              },
+              {
+                "id": "kgtrack_AF88CD5A6C074C6D790F4A8405786923",
+                "title": "夜空中最亮的星 (DJ小鱼儿版)",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "kgtrack_23B184837D23635A0C1F7DB469AFCF8B",
+                "title": "夜空中最亮的星 (贝斯版)",
+                "artist": "杨硕哥哥"
+              },
+              {
+                "id": "kgtrack_20035D09B9C53C4432433CEB1EEF653F",
+                "title": "夜空中最亮的星 (2020 乐队无限公司现场)",
+                "artist": "王俊凯"
+              }
+            ],
+            "elapsedMs": 2019
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        },
+        {
+          "source": "kuwo",
+          "playback": [
+            {
+              "id": "kwtrack_4890172",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "kwtrack_4890172",
+                  "code": "PAYMENT_REQUIRED"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "kwtrack_4101910",
+              "title": "夜空中最亮的星",
+              "artist": "张杰",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "kwtrack_4101910",
+                  "code": "PAYMENT_REQUIRED"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "kwtrack_152906897",
+              "title": "夜空中最亮的星",
+              "artist": "G.E.M.邓紫棋",
+              "audioChecks": [
+                {
+                  "position": 1.008139,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 5.021785,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 10.022759,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 20.059838,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 30.061131,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2320,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "kwtrack_152906897",
+                  "platform": "kuwo"
+                }
+              ]
+            },
+            {
+              "id": "kwtrack_472378951",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [
+                {
+                  "position": 1.047888,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 5.058955,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 10.03218,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 20.019084,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                },
+                {
+                  "position": 30.095487,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "kuwo",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2540,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "kwtrack_472378951",
+                  "platform": "kuwo"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 180,
+            "samples": [
+              {
+                "id": "kwtrack_4890172",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "kwtrack_4101910",
+                "title": "夜空中最亮的星",
+                "artist": "张杰"
+              },
+              {
+                "id": "kwtrack_152906897",
+                "title": "夜空中最亮的星",
+                "artist": "G.E.M.邓紫棋"
+              },
+              {
+                "id": "kwtrack_472378951",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "kwtrack_318092782",
+                "title": "夜空中最亮的星",
+                "artist": "张韶涵&Casper卡斯柏"
+              },
+              {
+                "id": "kwtrack_377216186",
+                "title": "夜空中最亮的星 (架子鼓版)",
+                "artist": "逃跑计划"
+              }
+            ],
+            "elapsedMs": 2345
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        },
+        {
+          "source": "bilibili",
+          "playback": [
+            {
+              "id": "bitrack_v_BV15R4y1Y7V1",
+              "title": "在百万豪装录音棚大声听逃跑计划《夜空中最亮的星》【Hi-res】",
+              "artist": "JLRS-LeoFM",
+              "audioChecks": [
+                {
+                  "position": 1.017187,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": false
+                },
+                {
+                  "position": 5.005748,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 10.07603,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 20.102645,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 30.043782,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2541,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "bitrack_v_BV15R4y1Y7V1",
+                  "platform": "bilibili"
+                }
+              ]
+            },
+            {
+              "id": "bitrack_v_BV1d54y1c7YW",
+              "title": "原唱版MV 不要错过的音逃跑计划《夜空中最亮的星》",
+              "artist": "全民音乐制作人001",
+              "audioChecks": [
+                {
+                  "position": 1.005516,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 5.083122,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 10.052152,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 20.055422,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 30.099769,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2617,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "bitrack_v_BV1d54y1c7YW",
+                  "platform": "bilibili"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 42,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 24,
+            "samples": [
+              {
+                "id": "bitrack_v_BV15R4y1Y7V1",
+                "title": "在百万豪装录音棚大声听逃跑计划《夜空中最亮的星》【Hi-res】",
+                "artist": "JLRS-LeoFM"
+              },
+              {
+                "id": "bitrack_v_BV1d54y1c7YW",
+                "title": "原唱版MV 不要错过的音逃跑计划《夜空中最亮的星》",
+                "artist": "全民音乐制作人001"
+              },
+              {
+                "id": "bitrack_v_BV1yLe86VEuF",
+                "title": "",
+                "artist": "六十乐"
+              },
+              {
+                "id": "bitrack_v_BV1bjeS65Ekw",
+                "title": "夜空中最亮的星 Meets Faded",
+                "artist": "丿权喵"
+              },
+              {
+                "id": "bitrack_v_BV1hGndz5EMM",
+                "title": "史上最难听的《夜空中最亮的星》出现了！“湾区升明月”大翻车现场",
+                "artist": "羊的留声机"
+              },
+              {
+                "id": "bitrack_v_BV1xH4y1y7xf",
+                "title": "【无损音乐】《夜空中最亮的星》—逃跑计划",
+                "artist": "KKang93-Music"
+              }
+            ],
+            "elapsedMs": 1796
+          },
+          "pagination": {
+            "page": 2,
+            "count": 42,
+            "firstResultChanged": true,
+            "error": null
+          }
+        },
+        {
+          "source": "migu",
+          "playback": [
+            {
+              "id": "mgtrack_63268606636",
+              "title": "夜空中最亮的星(央视2014全球中文音乐榜上榜)",
+              "artist": "逃跑计划",
+              "audioChecks": [
+                {
+                  "position": 1.057953,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 5.023201,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 10.095326,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 20.017285,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 30.076058,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2289,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "mgtrack_63268606636",
+                  "platform": "migu"
+                }
+              ]
+            },
+            {
+              "id": "mgtrack_6005861LGCA",
+              "title": "夜空中最亮的星 (网络电影《摘星的你》主题曲)",
+              "artist": "逃跑计划",
+              "audioChecks": [
+                {
+                  "position": 1.051225,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 5.094446,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 10.079461,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 20.015948,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                },
+                {
+                  "position": 30.107388,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "migu",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2409,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "mgtrack_6005861LGCA",
+                  "platform": "migu"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": null,
+            "samples": [
+              {
+                "id": "mgtrack_63268606636",
+                "title": "夜空中最亮的星(央视2014全球中文音乐榜上榜)",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "mgtrack_6005861LGCA",
+                "title": "夜空中最亮的星 (网络电影《摘星的你》主题曲)",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "mgtrack_6404689Z0M1",
+                "title": "夜空中最亮的星(蒙面唱将猜猜猜)",
+                "artist": "蒋瑶佳"
+              },
+              {
+                "id": "mgtrack_69929501887",
+                "title": "追寻你",
+                "artist": "王天戈"
+              },
+              {
+                "id": "mgtrack_60081303505",
+                "title": "夜空中最亮的星(七十二层奇楼)",
+                "artist": "赵丽颖"
+              },
+              {
+                "id": "mgtrack_69069708456",
+                "title": "夜空中最亮的星",
+                "artist": "陈思宇"
+              }
+            ],
+            "elapsedMs": 2219
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        }
+      ],
+      "errors": [],
+      "network": [
+        {
+          "host": "",
+          "path": "/C:/Acode/Js/listen1_desktop/app/listen1_chrome_extension/js/controller/instant_search.js",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "lyrics.kugou.com",
+          "path": "/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "m.kugou.com",
+          "path": "/app/i/getSongInfo.php",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "lyrics.kugou.com",
+          "path": "/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "m.kugou.com",
+          "path": "/app/i/getSongInfo.php",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/api/v1/www/music/playUrl",
+          "status": 200,
+          "code": -1,
+          "message": "该歌曲为付费内容，请下载酷我音乐客户端后付费收听"
+        },
+        {
+          "host": "m.kuwo.cn",
+          "path": "/newh5/singles/songinfoandlrc",
+          "status": 200,
+          "message": "音乐查询失败"
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/api/v1/www/music/playUrl",
+          "status": 200,
+          "code": -1,
+          "message": "该歌曲为付费内容，请下载酷我音乐客户端后付费收听"
+        },
+        {
+          "host": "m.kuwo.cn",
+          "path": "/newh5/singles/songinfoandlrc",
+          "status": 200,
+          "message": "音乐查询失败"
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/api/v1/www/music/playUrl",
+          "status": 200,
+          "code": 200,
+          "message": "success"
+        },
+        {
+          "host": "m.kuwo.cn",
+          "path": "/newh5/singles/songinfoandlrc",
+          "status": 200,
+          "message": "音乐查询失败"
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/api/v1/www/music/playUrl",
+          "status": 200,
+          "code": 200,
+          "message": "success"
+        },
+        {
+          "host": "m.kuwo.cn",
+          "path": "/newh5/singles/songinfoandlrc",
+          "status": 200,
+          "message": "音乐查询失败"
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 307,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 307,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "music.taihe.com",
+          "path": "/v1/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "message": ""
+        }
+      ],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "initialMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 0.969387,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 162084,
+            "peakWorkingSetSize": 162876,
+            "privateBytes": 83660
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.288537,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 150864,
+            "peakWorkingSetSize": 150864,
+            "privateBytes": 102088
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.07784,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 56744,
+            "peakWorkingSetSize": 56744,
+            "privateBytes": 12868
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.291483,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 131924,
+            "peakWorkingSetSize": 131924,
+            "privateBytes": 64672
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.033069,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77756,
+            "peakWorkingSetSize": 77756,
+            "privateBytes": 10784
+          }
+        }
+      ],
+      "aggregate": {
+        "count": 192,
+        "sources": [
+          {
+            "name": "netease",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "网易",
+            "message": "完成"
+          },
+          {
+            "name": "qq",
+            "state": "success",
+            "count": 50,
+            "hasMore": true,
+            "label": "QQ",
+            "message": "完成"
+          },
+          {
+            "name": "kugou",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷狗",
+            "message": "完成"
+          },
+          {
+            "name": "kuwo",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷我",
+            "message": "完成"
+          },
+          {
+            "name": "bilibili",
+            "state": "success",
+            "count": 42,
+            "hasMore": true,
+            "label": "哔哩",
+            "message": "完成"
+          },
+          {
+            "name": "migu",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "咪咕",
+            "message": "完成"
+          },
+          {
+            "name": "taihe",
+            "state": "success",
+            "count": 20,
+            "hasMore": false,
+            "label": "千千",
+            "message": "完成"
+          }
+        ],
+        "hasMore": true
+      },
+      "finalMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 8.059354,
+            "percentCPUUsage": 0.09048573035049765,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 170176,
+            "peakWorkingSetSize": 171548,
+            "privateBytes": 85396
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 7.473234,
+            "percentCPUUsage": 0.09169472607455506,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 287380,
+            "peakWorkingSetSize": 332332,
+            "privateBytes": 226008
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.973033,
+            "percentCPUUsage": 0.01142490485578283,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 60284,
+            "peakWorkingSetSize": 63860,
+            "privateBytes": 13616
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 12.506834,
+            "percentCPUUsage": 0.15589847555071007,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 238776,
+            "peakWorkingSetSize": 249152,
+            "privateBytes": 168236
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 2.034746,
+            "percentCPUUsage": 0.025546412284421356,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 78212,
+            "peakWorkingSetSize": 78296,
+            "privateBytes": 11116
+          }
+        }
+      ]
+    },
+    "online-qq-final": {
+      "file": "dist/maintenance/online-qq-final/report.json",
+      "date": "2026-09-22T07:00:57.154Z",
+      "keyword": "夜空中最亮的星",
+      "account": "guest",
+      "fallback": false,
+      "platforms": [
+        {
+          "source": "qq",
+          "playback": [],
+          "search": {
+            "count": 0,
+            "error": "SERVICE_ERROR",
+            "hasMore": false,
+            "totalpage": null,
+            "samples": [],
+            "elapsedMs": 1352
+          }
+        }
+      ],
+      "errors": [],
+      "network": [
+        {
+          "host": "",
+          "path": "/C:/Acode/Js/listen1_desktop/app/listen1_chrome_extension/js/controller/instant_search.js",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "music.taihe.com",
+          "path": "/v1/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        }
+      ],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "initialMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 1.140625,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 162372,
+            "peakWorkingSetSize": 162444,
+            "privateBytes": 84512
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.265625,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 162400,
+            "peakWorkingSetSize": 164112,
+            "privateBytes": 113744
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.109375,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 56668,
+            "peakWorkingSetSize": 56668,
+            "privateBytes": 12724
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.265625,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 134964,
+            "peakWorkingSetSize": 134964,
+            "privateBytes": 66952
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.0625,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77624,
+            "peakWorkingSetSize": 77624,
+            "privateBytes": 10764
+          }
+        }
+      ],
+      "aggregate": {
+        "count": 170,
+        "sources": [
+          {
+            "name": "netease",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "网易",
+            "message": "完成"
+          },
+          {
+            "name": "qq",
+            "state": "success",
+            "count": 50,
+            "hasMore": true,
+            "label": "QQ",
+            "message": "完成"
+          },
+          {
+            "name": "kugou",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷狗",
+            "message": "完成"
+          },
+          {
+            "name": "kuwo",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷我",
+            "message": "完成"
+          },
+          {
+            "name": "bilibili",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "哔哩",
+            "message": "完成"
+          },
+          {
+            "name": "migu",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "咪咕",
+            "message": "完成"
+          },
+          {
+            "name": "taihe",
+            "state": "success",
+            "count": 20,
+            "hasMore": false,
+            "label": "千千",
+            "message": "完成"
+          }
+        ],
+        "hasMore": true
+      },
+      "finalMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 1.136952,
+            "percentCPUUsage": -0.0038277984666712657,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 164024,
+            "peakWorkingSetSize": 165732,
+            "privateBytes": 84464
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.44971,
+            "percentCPUUsage": 0.1918331405466804,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 213688,
+            "peakWorkingSetSize": 216940,
+            "privateBytes": 164424
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.207053,
+            "percentCPUUsage": 0.10178443183158625,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 59456,
+            "peakWorkingSetSize": 60044,
+            "privateBytes": 13692
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.595832,
+            "percentCPUUsage": 0.3440724308170661,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 170600,
+            "peakWorkingSetSize": 171640,
+            "privateBytes": 100700
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.049323,
+            "percentCPUUsage": -0.013729528394815265,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77632,
+            "peakWorkingSetSize": 77632,
+            "privateBytes": 10768
+          }
+        }
+      ]
+    },
+    "online-qq-confirm": {
+      "file": "dist/maintenance/online-qq-confirm/report.json",
+      "date": "2026-09-22T07:03:23.518Z",
+      "keyword": "夜空中最亮的星",
+      "account": "guest",
+      "fallback": false,
+      "platforms": [
+        {
+          "source": "qq",
+          "playback": [
+            {
+              "id": "qqtrack_001NmPTG1fVsUw",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "qqtrack_001NmPTG1fVsUw",
+                  "code": "RESOURCE_UNAVAILABLE"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "qqtrack_0044g6hb1mnYOV",
+              "title": "夜空中最亮的星",
+              "artist": "张杰",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "qqtrack_0044g6hb1mnYOV",
+                  "code": "RESOURCE_UNAVAILABLE"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "qqtrack_0030IUcO1j4Hcz",
+              "title": "夜空中最亮的星",
+              "artist": "Casper卡斯柏",
+              "audioChecks": [
+                {
+                  "position": 1.008746,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 5.045544,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 10.072446,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 20.013354,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 30.02859,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2310,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "qqtrack_0030IUcO1j4Hcz",
+                  "platform": "qq"
+                }
+              ]
+            },
+            {
+              "id": "qqtrack_0045owRL1mQBTI",
+              "title": "夜空中最亮的星",
+              "artist": "G.E.M.邓紫棋",
+              "audioChecks": [
+                {
+                  "position": 1.048565,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 5.083713,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 10.099965,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 20.016427,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                },
+                {
+                  "position": 30.065745,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "qq",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2533,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "qqtrack_0045owRL1mQBTI",
+                  "platform": "qq"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 50,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 20,
+            "samples": [
+              {
+                "id": "qqtrack_001NmPTG1fVsUw",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "qqtrack_0044g6hb1mnYOV",
+                "title": "夜空中最亮的星",
+                "artist": "张杰"
+              },
+              {
+                "id": "qqtrack_0030IUcO1j4Hcz",
+                "title": "夜空中最亮的星",
+                "artist": "Casper卡斯柏"
+              },
+              {
+                "id": "qqtrack_0045owRL1mQBTI",
+                "title": "夜空中最亮的星",
+                "artist": "G.E.M.邓紫棋"
+              },
+              {
+                "id": "qqtrack_004WN9QP3N0veB",
+                "title": "夜空中最亮的星",
+                "artist": "DJ阿蓝"
+              },
+              {
+                "id": "qqtrack_000cLo3s1B2vJP",
+                "title": "夜空中最亮的星",
+                "artist": "厦门六中合唱团"
+              }
+            ],
+            "elapsedMs": 3249
+          },
+          "pagination": {
+            "page": 2,
+            "count": 0,
+            "firstResultChanged": true,
+            "error": "SERVICE_ERROR"
+          }
+        }
+      ],
+      "errors": [],
+      "network": [
+        {
+          "host": "",
+          "path": "/C:/Acode/Js/listen1_desktop/app/listen1_chrome_extension/js/controller/instant_search.js",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 2001,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 2001,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "music.taihe.com",
+          "path": "/v1/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        }
+      ],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "initialMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 0.956724,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 164764,
+            "peakWorkingSetSize": 164848,
+            "privateBytes": 86104
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.302158,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 162392,
+            "peakWorkingSetSize": 162392,
+            "privateBytes": 113728
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.076159,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 56680,
+            "peakWorkingSetSize": 56680,
+            "privateBytes": 12660
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.294056,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 132296,
+            "peakWorkingSetSize": 132296,
+            "privateBytes": 65788
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.033718,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77484,
+            "peakWorkingSetSize": 77484,
+            "privateBytes": 10684
+          }
+        }
+      ],
+      "aggregate": {
+        "count": 141,
+        "sources": [
+          {
+            "name": "netease",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "网易",
+            "message": "完成"
+          },
+          {
+            "name": "qq",
+            "state": "error",
+            "code": "SERVICE_ERROR",
+            "label": "QQ",
+            "message": "平台服务暂时不可用"
+          },
+          {
+            "name": "kugou",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷狗",
+            "message": "完成"
+          },
+          {
+            "name": "kuwo",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷我",
+            "message": "完成"
+          },
+          {
+            "name": "bilibili",
+            "state": "success",
+            "count": 42,
+            "hasMore": true,
+            "label": "哔哩",
+            "message": "完成"
+          },
+          {
+            "name": "migu",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "咪咕",
+            "message": "完成"
+          },
+          {
+            "name": "taihe",
+            "state": "success",
+            "count": 20,
+            "hasMore": false,
+            "label": "千千",
+            "message": "完成"
+          }
+        ],
+        "hasMore": true
+      },
+      "finalMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 1.867032,
+            "percentCPUUsage": 0.053445839584723306,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 164596,
+            "peakWorkingSetSize": 171668,
+            "privateBytes": 80692
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 2.387904,
+            "percentCPUUsage": 0.12245785920929371,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 257600,
+            "peakWorkingSetSize": 312240,
+            "privateBytes": 195276
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.295109,
+            "percentCPUUsage": 0.012854939891252198,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 59920,
+            "peakWorkingSetSize": 63000,
+            "privateBytes": 13612
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 3.337712,
+            "percentCPUUsage": 0.17869820179817716,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 176900,
+            "peakWorkingSetSize": 177616,
+            "privateBytes": 102544
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.486603,
+            "percentCPUUsage": 0.026589629611746497,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77848,
+            "peakWorkingSetSize": 77988,
+            "privateBytes": 10932
+          }
+        }
+      ]
+    },
+    "qq-search-diagnostic": {
+      "file": "dist/maintenance/qq-search-diagnostic/report.json",
+      "date": "2026-09-22T07:03:03.978Z",
+      "account": "guest",
+      "variants": [
+        {
+          "variant": "current",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "count": 50,
+          "total": 998
+        },
+        {
+          "variant": "legacy-origin",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "count": 50,
+          "total": 998
+        },
+        {
+          "variant": "legacy-UA",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "count": 50,
+          "total": 998
+        },
+        {
+          "variant": "direct",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "count": 50,
+          "total": 998
+        },
+        {
+          "variant": "current-repeat",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "count": 50,
+          "total": 998
+        }
+      ],
+      "proxy": "proxy",
+      "official": {
+        "title": "搜索 - QQ音乐-千万正版音乐海量无损曲库新歌热歌天天畅听的高品质音乐平台！",
+        "keywordPresent": false,
+        "loginPresent": true,
+        "visibleText": "音乐馆\n我的音乐\n客户端\n开放平台\nVIP\n搜索\n登录\n开通VIP\n搜索\n单曲\n专辑\nMV\n歌单\n用户\n歌词\n\n查看更多内容，请下载客户端\n\n立即下载\n下载QQ音乐客户端\n特色产品\n合作链接\nCJ ENM\n腾讯视频\n手机QQ空间\n最新版QQ\n腾讯社交广告\n电脑管家\nQQ浏览器\n腾讯微云\n腾讯云\n企鹅FM\n智能电视网\n当贝市场\n酷我音乐\n酷狗听书\n开放平台\nTME集团官网\n腾讯音乐\n\nCopyright © 1998 - 2026 Tencent. All Rights Reserved.\n\n举报\n反馈\n播放器"
+      }
+    },
+    "qq-probe": {
+      "0": {
+        "songmid": "001NmPTG1fVsUw",
+        "variant": "existing",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "1": {
+        "songmid": "001NmPTG1fVsUw",
+        "variant": "single-mid",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "2": {
+        "songmid": "001NmPTG1fVsUw",
+        "variant": "default",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "3": {
+        "songmid": "0044g6hb1mnYOV",
+        "variant": "existing",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "4": {
+        "songmid": "0044g6hb1mnYOV",
+        "variant": "single-mid",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "5": {
+        "songmid": "0044g6hb1mnYOV",
+        "variant": "default",
+        "status": 200,
+        "code": 0,
+        "businessCode": 0,
+        "available": false
+      },
+      "file": "dist/maintenance/qq-probe/report.json"
+    },
+    "electron-smoke-visible": {
+      "file": "dist/maintenance/electron-smoke-visible/report.json",
+      "date": "2026-09-22T07:14:19.614Z",
+      "checks": [
+        {
+          "name": "isolated renderer and IPC sender validation",
+          "status": "passed",
+          "elapsedMs": 4
+        },
+        {
+          "name": "old queue and playlists restore without a storage migration",
+          "status": "passed",
+          "elapsedMs": 134
+        },
+        {
+          "name": "local file dialog result → ESM tags → batch playlist → playback and lyrics",
+          "status": "passed",
+          "elapsedMs": 1255
+        },
+        {
+          "name": "all themes preserve a single player listener and keyboard binding",
+          "status": "passed",
+          "elapsedMs": 666
+        },
+        {
+          "name": "language switching and restart persistence",
+          "status": "passed",
+          "elapsedMs": 148
+        },
+        {
+          "name": "queue insertion emits one complete snapshot for 1,000 tracks",
+          "status": "passed",
+          "elapsedMs": 70
+        },
+        {
+          "name": "JSON backup round trip and malformed backup rejection",
+          "status": "passed",
+          "elapsedMs": 58
+        },
+        {
+          "name": "offline search and playlist failures finish without unhandled errors",
+          "status": "passed",
+          "elapsedMs": 117
+        },
+        {
+          "name": "lyrics bridge, text rendering, translation, style and close",
+          "status": "passed",
+          "elapsedMs": 144
+        },
+        {
+          "name": "direct/system/custom proxy settings and close hides window",
+          "status": "passed",
+          "elapsedMs": 7
+        },
+        {
+          "name": "second instance exits and restores the existing window",
+          "status": "passed",
+          "elapsedMs": 500
+        },
+        {
+          "name": "application restart and desktop config persistence",
+          "status": "passed"
+        }
+      ],
+      "errors": [],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "queue": {
+        "snapshots": [1000],
+        "elapsedMs": 0.5
+      }
+    },
+    "packaged-smoke": {
+      "file": "dist/maintenance/packaged-smoke/report.json",
+      "date": "2026-09-22T07:14:45.677Z",
+      "checks": [
+        {
+          "name": "isolated renderer and IPC sender validation",
+          "status": "passed",
+          "elapsedMs": 5
+        },
+        {
+          "name": "old queue and playlists restore without a storage migration",
+          "status": "passed",
+          "elapsedMs": 111
+        },
+        {
+          "name": "local file dialog result → ESM tags → batch playlist → playback and lyrics",
+          "status": "passed",
+          "elapsedMs": 1249
+        },
+        {
+          "name": "all themes preserve a single player listener and keyboard binding",
+          "status": "passed",
+          "elapsedMs": 683
+        },
+        {
+          "name": "language switching and restart persistence",
+          "status": "passed",
+          "elapsedMs": 156
+        },
+        {
+          "name": "queue insertion emits one complete snapshot for 1,000 tracks",
+          "status": "passed",
+          "elapsedMs": 99
+        },
+        {
+          "name": "JSON backup round trip and malformed backup rejection",
+          "status": "passed",
+          "elapsedMs": 40
+        },
+        {
+          "name": "offline search and playlist failures finish without unhandled errors",
+          "status": "passed",
+          "elapsedMs": 117
+        },
+        {
+          "name": "lyrics bridge, text rendering, translation, style and close",
+          "status": "passed",
+          "elapsedMs": 146
+        },
+        {
+          "name": "direct/system/custom proxy settings and close hides window",
+          "status": "passed",
+          "elapsedMs": 6
+        },
+        {
+          "name": "second instance exits and restores the existing window",
+          "status": "passed",
+          "elapsedMs": 495
+        },
+        {
+          "name": "application restart and desktop config persistence",
+          "status": "passed"
+        }
+      ],
+      "errors": [],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "queue": {
+        "snapshots": [1000],
+        "elapsedMs": 0.5
+      }
+    },
+    "packaged-online": {
+      "file": "dist/maintenance/packaged-online/report.json",
+      "date": "2026-09-22T07:16:27.105Z",
+      "keyword": "夜空中最亮的星",
+      "account": "guest",
+      "fallback": false,
+      "platforms": [
+        {
+          "source": "netease",
+          "playback": [
+            {
+              "id": "netrack_25706282",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "netrack_25706282",
+                  "code": "RESOURCE_UNAVAILABLE"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "netrack_28707594",
+              "title": "夜空中最亮的星",
+              "artist": "余家辉",
+              "audioChecks": [
+                {
+                  "position": 1.104417,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.044929,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.083892,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.117214,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.05372,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2303,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_28707594",
+                  "platform": "netease"
+                }
+              ]
+            },
+            {
+              "id": "netrack_3403228212",
+              "title": "夜空中最亮的星 0.85x",
+              "artist": "阿车",
+              "audioChecks": [
+                {
+                  "position": 1.048377,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.084726,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.007004,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.004501,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.050612,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2424,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_3403228212",
+                  "platform": "netease"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 16,
+            "samples": [
+              {
+                "id": "netrack_25706282",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "netrack_28707594",
+                "title": "夜空中最亮的星",
+                "artist": "余家辉"
+              },
+              {
+                "id": "netrack_3403228212",
+                "title": "夜空中最亮的星 0.85x",
+                "artist": "阿车"
+              },
+              {
+                "id": "netrack_1956302276",
+                "title": "夜空中最亮的星(吉他版)",
+                "artist": "heart-and-soul"
+              },
+              {
+                "id": "netrack_28427772",
+                "title": "夜空中最亮的星 (Live)",
+                "artist": "张杰"
+              },
+              {
+                "id": "netrack_2162666585",
+                "title": "夜空中最亮的星 (DJ版)",
+                "artist": "森尛尛"
+              }
+            ],
+            "elapsedMs": 3329
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        },
+        {
+          "source": "qq",
+          "playback": [],
+          "search": {
+            "count": 0,
+            "error": "SERVICE_ERROR",
+            "hasMore": false,
+            "totalpage": null,
+            "samples": [],
+            "elapsedMs": 1924
+          }
+        },
+        {
+          "source": "bilibili",
+          "playback": [
+            {
+              "id": "bitrack_v_BV15R4y1Y7V1",
+              "title": "在百万豪装录音棚大声听逃跑计划《夜空中最亮的星》【Hi-res】",
+              "artist": "JLRS-LeoFM",
+              "audioChecks": [
+                {
+                  "position": 1.021106,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 5.059348,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 10.001829,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 20.051477,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 30.028869,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2626,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "bitrack_v_BV15R4y1Y7V1",
+                  "platform": "bilibili"
+                }
+              ]
+            },
+            {
+              "id": "bitrack_v_BV1d54y1c7YW",
+              "title": "原唱版MV 不要错过的音逃跑计划《夜空中最亮的星》",
+              "artist": "全民音乐制作人001",
+              "audioChecks": [
+                {
+                  "position": 1.066373,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 5.100379,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 10.01041,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 20.031713,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                },
+                {
+                  "position": 30.096656,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "bilibili",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2637,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "bitrack_v_BV1d54y1c7YW",
+                  "platform": "bilibili"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 42,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 24,
+            "samples": [
+              {
+                "id": "bitrack_v_BV15R4y1Y7V1",
+                "title": "在百万豪装录音棚大声听逃跑计划《夜空中最亮的星》【Hi-res】",
+                "artist": "JLRS-LeoFM"
+              },
+              {
+                "id": "bitrack_v_BV1d54y1c7YW",
+                "title": "原唱版MV 不要错过的音逃跑计划《夜空中最亮的星》",
+                "artist": "全民音乐制作人001"
+              },
+              {
+                "id": "bitrack_v_BV1yLe86VEuF",
+                "title": "",
+                "artist": "六十乐"
+              },
+              {
+                "id": "bitrack_v_BV1bjeS65Ekw",
+                "title": "夜空中最亮的星 Meets Faded",
+                "artist": "丿权喵"
+              },
+              {
+                "id": "bitrack_v_BV1hGndz5EMM",
+                "title": "史上最难听的《夜空中最亮的星》出现了！“湾区升明月”大翻车现场",
+                "artist": "羊的留声机"
+              },
+              {
+                "id": "bitrack_v_BV1xH4y1y7xf",
+                "title": "【无损音乐】《夜空中最亮的星》—逃跑计划",
+                "artist": "KKang93-Music"
+              }
+            ],
+            "elapsedMs": 1897
+          },
+          "pagination": {
+            "page": 2,
+            "count": 42,
+            "firstResultChanged": true,
+            "error": null
+          }
+        }
+      ],
+      "errors": [],
+      "network": [
+        {
+          "host": "",
+          "path": "/C:/Acode/Js/listen1_desktop/dist/windows-test/win-unpacked/resources/app.asar/listen1_chrome_extension/js/controller/instant_search.js",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 2001,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 307,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 307,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/player/playurl",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.taihe.com",
+          "path": "/v1/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 0,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        }
+      ],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "initialMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 0.757321,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 161708,
+            "peakWorkingSetSize": 162320,
+            "privateBytes": 86328
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.204197,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 137312,
+            "peakWorkingSetSize": 137312,
+            "privateBytes": 90944
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.073288,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 60560,
+            "peakWorkingSetSize": 60560,
+            "privateBytes": 12816
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.227298,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 119264,
+            "peakWorkingSetSize": 119264,
+            "privateBytes": 54524
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.031999,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77452,
+            "peakWorkingSetSize": 77452,
+            "privateBytes": 10716
+          }
+        }
+      ],
+      "aggregate": {
+        "count": 192,
+        "sources": [
+          {
+            "name": "netease",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "网易",
+            "message": "完成"
+          },
+          {
+            "name": "qq",
+            "state": "success",
+            "count": 50,
+            "hasMore": true,
+            "label": "QQ",
+            "message": "完成"
+          },
+          {
+            "name": "kugou",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷狗",
+            "message": "完成"
+          },
+          {
+            "name": "kuwo",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷我",
+            "message": "完成"
+          },
+          {
+            "name": "bilibili",
+            "state": "success",
+            "count": 42,
+            "hasMore": true,
+            "label": "哔哩",
+            "message": "完成"
+          },
+          {
+            "name": "migu",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "咪咕",
+            "message": "完成"
+          },
+          {
+            "name": "taihe",
+            "state": "success",
+            "count": 20,
+            "hasMore": false,
+            "label": "千千",
+            "message": "完成"
+          }
+        ],
+        "hasMore": true
+      },
+      "finalMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 2.360114,
+            "percentCPUUsage": 0.04953021400440099,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 167336,
+            "peakWorkingSetSize": 169940,
+            "privateBytes": 85304
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 3.591775,
+            "percentCPUUsage": 0.10468446557238201,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 270412,
+            "peakWorkingSetSize": 303620,
+            "privateBytes": 201308
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.475598,
+            "percentCPUUsage": 0.012432361353475528,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 63664,
+            "peakWorkingSetSize": 66616,
+            "privateBytes": 13512
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 5.895651,
+            "percentCPUUsage": 0.17516594533673355,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 195332,
+            "peakWorkingSetSize": 218028,
+            "privateBytes": 121220
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.718198,
+            "percentCPUUsage": 0.021205212853366597,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77820,
+            "peakWorkingSetSize": 77924,
+            "privateBytes": 10984
+          }
+        }
+      ]
+    },
+    "packaged-smoke-final": {
+      "file": "dist/maintenance/packaged-smoke-final/report.json",
+      "date": "2026-09-22T07:26:21.226Z",
+      "checks": [
+        {
+          "name": "isolated renderer and IPC sender validation",
+          "status": "passed",
+          "elapsedMs": 17
+        },
+        {
+          "name": "old queue and playlists restore without a storage migration",
+          "status": "passed",
+          "elapsedMs": 166
+        },
+        {
+          "name": "local file dialog result → ESM tags → batch playlist → playback and lyrics",
+          "status": "passed",
+          "elapsedMs": 1248
+        },
+        {
+          "name": "all themes preserve a single player listener and keyboard binding",
+          "status": "passed",
+          "elapsedMs": 721
+        },
+        {
+          "name": "language switching and restart persistence",
+          "status": "passed",
+          "elapsedMs": 160
+        },
+        {
+          "name": "queue insertion emits one complete snapshot for 1,000 tracks",
+          "status": "passed",
+          "elapsedMs": 109
+        },
+        {
+          "name": "JSON backup round trip and malformed backup rejection",
+          "status": "passed",
+          "elapsedMs": 33
+        },
+        {
+          "name": "offline search and playlist failures finish without unhandled errors",
+          "status": "passed",
+          "elapsedMs": 125
+        },
+        {
+          "name": "lyrics bridge, text rendering, translation, style and close",
+          "status": "passed",
+          "elapsedMs": 161
+        },
+        {
+          "name": "direct/system/custom proxy settings and close hides window",
+          "status": "passed",
+          "elapsedMs": 7
+        },
+        {
+          "name": "second instance exits and restores the existing window",
+          "status": "passed",
+          "elapsedMs": 490
+        },
+        {
+          "name": "application restart and desktop config persistence",
+          "status": "passed"
+        }
+      ],
+      "errors": [],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "queue": {
+        "snapshots": [1000],
+        "elapsedMs": 0.5
+      }
+    },
+    "packaged-final-netease": {
+      "file": "dist/maintenance/packaged-final-netease/report.json",
+      "date": "2026-09-22T07:26:27.372Z",
+      "keyword": "夜空中最亮的星",
+      "account": "guest",
+      "fallback": false,
+      "platforms": [
+        {
+          "source": "netease",
+          "playback": [
+            {
+              "id": "netrack_25706282",
+              "title": "夜空中最亮的星",
+              "artist": "逃跑计划",
+              "audioChecks": [],
+              "status": "unavailable",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL",
+                  "id": "netrack_25706282",
+                  "code": "RESOURCE_UNAVAILABLE"
+                },
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_FAIL_ALL"
+                }
+              ]
+            },
+            {
+              "id": "netrack_28707594",
+              "title": "夜空中最亮的星",
+              "artist": "余家辉",
+              "audioChecks": [
+                {
+                  "position": 1.010435,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.030327,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.105986,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.021914,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.033374,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2274,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_28707594",
+                  "platform": "netease"
+                }
+              ]
+            },
+            {
+              "id": "netrack_3403228212",
+              "title": "夜空中最亮的星 0.85x",
+              "artist": "阿车",
+              "audioChecks": [
+                {
+                  "position": 1.098272,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 5.007172,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 10.002713,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 20.092058,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                },
+                {
+                  "position": 30.082036,
+                  "playing": true,
+                  "muted": false,
+                  "actualSource": "netease",
+                  "audible": true
+                }
+              ],
+              "firstProgressMs": 2440,
+              "controls": "pause/seek/resume passed",
+              "status": "passed",
+              "events": [
+                {
+                  "type": "BG_PLAYER:RETRIEVE_URL_SUCCESS",
+                  "id": "netrack_3403228212",
+                  "platform": "netease"
+                }
+              ]
+            }
+          ],
+          "search": {
+            "count": 20,
+            "error": null,
+            "hasMore": true,
+            "totalpage": 16,
+            "samples": [
+              {
+                "id": "netrack_25706282",
+                "title": "夜空中最亮的星",
+                "artist": "逃跑计划"
+              },
+              {
+                "id": "netrack_28707594",
+                "title": "夜空中最亮的星",
+                "artist": "余家辉"
+              },
+              {
+                "id": "netrack_3403228212",
+                "title": "夜空中最亮的星 0.85x",
+                "artist": "阿车"
+              },
+              {
+                "id": "netrack_1956302276",
+                "title": "夜空中最亮的星(吉他版)",
+                "artist": "heart-and-soul"
+              },
+              {
+                "id": "netrack_28427772",
+                "title": "夜空中最亮的星 (Live)",
+                "artist": "张杰"
+              },
+              {
+                "id": "netrack_2162666585",
+                "title": "夜空中最亮的星 (DJ版)",
+                "artist": "森尛尛"
+              }
+            ],
+            "elapsedMs": 1431
+          },
+          "pagination": {
+            "page": 2,
+            "count": 20,
+            "firstResultChanged": true,
+            "error": null
+          }
+        }
+      ],
+      "errors": [],
+      "network": [
+        {
+          "host": "",
+          "path": "/C:/Acode/Js/listen1_desktop/dist/windows-test/win-unpacked/resources/app.asar/listen1_chrome_extension/js/controller/instant_search.js",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "interface3.music.163.com",
+          "path": "/eapi/song/enhance/player/url",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "api.bilibili.com",
+          "path": "/x/web-interface/search/type",
+          "status": 200,
+          "code": 0,
+          "message": "OK"
+        },
+        {
+          "host": "music.taihe.com",
+          "path": "/v1/search",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "u.y.qq.com",
+          "path": "/cgi-bin/musicu.fcg",
+          "status": 200,
+          "code": 0,
+          "businessCode": 2001,
+          "message": ""
+        },
+        {
+          "host": "music.163.com",
+          "path": "/api/search/pc",
+          "status": 200,
+          "code": 200,
+          "message": ""
+        },
+        {
+          "host": "songsearch.kugou.com",
+          "path": "/song_search_v2",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "app.u.nf.migu.cn",
+          "path": "/pc/resource/song/item/search/v1.0",
+          "status": 200,
+          "message": ""
+        },
+        {
+          "host": "www.kuwo.cn",
+          "path": "/search/searchMusicBykeyWord",
+          "status": 200,
+          "message": ""
+        }
+      ],
+      "runtime": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.4.3",
+        "chrome": "152.0.7977.130"
+      },
+      "initialMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 0.855597,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 163204,
+            "peakWorkingSetSize": 164164,
+            "privateBytes": 85300
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 0.326951,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 152076,
+            "peakWorkingSetSize": 152308,
+            "privateBytes": 103328
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.09006,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 56620,
+            "peakWorkingSetSize": 56620,
+            "privateBytes": 12728
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 0.312333,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 131592,
+            "peakWorkingSetSize": 131592,
+            "privateBytes": 64876
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.035828,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77392,
+            "peakWorkingSetSize": 77392,
+            "privateBytes": 10720
+          }
+        }
+      ],
+      "aggregate": {
+        "count": 120,
+        "sources": [
+          {
+            "name": "netease",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "网易",
+            "message": "完成"
+          },
+          {
+            "name": "qq",
+            "state": "error",
+            "code": "SERVICE_ERROR",
+            "label": "QQ",
+            "message": "平台服务暂时不可用"
+          },
+          {
+            "name": "kugou",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷狗",
+            "message": "完成"
+          },
+          {
+            "name": "kuwo",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "酷我",
+            "message": "完成"
+          },
+          {
+            "name": "bilibili",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "哔哩",
+            "message": "完成"
+          },
+          {
+            "name": "migu",
+            "state": "success",
+            "count": 20,
+            "hasMore": true,
+            "label": "咪咕",
+            "message": "完成"
+          },
+          {
+            "name": "taihe",
+            "state": "success",
+            "count": 20,
+            "hasMore": false,
+            "label": "千千",
+            "message": "完成"
+          }
+        ],
+        "hasMore": true
+      },
+      "finalMetrics": [
+        {
+          "type": "Browser",
+          "cpu": {
+            "cumulativeCPUUsage": 2.115297,
+            "percentCPUUsage": 0.07306149954769381,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 164952,
+            "peakWorkingSetSize": 171676,
+            "privateBytes": 80068
+          }
+        },
+        {
+          "type": "GPU",
+          "cpu": {
+            "cumulativeCPUUsage": 2.159932,
+            "percentCPUUsage": 0.1063112202813705,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 263356,
+            "peakWorkingSetSize": 324196,
+            "privateBytes": 193156
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.411847,
+            "percentCPUUsage": 0.01866336207800538,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 63044,
+            "peakWorkingSetSize": 63368,
+            "privateBytes": 15068
+          }
+        },
+        {
+          "type": "Tab",
+          "cpu": {
+            "cumulativeCPUUsage": 2.930076,
+            "percentCPUUsage": 0.15182671912645943,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 194148,
+            "peakWorkingSetSize": 194148,
+            "privateBytes": 122116
+          }
+        },
+        {
+          "type": "Utility",
+          "cpu": {
+            "cumulativeCPUUsage": 0.597479,
+            "percentCPUUsage": 0.03257525110303264,
+            "idleWakeupsPerSecond": 0
+          },
+          "memory": {
+            "workingSetSize": 77748,
+            "peakWorkingSetSize": 77896,
+            "privateBytes": 10976
+          }
+        }
+      ]
+    }
+  },
+  "startupObservations": [
+    {
+      "name": "baseline",
+      "file": "dist/maintenance/baseline/report.json",
+      "date": "2026-09-22T05:28:55.256Z",
+      "startupMs": 2236,
+      "errors": ["Cannot read properties of undefined (reading 'sendMessage')"]
+    },
+    {
+      "name": "baseline-playback",
+      "file": "dist/maintenance/baseline-playback/report.json",
+      "date": "2026-09-22T05:30:10.858Z",
+      "startupMs": 980,
+      "errors": ["Cannot read properties of undefined (reading 'sendMessage')"]
+    },
+    {
+      "name": "fixed-before-upgrade-playback",
+      "file": "dist/maintenance/fixed-before-upgrade-playback/report.json",
+      "date": "2026-09-22T05:52:18.181Z",
+      "startupMs": 964,
+      "errors": []
+    },
+    {
+      "name": "electron44-runtime",
+      "file": "dist/maintenance/electron44-runtime/report.json",
+      "date": "2026-09-22T06:07:39.958Z",
+      "startupMs": 1014,
+      "errors": []
+    },
+    {
+      "name": "electron44-network-polling",
+      "file": "dist/maintenance/electron44-network-polling/report.json",
+      "date": "2026-09-22T06:16:05.234Z",
+      "startupMs": 886,
+      "errors": []
+    },
+    {
+      "name": "all-dependencies-startup",
+      "file": "dist/maintenance/all-dependencies-startup/report.json",
+      "date": "2026-09-22T06:23:24.418Z",
+      "startupMs": 901,
+      "errors": []
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "dist/windows-test/listen1_2.33.1_win_x64.exe",
+      "bytes": 112704307,
+      "sha256": "87b0d09cc398d77ac3906008126bea46a6c3742192e6094284e313f779f39554",
+      "signature": "unsigned test build; Authenticode checked separately"
+    },
+    {
+      "file": "dist/windows-test/listen1_2.33.1_win_x64.7z",
+      "bytes": 100977190,
+      "sha256": "c2fae5e1fc9c6bc2a1a6d9cd262f90da0835234d08b3aa86ac6a46b01921b1df",
+      "signature": "unsigned test build; Authenticode checked separately"
+    }
+  ]
+}
