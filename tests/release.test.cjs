@@ -5,6 +5,7 @@ const os = require("node:os");
 const path = require("node:path");
 const {
   validateReleaseTag,
+  expectedAssets,
   collectArtifacts,
   publishDraftRelease,
 } = require("../scripts/release.cjs");
@@ -32,8 +33,8 @@ const fixtureAssets = {
   ],
   linux: [
     "listen1_2.35.1_linux_x64.tar.gz",
-    "listen1_2.35.1_linux_x64.AppImage",
-    "listen1_2.35.1_linux_x64.deb",
+    "listen1_2.35.1_linux_x86_64.AppImage",
+    "listen1_2.35.1_linux_amd64.deb",
     "listen1_2.35.1_linux_arm64.tar.gz",
     "listen1_2.35.1_linux_arm64.AppImage",
     "listen1_2.35.1_linux_arm64.deb",
@@ -83,6 +84,47 @@ test("version tags must match both desktop packages", () => {
   assert.throws(
     () => validateReleaseTag("v2.35.1", "2.35.1", "2.35.0"),
     /versions differ/
+  );
+});
+
+test("Linux release filenames match the locked builder architecture aliases", () => {
+  const { Arch, getArtifactArchName } = require("builder-util");
+  const assets = expectedAssets("linux", metadata);
+  for (const arch of [Arch.x64, Arch.arm64]) {
+    for (const ext of ["tar.gz", "AppImage", "deb"]) {
+      const artifactArch = getArtifactArchName(arch, ext);
+      assert.ok(
+        assets.includes(`listen1_2.35.1_linux_${artifactArch}.${ext}`),
+        `Missing builder filename for ${Arch[arch]} ${ext}`
+      );
+    }
+  }
+});
+
+test("collect the Linux runner filenames and retain update metadata references", (t) => {
+  const options = fixture(t);
+  const source = path.join(options.directory, "listen1-linux");
+  fs.writeFileSync(
+    path.join(source, "latest-linux.yml"),
+    "version: 2.35.1\nfiles:\n  - url: listen1_2.35.1_linux_x86_64.AppImage\n  - url: listen1_2.35.1_linux_amd64.deb\n"
+  );
+  const destination = path.join(options.directory, "collected-linux");
+  assert.equal(collectArtifacts("linux", source, destination, metadata), 8);
+  assert.deepEqual(
+    fs.readdirSync(destination).sort(),
+    [...fixtureAssets.linux].sort()
+  );
+  assert.deepEqual(
+    fs.readFileSync(path.join(destination, "latest-linux.yml")),
+    fs.readFileSync(path.join(source, "latest-linux.yml"))
+  );
+  assert.equal(
+    fs.existsSync(path.join(destination, "listen1_2.35.1_linux_x64.AppImage")),
+    false
+  );
+  assert.equal(
+    fs.existsSync(path.join(destination, "listen1_2.35.1_linux_x64.deb")),
+    false
   );
 });
 

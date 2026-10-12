@@ -39,4 +39,22 @@ CI 统一设置 `npm_config_registry=https://registry.npmjs.org` 和 `npm_config
 
 本机首轮构建受沙箱读取 `app/node_modules` 的权限限制；允许读取既有依赖后的构建重试通过。验证日志、临时工具、新安装目录、独立检出和产物留在被忽略的 `dist/ci-release-validation`。
 
-未触发 GitHub Actions，未提交、推送、创建标签或 Release。macOS/Linux 构建及真实 artifact 上传/下载、草稿创建、安装升级和自动更新仍需各自环境验收；既有 macOS 目标仍为 DMG，未扩展 ZIP 或签名、公证配置。
+上述首轮本机验证未触发 GitHub Actions，未提交、推送、创建标签或 Release。macOS/Linux 构建及真实 artifact 上传/下载、草稿创建、安装升级和自动更新仍需各自环境验收；既有 macOS 目标仍为 DMG，未扩展 ZIP 或签名、公证配置。
+
+## Linux 收集失败修复
+
+用户提交首轮改动后，[GitHub 运行 #2](https://github.com/MapleSugarCake/listen1_desktop/actions/runs/38198000338) 的三系统检查均通过；Windows 和 macOS 构建、收集及 artifact 上传通过。Linux 的构建步骤也通过，但收集器寻找 `listen1_2.35.1_linux_x64.AppImage` 时失败，尚未上传 Linux artifact。该运行是普通分支 push，草稿任务不执行。
+
+Linux 的真实构建日志及锁定 builder 的 `getArtifactArchName` 表明，同一 x64 架构按格式使用不同名称：
+
+| 格式     | 架构文件名                             |
+| -------- | -------------------------------------- |
+| tar.gz   | `listen1_2.35.1_linux_x64.tar.gz`      |
+| AppImage | `listen1_2.35.1_linux_x86_64.AppImage` |
+| deb      | `listen1_2.35.1_linux_amd64.deb`       |
+
+arm64 三种格式均继续使用 `arm64`。原收集器和测试夹具误将 x64 三种格式使用同一名称，本轮修正 AppImage 与 deb 两处预期；收集与草稿上传共用同一文件校验函数，因此两端同时生效。保留 builder 生成的真实文件名和更新元数据，不重命名安装包、不使用宽泛 glob 跳过缺失检查，也不改变依赖版本、打包配置或工作流。
+
+新增测试依据锁定的 builder 架构命名函数逐格式验证，并使用真实日志中的六个 Linux 安装包名称构造夹具，验证收集八个文件（含两个更新 YAML）及元数据字节不变。修复前，新测试及真实名称的发布夹具能够复现缺失文件错误；修复后发布测试 8/8 通过，完整 `npm test` 102/102 通过，两个 CJS 的语法检查、三个改动文件的 Prettier 检查和差异空白检查通过。
+
+本轮开始时主仓库和子模块均干净；仅修改桌面收集器、发布测试及本记录，依赖清单、三份锁文件、工作流和子模块无改动。未提交、推送或重跑 GitHub Actions。Linux 新收集器及后续草稿上传仍须新提交的 runner 运行确认；旧运行的 Re-run 会使用旧提交，仍包含原命名错误。

@@ -35,7 +35,14 @@ function expectedAssets(platform, metadata) {
     case "linux":
       return [
         ...["x64", "arm64"].flatMap((arch) =>
-          ["tar.gz", "AppImage", "deb"].map((ext) => `${prefix}_${arch}.${ext}`)
+          ["tar.gz", "AppImage", "deb"].map((ext) => {
+            // electron-builder uses format-specific aliases for Linux x64.
+            const artifactArch =
+              arch === "x64"
+                ? { AppImage: "x86_64", deb: "amd64" }[ext] || arch
+                : arch;
+            return `${prefix}_${artifactArch}.${ext}`;
+          })
         ),
         "latest-linux.yml",
         "latest-linux-arm64.yml",
