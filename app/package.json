@@ -1,6 +1,6 @@
 {
   "name": "listen1",
-  "version": "2.33.0",
+  "version": "2.35.1",
   "description": "One for all free music in China",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/listen1/listen1_desktop.git"
+    "url": "git+https://github.com/MapleSugarCake/listen1_maple_desktop.git"
   },
   "keywords": [
     "Electron",
@@ -18,14 +18,13 @@
   "author": "Listen 1 <githublisten1@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/listen1/listen1_desktop/issues"
+    "url": "https://github.com/MapleSugarCake/listen1_maple_desktop/issues"
   },
-  "homepage": "https://github.com/listen1/listen1_desktop#readme",
+  "homepage": "https://github.com/MapleSugarCake/listen1_maple_desktop",
   "dependencies": {
-    "@electron/remote": "^2.1.2",
-    "chardet": "^1.4.0",
-    "electron-store": "^8.0.1",
-    "electron-updater": "^5.0.1",
-    "music-metadata": "^7.12.3"
+    "chardet": "2.2.0",
+    "electron-store": "11.0.2",
+    "electron-updater": "6.8.9",
+    "music-metadata": "11.16.0"
   }
 }

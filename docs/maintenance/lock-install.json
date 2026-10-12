@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-22T07:24:43.741Z",
+  "method": "Fresh disposable directories; npm ci --ignore-scripts (lifecycle behavior separately tested in actual app build)",
+  "results": [
+    {
+      "layer": ".",
+      "status": "passed",
+      "code": 0,
+      "output": "npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.\nnpm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported\nnpm warn deprecated rimraf@2.6.3: Rimraf versions prior to v4 are no longer supported\nnpm warn deprecated boolean@3.2.0: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.\n\nadded 287 packages in 6s\n"
+    },
+    {
+      "layer": "app",
+      "status": "passed",
+      "code": 0,
+      "output": "\nadded 49 packages in 3s\n"
+    },
+    {
+      "layer": "app/listen1_chrome_extension",
+      "status": "passed",
+      "code": 0,
+      "output": "npm warn deprecated angular@1.8.3: For the actively supported Angular, see https://www.npmjs.com/package/@angular/core. AngularJS support has officially ended. For extended AngularJS support options, see https://goo.gle/angularjs-path-forward.\n\nadded 140 packages in 6s\n"
+    }
+  ]
+}
