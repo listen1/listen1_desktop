@@ -73,3 +73,11 @@ Linux 安装包
     npm run dist:linuxArm64
 
 打包目标存在不代表任意宿主均能构建或运行该目标。安装、升级和卸载验证须使用可丢弃数据的独立环境；NSIS 仍保留原有卸载时删除应用数据的配置。本地构建脚本不提交、不推送、不发布。
+
+## GitHub 检查与发布
+
+面向 `master` 的 PR 在 Windows、macOS、Linux 上运行行为测试、lint 和 vendor 校验。`master` push 在全部检查通过后打包，将安装包及更新元数据保存为 14 天的 Actions artifact，可从运行页面下载；其他开发分支的普通 push 不触发此工作流。
+
+发布时先确保根目录与 `app/package.json` 的版本相同，再推送对应的 `v<版本号>` 标签，例如当前版本对应 `v2.35.1`。标签通过检查、三个系统构建及产物上传后，工作流统一创建或刷新本 fork 的草稿 Release。核对附件齐全后人工公开；已有公开 Release 不会被重跑覆盖。Linux 构建包含 x64 和 arm64，其他目标沿用现有配置。
+
+CI 对锁文件中的 npmmirror 下载地址映射到官方 npm registry，保留锁定版本和完整性校验。实现及验证边界见 [CI 发布记录](docs/maintenance/CI-RELEASE.md)。

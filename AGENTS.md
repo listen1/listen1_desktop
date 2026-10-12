@@ -131,7 +131,9 @@ npm run vendor:check --prefix app/listen1_chrome_extension
 
 32 位 Windows/Linux 和 Linux armv7l 目标已移除。Windows 以 10 及以上为运行基线，macOS 最低 13；本轮实测范围以报告为准，配置架构不是兼容性认证。
 
-CI 使用 checkout/setup-node v7，依次安装、行为测试、lint、vendor 校验后构建。普通 push 不发布，原有 `v` 标签发布入口保留；本轮没有触发 CI、提交、推送或发布。根 Prettier 双引号，子模块单引号，ESLint 已迁移 flat config，保留旧有效规则，不全仓格式化。
+CI 使用 checkout/setup-node v7，面向 `master` 的 PR 在三个系统上安装依赖、运行行为测试、lint 和 vendor 校验；`master` push 及 `v*` 标签在全部检查通过后构建。CI 显式使用官方 npm registry，并通过 `npm_config_replace_registry_host=registry.npmmirror.com` 映射锁文件中的镜像下载地址，保留依赖版本、完整性校验和 npm 12 的默认远程 URL 限制。Git 运行环境指定 `core.autocrlf=false`，避免 Windows 检出改写 vendor 的校验字节，不修改用户全局 Git 配置。Windows 构建 NSIS/7z 的 x64、arm64 及合并安装器，macOS 构建三种既有 DMG 架构，Linux 显式构建 x64/arm64 的 tar.gz、AppImage、deb。每个平台的安装包、更新元数据和已有 blockmap 保存为 14 天的 Actions artifact，不上传解包目录或 builder 调试配置。
+
+`v*` 标签须与根目录和 `app` 的包版本一致；三个系统的构建及产物上传均成功后，独立发布任务下载并检查全部产物，使用 GitHub CLI 创建 `MapleSugarCake/listen1_desktop` 的草稿 Release。只有该任务有 `contents: write` 权限；草稿须人工核对并公开，重跑仅允许刷新草稿附件，已有公开 Release 拒绝覆盖。辅助命令、验证证据和边界见 [CI 发布记录](docs/maintenance/CI-RELEASE.md)。根 Prettier 双引号，子模块单引号，ESLint 已迁移 flat config，保留旧有效规则，不全仓格式化。
 
 ## 5. 已知限制与维护依据
 

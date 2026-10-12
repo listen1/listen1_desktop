@@ -2,6 +2,19 @@
 
 使用 Node 24.21.0、npm 12.0.2 和锁文件中的 Electron/Playwright。先在根目录 `npm ci`，再 `npm ci --prefix app/listen1_chrome_extension`。机器没有 npm 时可运行 `node scripts/prepare-maintenance.cjs`，在忽略目录内准备带官方 SHA 校验的 Windows x64 Node 工具链及 npm，不修改全局工具。该脚本也保存首次源码基线，不要用后续快照冒充更新前状态。
 
+CI 的 registry 与锁文件镜像地址通过环境变量显式对齐。若要在本机复现 CI 的官方下载源，可在当前 PowerShell 会话设置下列变量，再执行安装和检查；不修改用户全局 npm 配置：
+
+```powershell
+$env:npm_config_registry = 'https://registry.npmjs.org'
+$env:npm_config_replace_registry_host = 'registry.npmmirror.com'
+npm ci
+npm ci --prefix app/listen1_chrome_extension
+```
+
+发布辅助脚本可用 `node scripts/release.cjs check-tag v2.35.1` 检查当前标签，`node scripts/release.cjs collect win <构建目录> <收集目录>` 验证并收集 Windows 产物（其他平台使用 `mac` 或 `linux`）。`tests/release.test.cjs` 验证错误标签、包版本不一致、缺少 arm64、空元数据、草稿重跑及公开 Release 保护，GitHub CLI 调用由夹具替代，不访问账号或创建 Release。真实 runner 构建、artifact 上传/下载和草稿发布必须另行验收，见 [CI 发布记录](../docs/maintenance/CI-RELEASE.md)。
+
+CI 检出使用进程级 `core.autocrlf=false` 保留 vendor 的已提交字节。已有 Windows 工作区若被 Git 转成 CRLF，`vendor:check` 会报告哈希差异；仅改变配置不会重新转换现有文件。本轮使用保留 LF 的独立临时检出验证，未重建或覆盖工作区中的第三方库。
+
 | 命令                                       | 覆盖                                                                                                      |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | `npm test`                                 | 请求乱序/取消/超时、队列生命周期、批量事件、URL 缓存重试、歌词容错、IPC 来源、本地并发、旧数据、加密向量  |
