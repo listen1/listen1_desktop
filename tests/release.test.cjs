@@ -13,7 +13,9 @@ const {
 const metadata = {
   name: "listen1",
   version: "2.35.1",
-  build: { publish: { owner: "MapleSugarCake", repo: "listen1_desktop" } },
+  build: {
+    publish: { owner: "MapleSugarCake", repo: "listen1_maple_desktop" },
+  },
 };
 
 const fixtureAssets = {
@@ -66,7 +68,7 @@ function fixture(t) {
   }
   return {
     tag: "v2.35.1",
-    repository: "MapleSugarCake/listen1_desktop",
+    repository: "MapleSugarCake/listen1_maple_desktop",
     directory,
     metadata,
     appVersion: "2.35.1",

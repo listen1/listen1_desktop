@@ -20,11 +20,11 @@ Listen 1 可以搜索和播放来自多个主流音乐网站的歌曲，让你�
 
 访问 github 主页下载安装包安装
 
-网址：https://listen1.github.io/listen1
+网址：[listen1_maple_desktop Releases](https://github.com/MapleSugarCake/listen1_maple_desktop/releases)
 
 ## 生成完整代码
 
-项目中包含了 listen1_chrome_extension 的引用，在 checkout 后需要把引用库初始化
+项目中包含了 [listen1_maple_extension](https://github.com/MapleSugarCake/listen1_maple_extension) 子模块，保存在 `app/listen1_chrome_extension`。在 checkout 后需要把引用库初始化
 
     git submodule update --init --recursive
 

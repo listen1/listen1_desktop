@@ -4,7 +4,7 @@
 
 ## 失败原因
 
-[原运行](https://github.com/MapleSugarCake/listen1_desktop/actions/runs/38195198184) 的三个系统均在根目录 `npm ci` 报 `EALLOWREMOTE`，测试和构建没有执行。npm 12 默认禁止任意远程 tarball URL；根锁文件的下载地址指向 npmmirror，而 CI registry 是官方 npm 源，地址未被识别为当前 registry 的下载。Windows 的 `EPERM` 是清理警告。
+[原运行](https://github.com/MapleSugarCake/listen1_maple_desktop/actions/runs/38195198184) 的三个系统均在根目录 `npm ci` 报 `EALLOWREMOTE`，测试和构建没有执行。npm 12 默认禁止任意远程 tarball URL；根锁文件的下载地址指向 npmmirror，而 CI registry 是官方 npm 源，地址未被识别为当前 registry 的下载。Windows 的 `EPERM` 是清理警告。
 
 CI 统一设置 `npm_config_registry=https://registry.npmjs.org` 和 `npm_config_replace_registry_host=registry.npmmirror.com`，仅映射锁文件中的该镜像地址，保留版本和 integrity。该环境也传给根 postinstall 中的桌面运行依赖安装，不开启 `allow-remote=all`。规则依据 [npm 安装文档](https://docs.npmjs.com/cli/install/#allow-remote)。
 
@@ -43,7 +43,7 @@ CI 统一设置 `npm_config_registry=https://registry.npmjs.org` 和 `npm_config
 
 ## Linux 收集失败修复
 
-用户提交首轮改动后，[GitHub 运行 #2](https://github.com/MapleSugarCake/listen1_desktop/actions/runs/38198000338) 的三系统检查均通过；Windows 和 macOS 构建、收集及 artifact 上传通过。Linux 的构建步骤也通过，但收集器寻找 `listen1_2.35.1_linux_x64.AppImage` 时失败，尚未上传 Linux artifact。该运行是普通分支 push，草稿任务不执行。
+用户提交首轮改动后，[GitHub 运行 #2](https://github.com/MapleSugarCake/listen1_maple_desktop/actions/runs/38198000338) 的三系统检查均通过；Windows 和 macOS 构建、收集及 artifact 上传通过。Linux 的构建步骤也通过，但收集器寻找 `listen1_2.35.1_linux_x64.AppImage` 时失败，尚未上传 Linux artifact。该运行是普通分支 push，草稿任务不执行。
 
 Linux 的真实构建日志及锁定 builder 的 `getArtifactArchName` 表明，同一 x64 架构按格式使用不同名称：
 

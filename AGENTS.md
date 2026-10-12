@@ -4,7 +4,7 @@
 
 ## 1. 项目与架构
 
-桌面仓库负责 Electron 生命周期、窗口、系统集成和安装包；`app/listen1_chrome_extension` 是独立 Git 子模块，负责 AngularJS 页面、音乐业务及扩展入口。`.gitmodules` 和各包仓库元数据指向对应的 MapleSugarCake fork。父仓库保存子模块提交指针，不能代替保存子模块文件。
+桌面仓库 `MapleSugarCake/listen1_maple_desktop` 负责 Electron 生命周期、窗口、系统集成和安装包；`app/listen1_chrome_extension` 是独立 Git 子模块，仓库为 `MapleSugarCake/listen1_maple_extension`，负责 AngularJS 页面、音乐业务及扩展入口。`.gitmodules` 和各包仓库元数据指向对应的 MapleSugarCake fork，仓库更名保留既有本地目录。父仓库保存子模块提交指针，不能代替保存子模块文件。
 
 ```text
 app/main.js → 主窗口 listen1.html（隔离，禁止页面 Node）
@@ -67,7 +67,7 @@ l1Player → bridge → threadPlayer / Howler → BG_PLAYER:* → UI
 
 主进程校验主窗口、主 frame 和准确本地页面来源；歌词窗使用独立控制白名单。歌词输入保留 `{ lyric, tlyric }`，转发通道分别为 `currentLyric` 和 `currentLyricTrans`。歌词窗使用 `textContent`，保留原有工作区边界处理；原始 ipcRenderer 不暴露给页面。调用双方和窗口生命周期必须一起维护。
 
-登录窗禁止 Node、启用 sandbox 与 webSecurity；登录入口允许指定平台域名。现有请求头和 Cookie SameSite 处理仍需平台登录实测，不能将游客搜索通过视为账号流程通过。更新检查只在普通打包应用启动后异步执行，测试和开发启动跳过，失败不阻塞播放器；桌面构建明确指定 GitHub 更新源 `MapleSugarCake/listen1_desktop`。桌面设置页查询该 fork 的最新正式 Release，扩展查询 `MapleSugarCake/listen1_chrome_extension`；无正式发布、查询失败或缺失标签时隐藏最新版一行，不回退到上游。
+登录窗禁止 Node、启用 sandbox 与 webSecurity；登录入口允许指定平台域名。现有请求头和 Cookie SameSite 处理仍需平台登录实测，不能将游客搜索通过视为账号流程通过。更新检查只在普通打包应用启动后异步执行，测试和开发启动跳过，失败不阻塞播放器；桌面构建明确指定 GitHub 更新源 `MapleSugarCake/listen1_maple_desktop`。桌面设置页查询该 fork 的最新正式 Release，扩展查询 `MapleSugarCake/listen1_maple_extension`；无正式发布、查询失败或缺失标签时隐藏最新版一行，不回退到上游。
 
 两套关于页面显示 `listen1_maple` 和联系邮箱 `maplecakeqaq@gmail.com`，主页与 Issue 按桌面／扩展指向各自 fork。当前与最新版仅在显示时追加一次 `_maple`，包版本、manifest 和发布标签仍使用原有数字版本规则。安装身份、窗口标题、图标、用户数据目录和 OAuth 回调不随关于信息改名，保留原作者与设计者署名。实际自动更新需要公开的更高版本 Release 及对应安装包、更新元数据；修改来源不能代替下载、安装和跨系统验收。
 
@@ -91,7 +91,7 @@ l1Player → bridge → threadPlayer / Howler → BG_PLAYER:* → UI
 | 用户原音频文件    | 只读取，歌单保存路径和元数据，不复制音频                         |
 | userData/covers   | 用户确认的封面图片副本及原文件名；JSON/Gist 仅保存曲目中的引用   |
 
-JSON/Gist 备份不包含上述全部桌面状态、Cookie 和音频，JSON 遍历 localStorage，不能当作已脱敏文件。`LISTEN1_TEST_USER_DATA` 是测试专用环境变量，为开发与打包应用指定可丢弃 profile，并隔离更新和测试窗口行为。不要指向真实用户目录。NSIS 仍保留原有 `deleteAppDataOnUninstall: true`，卸载验证必须使用独立环境。
+JSON/Gist 备份不包含上述全部桌面状态、Cookie 和音频，JSON 遍历 localStorage，不能当作已脱敏文件。新生成的 Gist 摘要和描述链接按运行环境指向对应 fork，备份文件名和识别前缀保持兼容。`LISTEN1_TEST_USER_DATA` 是测试专用环境变量，为开发与打包应用指定可丢弃 profile，并隔离更新和测试窗口行为。不要指向真实用户目录。NSIS 仍保留原有 `deleteAppDataOnUninstall: true`，卸载验证必须使用独立环境。
 
 跨设备恢复编辑后的封面时须同时迁移 userData 下的 `covers` 目录；不会把图片编码进 JSON/Gist。已提交副本不会因释放暂存或切换封面而自动删除，以保留旧备份引用。
 
@@ -133,7 +133,7 @@ npm run vendor:check --prefix app/listen1_chrome_extension
 
 CI 使用 checkout/setup-node v7，面向 `master` 的 PR 在三个系统上安装依赖、运行行为测试、lint 和 vendor 校验；`master` push 及 `v*` 标签在全部检查通过后构建。CI 显式使用官方 npm registry，并通过 `npm_config_replace_registry_host=registry.npmmirror.com` 映射锁文件中的镜像下载地址，保留依赖版本、完整性校验和 npm 12 的默认远程 URL 限制。Git 运行环境指定 `core.autocrlf=false`，避免 Windows 检出改写 vendor 的校验字节，不修改用户全局 Git 配置。Windows 构建 NSIS/7z 的 x64、arm64 及合并安装器，macOS 构建三种既有 DMG 架构，Linux 显式构建 x64/arm64 的 tar.gz、AppImage、deb。每个平台的安装包、更新元数据和已有 blockmap 保存为 14 天的 Actions artifact，不上传解包目录或 builder 调试配置。
 
-`v*` 标签须与根目录和 `app` 的包版本一致；三个系统的构建及产物上传均成功后，独立发布任务下载并检查全部产物，使用 GitHub CLI 创建 `MapleSugarCake/listen1_desktop` 的草稿 Release。只有该任务有 `contents: write` 权限；草稿须人工核对并公开，重跑仅允许刷新草稿附件，已有公开 Release 拒绝覆盖。辅助命令、验证证据和边界见 [CI 发布记录](docs/maintenance/CI-RELEASE.md)。根 Prettier 双引号，子模块单引号，ESLint 已迁移 flat config，保留旧有效规则，不全仓格式化。
+`v*` 标签须与根目录和 `app` 的包版本一致；三个系统的构建及产物上传均成功后，独立发布任务下载并检查全部产物，使用 GitHub CLI 创建 `MapleSugarCake/listen1_maple_desktop` 的草稿 Release。只有该任务有 `contents: write` 权限；草稿须人工核对并公开，重跑仅允许刷新草稿附件，已有公开 Release 拒绝覆盖。辅助命令、验证证据和边界见 [CI 发布记录](docs/maintenance/CI-RELEASE.md)。根 Prettier 双引号，子模块单引号，ESLint 已迁移 flat config，保留旧有效规则，不全仓格式化。
 
 ## 5. 已知限制与维护依据
 

@@ -7,7 +7,7 @@ test("packaged updates have an explicit fork feed and preserve installation/vers
   assert.deepEqual(root.build.publish, {
     provider: "github",
     owner: "MapleSugarCake",
-    repo: "listen1_desktop",
+    repo: "listen1_maple_desktop",
   });
   assert.equal(root.version, app.version);
   assert.match(app.version, /^\d+\.\d+\.\d+$/);
